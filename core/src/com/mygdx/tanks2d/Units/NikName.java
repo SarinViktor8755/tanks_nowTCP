@@ -21,7 +21,7 @@ public class NikName {
     public static String getTokken() {
         String token;
         String tokken = "tokken";
-        Preferences prefs = Gdx.app.getPreferences("NikName");
+        Preferences prefs = Gdx.app.getPreferences("tokken");
         if (!prefs.contains(tokken)) token = genirateTokk();
         else token = prefs.getString(tokken);
         prefs.putString(tokken, token);

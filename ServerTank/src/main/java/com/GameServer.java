@@ -75,7 +75,7 @@ public class GameServer {
             return;
         }
 
-        if(Heading_type.MY_NIK == sm.tip){
+        if(Heading_type.BUTTON_STARTGAME == sm.tip){
             lp.getPlayerForId(id_coonect).setNikName(sm.textM);
             return;
         }

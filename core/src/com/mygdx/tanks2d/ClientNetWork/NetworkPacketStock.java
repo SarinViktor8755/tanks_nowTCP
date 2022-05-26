@@ -107,12 +107,12 @@ public class NetworkPacketStock {
           send_package_to_server(Heading_type.MY_SHOT, x, y, alignShoot, 0, null);
     }
 
-    private void toSendMyNik() {
+    public void toSendMyNik() {
         System.out.println("Nik");
         send_package_to_server(Heading_type.MY_NIK, 0, 0, 0, 0, NikName.getNikName());
     }
 
-    private void toSendMyTokken() {
+    public void toSendMyTokken() {
         System.out.println("toSendMyTokken");
         send_package_to_server(Heading_type.MY_TOKKEN, 0, 0, 0, 0, NikName.getTokken());
     }
@@ -129,7 +129,7 @@ public class NetworkPacketStock {
     public void toSendMyNikAndTokken() {
         if(!required_to_send_tooken) return;
         toSendMyTokken();
-        toSendMyNik();
+
         required_to_send_tooken = false;
     }
 }

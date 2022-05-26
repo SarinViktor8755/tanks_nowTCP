@@ -130,6 +130,7 @@ public class MenuScreen implements Screen {
                 if(!button_start_click) {
                  //   mainClient.getNetworkPacketStock().toSendButtonStartClick();
                     button_start_click = true;
+                    //mainGame.getMainClient().getNetworkPacketStock().toSendMyNik();
                     mainGame.getMainClient().getNetworkPacketStock().toSendButtonStartClick();
                 }
                 startgameMP = true;
