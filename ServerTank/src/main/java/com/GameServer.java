@@ -54,7 +54,7 @@ public class GameServer {
                                    if (object instanceof Network.StockMessOut) {// полученеи сообщения
                                        Network.StockMessOut sm = (Network.StockMessOut)object;
                                        System.out.println(sm);
-                                       routerMassege(sm);
+                                       routerMassege(sm,connection.getID());
                                    }
 
 
@@ -67,14 +67,24 @@ public class GameServer {
         return server;
     }
 
-    private void routerMassege(Network.StockMessOut sm){
+    private void routerMassege(Network.StockMessOut sm, int id_coonect){
+        if(Heading_type.MY_SHOT == sm.tip){
+
+//            System.out.println(sm.textM);
+//            lp.getPlayerForId(id_coonect).setTokken(sm.textM);
+            return;
+        }
+
         if(Heading_type.MY_NIK == sm.tip){
-            System.out.println(sm.textM);
+            lp.getPlayerForId(id_coonect).setNikName(sm.textM);
             return;
         }
         if(Heading_type.MY_TOKKEN == sm.tip){
             System.out.println(sm.textM);
+            lp.getPlayerForId(id_coonect).setTokken(sm.textM);
             return;
         }
+
+
     }
 }

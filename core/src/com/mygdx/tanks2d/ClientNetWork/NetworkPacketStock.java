@@ -104,7 +104,7 @@ public class NetworkPacketStock {
     }
 
     public void toSendMyShot(float x, float y, float alignShoot) { // мой выстрел
-        //  send_package_to_server(Heading_type.MY_SHOT, x, y, alignShoot, 0, null);
+          send_package_to_server(Heading_type.MY_SHOT, x, y, alignShoot, 0, null);
     }
 
     private void toSendMyNik() {
