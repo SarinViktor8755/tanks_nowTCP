@@ -1,9 +1,7 @@
-package main.java.com.Units;
+package main.java.com.Units.ListPlayer;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-
-import java.util.HashSet;
 
 public class Player {
     public static final int STATUS_MENU = 1;

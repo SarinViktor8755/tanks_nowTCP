@@ -1,21 +1,21 @@
-package main.java.com.Units;
+package main.java.com.Units.ListPlayer;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.tanks2d.ClientNetWork.Network;
 
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListSet;
 
 import main.java.com.GameServer;
 
 public class ListPlayers {
     ConcurrentHashMap<Integer, Player> players;
+    ConcurrentHashMap<String, Integer> playersTokken; // tooken/ id
     GameServer gameServer;
     Network.PleyerPositionNom pn = new Network.PleyerPositionNom();
 
 
     public ListPlayers(GameServer gameServer) {
         this.players = new ConcurrentHashMap<>();
+        this.playersTokken = new ConcurrentHashMap<>();
         this.gameServer = gameServer;
     }
 
@@ -23,6 +23,18 @@ public class ListPlayers {
         Player result = players.get(id);
         if (result == null) players.put(id, new Player(id));
         return players.get(id);
+    }
+
+
+    public boolean checkTokken(String tokken, int connct_id) { // проверяет был литакой токкен
+        playersTokken.put(tokken, connct_id);
+        Integer p = playersTokken.get(tokken);
+        if (p == null) {
+            playersTokken.put(tokken, connct_id);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void addPlayer(int con) {
@@ -34,16 +46,12 @@ public class ListPlayers {
     }
 
 
-
-
-
-
     public int getSize() {
         return this.players.size();
     }
 
 
-    public void updatePosition(int id, Network.PleyerPosition pp){ // записать парметры Игрока
+    public void updatePosition(int id, Network.PleyerPosition pp) { // записать парметры Игрока
         Player p = players.get(id);
         if (p == null) players.put(id, new Player(id));
         p.setXp(pp.xp);
@@ -53,12 +61,12 @@ public class ListPlayers {
 //        if(MathUtils.randomBoolean()) System.out.println("___");  System.out.println("_");
     }
 
-    public void sendToAllPlayerPosition(int id, Network.PleyerPosition pp){
+    public void sendToAllPlayerPosition(int id, Network.PleyerPosition pp) {
         pn.nom = id;
         pn.xp = pp.xp;
         pn.yp = pp.yp;
         pn.roy_tower = pp.roy_tower;
-        gameServer.getServer().sendToAllExceptTCP(id,pn);
+        gameServer.getServer().sendToAllExceptTCP(id, pn);
     }
 
     @Override

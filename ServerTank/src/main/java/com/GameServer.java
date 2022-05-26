@@ -12,8 +12,6 @@ import com.mygdx.tanks2d.ClientNetWork.Network;
 
 import java.io.IOException;
 
-import main.java.com.Units.ListPlayers;
-
 public class GameServer {
 
     Server server;
