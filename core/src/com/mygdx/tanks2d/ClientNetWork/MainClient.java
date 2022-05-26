@@ -1,5 +1,6 @@
 package com.mygdx.tanks2d.ClientNetWork;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -26,6 +27,17 @@ public class MainClient {
 //    public ArrayDeque<PacketModel> inDequePacket; // входящие пакеты для обработки;
 
     public MainClient() {
+
+        // pre java 8 lambdas
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                // your code here ...
+                System.out.println("111111");
+            }
+        });
+
+        t.start();
+
         client = new Client();
         client.start();
 
@@ -41,18 +53,18 @@ public class MainClient {
             ex.printStackTrace();
         }
 
-        this.networkPacketStock = new NetworkPacketStock(client);
+
         otherPlayer = new TreeMap<>();
         onLine = true;
 
+
+        this.networkPacketStock = new NetworkPacketStock(client);
         // this.startClient();
 
         client.addListener(new Listener() {
 
             public void connected(Connection connection) {
-                networkPacketStock.toSendMyNik();
                 setMyIdConnect(connection.getID());
-
             }
 
             public void received(Connection connection, Object object) {
@@ -88,7 +100,7 @@ public class MainClient {
     public void router(Object object) {
         if (!onLine) return;
         if (object instanceof Network.PleyerPositionNom) { // полученеи позиции играков
-          //  System.out.println(((Network.PleyerPositionNom) object).xp);
+            //  System.out.println(((Network.PleyerPositionNom) object).xp);
             Network.PleyerPositionNom pp = (Network.PleyerPositionNom) object;
             frameUpdates.put(pp.nom, true);
             if (pp.nom == client.getID()) return;
@@ -111,4 +123,27 @@ public class MainClient {
     public NetworkPacketStock getNetworkPacketStock() {
         return this.networkPacketStock;
     }
+
+    public void checkConnect() {
+        System.out.println(NetworkPacketStock.required_to_send_tooken);
+        getNetworkPacketStock().toSendMyNikAndTokken(); // отправка ника и токкена
+        if (!getClient().isConnected()) NetworkPacketStock.required_to_send_tooken = true;
+
+        if (!getClient().isConnected()) {
+
+            if (MathUtils.randomBoolean(.05f)) {
+                try {
+
+                    System.out.println("reconect");
+                    getClient().reconnect(5000);
+                    NetworkPacketStock.required_to_send_tooken = true;
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.ClientNetWork.Network;
 
 
@@ -53,6 +54,7 @@ public class GameServer {
                                    if (object instanceof Network.StockMessOut) {// полученеи сообщения
                                        Network.StockMessOut sm = (Network.StockMessOut)object;
                                        System.out.println(sm);
+                                       routerMassege(sm);
                                    }
 
 
@@ -63,5 +65,16 @@ public class GameServer {
 
     public Server getServer() {
         return server;
+    }
+
+    private void routerMassege(Network.StockMessOut sm){
+        if(Heading_type.MY_NIK == sm.tip){
+            System.out.println(sm.textM);
+            return;
+        }
+        if(Heading_type.MY_TOKKEN == sm.tip){
+            System.out.println(sm.textM);
+            return;
+        }
     }
 }

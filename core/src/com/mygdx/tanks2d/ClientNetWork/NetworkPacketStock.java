@@ -12,6 +12,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class NetworkPacketStock {
 
     Client client;
+    public static boolean required_to_send_tooken = true;
 //    BlockingDeque<PacketMo    del> packetDeque;
 //    HashMap<Integer, PacketModel> outList; // лист выходных сообщений
 //    HashMap<Integer, PacketModel> inList; // лист входных сообщений
@@ -26,7 +27,7 @@ public class NetworkPacketStock {
 
     public NetworkPacketStock(Client client) {
         this.client = client;
-
+        required_to_send_tooken = true;
     }
 
 //    public void addOutgoingPackage(PacketModel packet) {
@@ -103,29 +104,37 @@ public class NetworkPacketStock {
     }
 
     public void toSendMyShot(float x, float y, float alignShoot) { // мой выстрел
-          //  send_package_to_server(Heading_type.MY_SHOT, x, y, alignShoot, 0, null);
+        //  send_package_to_server(Heading_type.MY_SHOT, x, y, alignShoot, 0, null);
     }
 
-    public void toSendMyNik() {
+    private void toSendMyNik() {
         System.out.println("Nik");
         send_package_to_server(Heading_type.MY_NIK, 0, 0, 0, 0, NikName.getNikName());
     }
 
-    public void toSendMyTokken() {
-        send_package_to_server(Heading_type.MY_NIK, 0, 0, 0, 0, "333");
+    private void toSendMyTokken() {
+        System.out.println("toSendMyTokken");
+        send_package_to_server(Heading_type.MY_TOKKEN, 0, 0, 0, 0, NikName.getTokken());
     }
 
     public void toSendButtonStartClick() {
         send_package_to_server(Heading_type.STATUS_GAME, 0, 0, 0, 0, NikName.getNikName());
+
     }
 
     public void toSendMYParameters(int hp) {
         send_package_to_server(Heading_type.MY_PARAMETERS, hp, 0, 0, 0, NikName.getNikName());
     }
 
-
-
+    public void toSendMyNikAndTokken() {
+        if(!required_to_send_tooken) return;
+        toSendMyTokken();
+        toSendMyNik();
+        required_to_send_tooken = false;
+    }
 }
+
+
 //
 //    public void toSendMyNik() {
 //
@@ -164,7 +173,7 @@ public class NetworkPacketStock {
 //        pm.setParametrs(Heading_type.MY_PARAMETERS, hp, null, null, null, , NikName.getNikName());
 //    }
 
-        /////////////////////////////////////////
+/////////////////////////////////////////
 
 //        public void markAsSent ( int nom){ // ullPointerException
 //            try {
@@ -179,7 +188,7 @@ public class NetworkPacketStock {
 //            return outList;
 //        }
 
-        ////////////OLD
+////////////OLD
 //        public void toSendMyShot ( float x, float y, float alignShoot){ // мой выстрел
 //            PacketModel pm = getFreePacketModel();
 //            outList.put(pm.getTime_even(), pm);

@@ -127,7 +127,7 @@ public class GamePlayScreen implements Screen {
         this.pc.randerGarbage(batch);
 
         if(MathUtils.randomBoolean(.5f))
-        mainGame.getMainClient().getNetworkPacketStock().toSendMyNik();
+        //mainGame.getMainClient().getNetworkPacketStock().toSendMyNik();
 
         this.tanksOther.updateOtherTank(mainGame.getMainClient().isOnLine()); /// обновление других танков с сервреа (позиция) или локальной зоны
         this.tanksOther.randerOtherTanks(getBatch());      // визуализация других танков
@@ -137,7 +137,7 @@ public class GamePlayScreen implements Screen {
 
         this.bullets.randerBullets();
         this.pc.render(getBatch());
-        if(mainGame.getMainClient().isOnLine())this.startFlashForMainTank(); else startFlashForMainTankSP();                                                           // вспышка из дула и вспышка вокруг танка
+        this.startFlashForMainTank();                                                  // вспышка из дула и вспышка вокруг танка
 
 /////////////
 //        Vector2 smooke = tank.getPosition().cpy().sub(tank.getDirection_tower().cpy().nor().scl(-20 ));
@@ -235,21 +235,6 @@ public class GamePlayScreen implements Screen {
     }
 
 
-
-
-    private void startFlashForMainTankSP() {
-        Vector2 smooke = tank.getPosition().cpy().sub(tank.getDirection_tower().cpy().nor().scl(-34));
-        if (controller.isAttackButon()) {
-            if (!tank.redyToAttack()) return;
-
-            bullets.addBullet(smooke,getTank().getDirection_tower().cpy(),1);
-            getAudioEngine().pleySoundKickStick();
-            pc.addPasricalDeath_little(smooke.x, smooke.y, 2.7f);
-
-            System.out.println("startFlashForMainTank !! Generator new Buulet SP");
-            //this.getMainGame().getMainClient().getNetworkPacketStock().toSendMyShot(smooke.x, smooke.y, tank.getDirection_tower().angleDeg());
-        }
-    }
 
     public AssetManager getAssetsManagerGame() {
         return this.mainGame.getAssetManager();
