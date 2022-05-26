@@ -28,15 +28,15 @@ public class MainClient {
 
     public MainClient() {
 
-        // pre java 8 lambdas
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                // your code here ...
-                System.out.println("111111");
-            }
-        });
-
-        t.start();
+//        // pre java 8 lambdas
+//        Thread t = new Thread(new Runnable() {
+//            public void run() {
+//                // your code here ...
+//                System.out.println("111111");
+//            }
+//        });
+//
+//        t.start();
 
         client = new Client();
         client.start();
