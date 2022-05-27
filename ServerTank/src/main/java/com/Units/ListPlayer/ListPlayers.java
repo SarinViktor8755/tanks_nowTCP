@@ -26,7 +26,7 @@ public class ListPlayers {
     }
 
 
-    public boolean checkTokken(String tokken, int connct_id) { // проверяет был литакой токкен
+    private boolean checkTokken(String tokken, int connct_id) { // проверяет был литакой токкен
         playersTokken.put(tokken, connct_id);
         Integer p = playersTokken.get(tokken);
         if (p == null) {

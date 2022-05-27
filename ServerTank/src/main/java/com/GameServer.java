@@ -17,6 +17,7 @@ import main.java.com.Units.ListPlayer.ListPlayers;
 public class GameServer {
 
     Server server;
+    MainGame mainGame;
 
     public final long timerTact = 50; //ms поток таймер циклов , рассылвает координаты ботов ))
     public final long timerLogic = (long) (this.timerTact / 3f); // таймер поведения ботов
@@ -32,6 +33,8 @@ public class GameServer {
         server.start();
 
         previousStepTime = System.currentTimeMillis();
+
+        mainGame = new MainGame(this,Integer.valueOf(args[0]));
         server.addListener(new Listener() {
                                @Override
                                public void connected(Connection connection) {
@@ -86,5 +89,9 @@ public class GameServer {
         }
 
 
+    }
+
+    public MainGame getMainGame() {
+        return mainGame;
     }
 }

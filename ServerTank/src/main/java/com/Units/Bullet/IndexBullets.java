@@ -4,12 +4,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import main.java.com.GameServer;
+import main.java.com.MainGame;
 
 public class IndexBullets {
 
     private final Array<Bullet> activeBullets = new Array<>();
     private final BulletPool bp = new BulletPool();
     private GameServer gameServer;
+
 
     private long previousStepTime = 0;
     private static int BULLET_SPEED = 400;

@@ -9,6 +9,13 @@ public class MainGame {
     IndexMap mapSpace;
    // IndexBot bot;
 
+    public MainGame(GameServer gameServer, int number_of_bots) {
 
+       // this.bot = new IndexBot(this,number_of_bots);
+        this.gameServer = gameServer;
+        this.bullets = new IndexBullets(this.gameServer);
+        this.mapSpace = new IndexMap();
+
+    }
 
 }
