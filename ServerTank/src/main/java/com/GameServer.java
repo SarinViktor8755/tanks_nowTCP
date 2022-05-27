@@ -55,7 +55,7 @@ public class GameServer {
                                    if (object instanceof Network.StockMessOut) {// полученеи сообщения
                                        Network.StockMessOut sm = (Network.StockMessOut) object;
                                        System.out.println(sm);
-                                       routerMassege(sm, connection.getID());
+                                       RouterMassege.routeSM(sm,connection.getID(), getMainGame().gameServer);
                                    }
 
 
@@ -68,26 +68,30 @@ public class GameServer {
         return server;
     }
 
-    private void routerMassege(Network.StockMessOut sm, int id_coonect) {
-        if (Heading_type.MY_SHOT == sm.tip) {
-
-//            System.out.println(sm.textM);
-//            lp.getPlayerForId(id_coonect).setTokken(sm.textM);
-            return;
-        }
-
-        if (Heading_type.BUTTON_STARTGAME == sm.tip) {
-            lp.getPlayerForId(id_coonect).setNikName(sm.textM);
-            return;
-        }
-        if (Heading_type.MY_TOKKEN == sm.tip) {
-            System.out.println(sm.textM);
-            lp.getPlayerForId(id_coonect).setTokken(sm.textM);
-            return;
-        }
-
-
-    }
+//    private void routerMassege(Network.StockMessOut sm, int id_coonect) {
+//
+//
+////        if (Heading_type.MY_SHOT == sm.tip) {
+////
+//////            System.out.println(sm.textM);
+//////            lp.getPlayerForId(id_coonect).setTokken(sm.textM);
+////            return;
+////        }
+////
+////        if (Heading_type.BUTTON_STARTGAME == sm.tip) {
+////            lp.getPlayerForId(id_coonect).setNikName(sm.textM);
+////            return;
+////        }
+////        if (Heading_type.MY_TOKKEN == sm.tip) {
+////            System.out.println(sm.textM);
+////            lp.getPlayerForId(id_coonect).setTokken(sm.textM);
+////            return;
+////        }
+////
+//
+//
+//
+//    }
 
     public MainGame getMainGame() {
         return mainGame;
