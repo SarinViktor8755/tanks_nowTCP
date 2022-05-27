@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import main.java.com.GameServer;
 
 public class ListPlayers {
+    static public final int DEFULT_COUNT_BOT = 4;
+
     ConcurrentHashMap<Integer, Player> players;
     ConcurrentHashMap<String, Integer> playersTokken; // tooken/ id
     GameServer gameServer;

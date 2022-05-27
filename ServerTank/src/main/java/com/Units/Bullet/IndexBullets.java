@@ -41,8 +41,8 @@ public class IndexBullets {
         // System.out.println(!gameServer.getMainGame().getMapSpace().isPointInCollision(x, y));
 
 
-        if (gameServer.getMainGame().getMapSpace().isPointInCollision(x, y)) return true;
-        if (!gameServer.getMainGame().getMapSpace().isPointWithinMmap(x, y)) return true;
+//        if (gameServer.getMainGame().getMapSpace().isPointInCollision(x, y)) return true;
+//        if (!gameServer.getMainGame().getMapSpace().isPointWithinMmap(x, y)) return true;
         return false;
     }
 
@@ -67,7 +67,7 @@ public class IndexBullets {
 
     public synchronized void freeBullet(int index, Bullet bullet){
         /// System.out.println("!!!!!!!!!!!!!!!!!!!BOOOOOOOOOOOOOOOOOOOM !!!!!!!!!!!!!!!!!!!  " + bullet.position);
-        gameServer.outMassegeCollection.tellShellRupture(bullet.position,bullet.getNom());
+      /////////////  gameServer.outMassegeCollection.tellShellRupture(bullet.position,bullet.getNom());
         bp.free(bullet);
         activeBullets.removeIndex(index);
 
