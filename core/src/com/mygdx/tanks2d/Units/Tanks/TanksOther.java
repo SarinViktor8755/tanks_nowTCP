@@ -289,23 +289,23 @@ public class TanksOther { /// много танков )))
 ////            return;
 ////        }
 ////
-////        if (m.getP().tip == Heading_type.MY_SHOT) {
-////            //    System.out.println("Shoot " + m.getP().time_even + " np " + m.getP().nomer_pley);
-////            temp.set(m.getP().p1, m.getP().p2);
-////            tRotation.set(0, 400);
-////            tRotation.setAngleDeg(m.getP().p3); /// навправление
-////            // System.out.println(tempr.len());
-////
-////            gsp.getBullets().addBullet(temp, tRotation.cpy(), m.getP().p4);
-////
-////            ////////////
-////            //  if (m.getP().p5 != gsp.getMainGame().getMainClient().myIdConnect) {
-////            gsp.getAudioEngine().pleySoundKickStick();
-//////                gsp.pc.addPasricalExplosion(.3f, m.getP().p1, m.getP().p2);
-//////                gsp.pc.addParticalsSmokeOne(m.getP().p1, m.getP().p2);
-////            gsp.pc.addPasricalDeath_little(m.getP().p1, m.getP().p2, 2.7f);
-////            gsp.getGameSpace().getLighting().getBuletFlash().newFlesh(m.getP().p1, m.getP().p2);
-////            //  }
+//        if (m.getP().tip == Heading_type.MY_SHOT) {
+//            //    System.out.println("Shoot " + m.getP().time_even + " np " + m.getP().nomer_pley);
+//            temp.set(m.getP().p1, m.getP().p2);
+//            tRotation.set(0, 400);
+//            tRotation.setAngleDeg(m.getP().p3); /// навправление
+//            // System.out.println(tempr.len());
+//
+//            gsp.getBullets().addBullet(temp, tRotation.cpy(), m.getP().p4);
+//
+//            ////////////
+//            //  if (m.getP().p5 != gsp.getMainGame().getMainClient().myIdConnect) {
+//            gsp.getAudioEngine().pleySoundKickStick();
+////                gsp.pc.addPasricalExplosion(.3f, m.getP().p1, m.getP().p2);
+////                gsp.pc.addParticalsSmokeOne(m.getP().p1, m.getP().p2);
+//            gsp.pc.addPasricalDeath_little(m.getP().p1, m.getP().p2, 2.7f);
+//            gsp.getGameSpace().getLighting().getBuletFlash().newFlesh(m.getP().p1, m.getP().p2);
+//            //  }
 /////////////////////
 ////
 ////

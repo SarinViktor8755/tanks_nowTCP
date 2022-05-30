@@ -43,7 +43,7 @@ public class MainGame {
                             Thread.sleep(1000);
                             continue;
                         }
-                        System.out.println("Thread 50 !!!");
+                     //   System.out.println("Thread 50 !!!");
                         Thread.sleep(timer_tread_50);
 //
 //                        поток 50 можно остоновить при отсутвии игрков

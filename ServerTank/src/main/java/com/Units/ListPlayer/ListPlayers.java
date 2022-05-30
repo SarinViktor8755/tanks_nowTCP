@@ -1,5 +1,6 @@
 package main.java.com.Units.ListPlayer;
 
+import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.ClientNetWork.Network;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -69,6 +70,20 @@ public class ListPlayers {
         pn.yp = pp.yp;
         pn.roy_tower = pp.roy_tower;
         gameServer.getServer().sendToAllExceptTCP(id, pn);
+    }
+
+    public void sendParametersPlayers(int aboutPlayerID){ // рассылка о характеристиках игрока по id
+        Network.StockMessOut sm = new Network.StockMessOut();
+        Player p = this.players.get(aboutPlayerID);
+        try {
+            sm.textM = p.nikName;
+            sm.p1 = aboutPlayerID;
+            sm.p2 = p.command;
+            sm.p3 = p.hp;
+            //sm.p4 = еще какой т опараметр;
+            sm.tip = Heading_type.PARAMETERS_PLAYER;
+            gameServer.getServer().sendToAllExceptTCP(aboutPlayerID, sm);
+        }catch (NullPointerException e){}
     }
 
     @Override

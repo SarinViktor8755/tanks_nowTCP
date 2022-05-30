@@ -1,11 +1,13 @@
 package com.mygdx.tanks2d.ClientNetWork;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.mygdx.tanks2d.ClientNetWork.VoiceChat.VoiceChatClient;
 import com.mygdx.tanks2d.MainGame;
+import com.mygdx.tanks2d.Utils.VectorUtils;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
@@ -19,6 +21,7 @@ public class MainClient {
     private boolean onLine;
     private MainGame mg;
     private int myIdConnect;
+    private RouterSM routerSM;
 
 
     private NetworkPacketStock networkPacketStock;
@@ -37,6 +40,7 @@ public class MainClient {
 //        });
 //
 //        t.start();
+        routerSM = new RouterSM(MainClient this);
 
         client = new Client();
         client.start();
@@ -106,6 +110,19 @@ public class MainClient {
             if (pp.nom == client.getID()) return;
             otherPlayer.put(pp.nom, pp);
             return;
+        }
+
+        if(object instanceof Network.StockMessOut){
+            Network.StockMessOut sm = (Network.StockMessOut) object;
+            System.out.println(sm);
+            if (Heading_type.MY_SHOT == sm.tip) {
+
+
+
+
+                return;
+            }
+
         }
 
 
