@@ -230,7 +230,6 @@ public class GamePlayScreen implements Screen {
             if (!tank.redyToAttack()) return;
             System.out.println("startFlashForMainTank !! Generator new Buulet");
             this.getMainGame().getMainClient().getNetworkPacketStock().toSendMyShot(smooke.x, smooke.y, tank.getDirection_tower().angleDeg());
-
         }
     }
 

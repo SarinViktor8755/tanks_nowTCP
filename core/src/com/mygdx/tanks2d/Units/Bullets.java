@@ -15,7 +15,7 @@ public class Bullets {
 
     private final Array<Bullet> activeBullets = new Array<>();
     private final BulletPool bp = new BulletPool();
-    private final int MAX_distribution_smoke = 3;
+    private final int MAX_distribution_smoke = 5;
 
     private GamePlayScreen gpl;
 

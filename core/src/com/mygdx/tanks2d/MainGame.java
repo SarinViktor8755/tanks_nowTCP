@@ -109,5 +109,11 @@ public class MainGame extends Game {
 			    this.getMainClient().upDateClient();
 	}
 
+	public GamePlayScreen getGsp() {
+		return gsp;
+	}
 
+	public void setGsp(GamePlayScreen gsp) {
+		this.gsp = gsp;
+	}
 }

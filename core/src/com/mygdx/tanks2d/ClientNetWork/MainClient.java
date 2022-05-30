@@ -40,10 +40,10 @@ public class MainClient {
 //        });
 //
 //        t.start();
-        routerSM = new RouterSM(MainClient this);
 
         client = new Client();
         client.start();
+        routerSM = new RouterSM(mg);
 
         // For consistency, the classes to be sent over the network are
         // registered by the same method for both the client and server.
@@ -113,15 +113,16 @@ public class MainClient {
         }
 
         if(object instanceof Network.StockMessOut){
-            Network.StockMessOut sm = (Network.StockMessOut) object;
-            System.out.println(sm);
-            if (Heading_type.MY_SHOT == sm.tip) {
-
-
-
-
-                return;
-            }
+            routerSM.routeSM((Network.StockMessOut) object);
+//            Network.StockMessOut sm = (Network.StockMessOut) object;
+//            System.out.println(sm);
+//            if (Heading_type.MY_SHOT == sm.tip) {
+//
+//
+//
+//
+//                return;
+//            }
 
         }
 
