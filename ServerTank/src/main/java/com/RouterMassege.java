@@ -21,7 +21,7 @@ public class RouterMassege {
             return;
         }
         if (Heading_type.MY_TOKKEN == sm.tip) {
-            System.out.println(sm.textM);
+           // System.out.println(sm.textM);
             gameServer.lp.getPlayerForId(id_coonect).setTokken(sm.textM);
             return;
         }

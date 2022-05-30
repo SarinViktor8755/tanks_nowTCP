@@ -37,7 +37,7 @@ public class MainGame {
                 try {
                     while (true) {
                         //updateGame();
-                        System.out.println(gameServer.isServerLivePlayer());
+                       // ---- System.out.println("serverLife :: " + gameServer.isServerLivePlayer());
 
                         if (!gameServer.isServerLivePlayer()) {
                             Thread.sleep(1000);
@@ -74,8 +74,8 @@ public class MainGame {
                         long deltaTime = GameServer.getDeltaTime();
                         realTimeMath += deltaTime; // время матча
 
-                        System.out.println(deltaTime + "  " + realTimeMath + "  " + MATH_LENGHT);
-                        System.out.println(realTimeMath < MATH_LENGHT);
+//                        System.out.println(deltaTime + "  " + realTimeMath + "  " + MATH_LENGHT);
+//                        System.out.println(realTimeMath < MATH_LENGHT);
 
                         if (!gameServer.isServerLivePlayer()) {if(MathUtils.randomBoolean(.005f)) realTimeMath = 0;}
 
