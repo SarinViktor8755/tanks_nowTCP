@@ -57,7 +57,7 @@ public class ParticleCustum {
             this.particleDeque.add(new ParticleSmoke());
         }
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 12; i++) {
             this.pasricalExplosions.add(new PasricalExplosion());
         }
 

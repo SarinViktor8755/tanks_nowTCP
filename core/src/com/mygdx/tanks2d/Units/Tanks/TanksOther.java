@@ -163,7 +163,7 @@ public class TanksOther { /// много танков )))
 
     public void randerOtherTanks(SpriteBatch sb) {
         OpponentsTanks t;
-        System.out.println(this.listOpponents.size());
+       // System.out.println(this.listOpponents.size());
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
             t = tank.getValue();
             updateColor(t, Gdx.graphics.getDeltaTime());

@@ -18,7 +18,7 @@ public class MainGame extends Game {
 	public AssetManager assetManager;
 	public AssetsManagerGame assetsManagerGame;
 	private MainClient mainClient;
-	private GamePlayScreen gsp;
+	private GamePlayScreen gamePlayScreen;
 
 	private Screen mainMenu;
 
@@ -64,16 +64,16 @@ public class MainGame extends Game {
 		mainMenu.dispose();
 		// getMainClient().setOnLine(true);
 		assetsManagerGame.loadAllAsseGame();
-		this.gsp = new GamePlayScreen(this);
-		this.setScreen(this.gsp);
+		this.gamePlayScreen = new GamePlayScreen(this);
+		this.setScreen(this.gamePlayScreen);
 	}
 
 	public void startGameSPley()  {
 		mainMenu.dispose();
 		//  getMainClient().setOnLine(false);
 		assetsManagerGame.loadAllAsseGame();
-		this.gsp = new GamePlayScreen(this);
-		this.setScreen(this.gsp);
+		this.gamePlayScreen = new GamePlayScreen(this);
+		this.setScreen(this.gamePlayScreen);
 		//     mainClient.getClient().dispose();
 	}
 
@@ -109,11 +109,7 @@ public class MainGame extends Game {
 			    this.getMainClient().upDateClient();
 	}
 
-	public GamePlayScreen getGsp() {
-		return gsp;
-	}
-
-	public void setGsp(GamePlayScreen gsp) {
-		this.gsp = gsp;
+	public GamePlayScreen getGamePlayScreen() {
+		return gamePlayScreen;
 	}
 }
