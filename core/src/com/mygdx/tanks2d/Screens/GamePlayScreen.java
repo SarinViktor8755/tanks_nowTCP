@@ -109,17 +109,14 @@ public class GamePlayScreen implements Screen {
         return timeInGame;
     }
 
+    public void playAnimation(Vector2 pos,Vector2 vel,int nom){ // добавляет анимацию выстрела
+        this.getBullets().addBullet(pos,vel,nom);
+        mainGame.getGamePlayScreen().pc.addPasricalDeath_little(pos.x, pos.y, 2.7f);
+        mainGame.getGamePlayScreen().getAudioEngine().pleySoundKickStick(cameraGame.getCamera().position.x,cameraGame.getCamera().position.y, pos.x, pos.y);
+    }
+
     @Override
     public void render(float delta) {
-        if(MathUtils.randomBoolean(.08f)){
-            System.out.println("add BUULET");
-            Vector2 p = new Vector2(50,50);
-            this.getBullets().addBullet(new Vector2(80,80),new Vector2(MathUtils.random(0,180),MathUtils.random(0,180)),11);
-            mainGame.getGamePlayScreen().pc.addPasricalDeath_little(pos.x, pos.y, 2.7f);
-            float dist = MathUtils.d
-            mainGame.getGamePlayScreen().getAudioEngine().pleySoundKickStick();
-
-        }
 
         update();
         Gdx.gl.glClearColor(0, 0, 0, 1);

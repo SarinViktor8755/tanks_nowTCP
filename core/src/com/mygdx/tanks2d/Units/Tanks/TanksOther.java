@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.ClientNetWork.Network;
 import com.mygdx.tanks2d.ClientNetWork.PacketModel;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
@@ -281,6 +282,7 @@ public class TanksOther { /// много танков )))
 ////            return;
 ////        }
 ////
+   // Heading_type.SHELL_RUPTURE
 ////        if (m.getP().tip == Heading_type.SHELL_RUPTURE) {
 ////            System.out.println("BOOOOOOOOM!!!!!!!!!!!  " + m.getP().p1 + "  " + m.getP().p2);
 ////            //gsp.getBullets().

@@ -253,7 +253,6 @@ public class ParticleCustum {
                 1f
         );
         this.particleDeque.offerFirst(a);
-
     }
 
     public void addPasricalExplosion(float timeLife, float x, float y) {

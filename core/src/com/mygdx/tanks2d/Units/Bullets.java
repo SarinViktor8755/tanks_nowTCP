@@ -75,7 +75,7 @@ public class Bullets {
         bp.free(b);
     }
 
-    public void removeBullet(int nomBullet){
+    public void removeBullet(int nomBullet){  // удаление по номеру
         for (int i = 0; i < activeBullets.size; i++) {
             if(activeBullets.get(i).namber == nomBullet){
                 bp.free(activeBullets.get(i));

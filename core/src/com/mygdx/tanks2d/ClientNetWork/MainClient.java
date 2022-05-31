@@ -29,7 +29,7 @@ public class MainClient {
     public HashMap<Integer, Boolean> frameUpdates; //Обновления кадра для играков
 //    public ArrayDeque<PacketModel> inDequePacket; // входящие пакеты для обработки;
 
-    public MainClient() {
+    public MainClient(MainGame mg) {
 
 //        // pre java 8 lambdas
 //        Thread t = new Thread(new Runnable() {

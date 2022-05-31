@@ -3,10 +3,10 @@ package com.mygdx.tanks2d.AudioEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
 
 import java.util.concurrent.ConcurrentHashMap;
-
 
 
 public class AudioEngine {
@@ -20,6 +20,8 @@ public class AudioEngine {
     private Long idTower;
     private float timer_towr_ratation;
     private boolean timerTower;
+
+    private static Vector2 tempV = new Vector2(0, 0);
 
     public AudioEngine(GamePlayScreen mainGaming) {
         timer_towr_ratation = 0;
@@ -42,8 +44,28 @@ public class AudioEngine {
         sound.setVolume(id, distanc);
     }
 
-    public void pleySoundKickStick( float vol) {
-        if(vol < 0) return;
+    private static float countVolmeDistantion(float x, float y, float x1, float y1) {
+        tempV.set(x, y);
+        float distanc = tempV.dst2(x1, y1);
+        distanc = MathUtils.map(0, 250_000, 1, 0, distanc);
+        return distanc;
+    }
+
+    private static float countVolmeDistantion(Vector2 a,Vector2 b) {
+       return countVolmeDistantion(a.x,a.y,b.x,b.y);
+    }
+
+    public void pleySoundKickStick(float x, float y, float x1, float y1) {
+
+        float distanc = countVolmeDistantion(x, y, x1, y1);
+        if (distanc <= 0) return;
+        long id = sound.play();
+        sound.setPitch(id, MathUtils.random(.95f, 1.1f));
+        sound.setVolume(id, distanc);
+    }
+
+    public void pleySoundKickStick(float vol) {
+        if (vol < 0) return;
         float distanc = 1;
         long id = sound.play();
         sound.setPitch(id, MathUtils.random(.95f, 1.1f));
@@ -90,7 +112,7 @@ public class AudioEngine {
                 }
             }
         } catch (NullPointerException e) {
-         //   System.out.println("11");
+            //   System.out.println("11");
         }
     }
 

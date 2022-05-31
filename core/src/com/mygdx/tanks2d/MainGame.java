@@ -37,7 +37,7 @@ public class MainGame extends Game {
 		assetsManagerGame = new AssetsManagerGame(assetManager);
 
 
-		mainClient = new MainClient();
+		mainClient = new MainClient(this);
 
 		if (tip == 1) ANDROID = true;
 		else ANDROID = false;

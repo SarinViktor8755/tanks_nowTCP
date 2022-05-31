@@ -20,5 +20,5 @@ public class Heading_type {
 
     public static final int DISCONECT_PLAYER = 11;
 
-    public static final int SHELL_RUPTURE = 12;
+    public static final int SHELL_RUPTURE = 12; // удаление пули - уничтожение ее
 }

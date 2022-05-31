@@ -47,8 +47,7 @@ public class GameServer {
                                public void received(Connection connection, Object object) {
                                    if (object instanceof Network.PleyerPosition) {
                                        lp.updatePosition(connection.getID(), (Network.PleyerPosition) object);
-                                       if (MathUtils.randomBoolean())
-                                           lp.sendToAllPlayerPosition(connection.getID(), (Network.PleyerPosition) object);
+                                       lp.sendToAllPlayerPosition(connection.getID(), (Network.PleyerPosition) object);
                                        return;
                                    }
 
