@@ -44,6 +44,7 @@ public class MainClient {
         client = new Client();
         client.start();
         routerSM = new RouterSM(mg);
+        this.mg = mg;
 
         // For consistency, the classes to be sent over the network are
         // registered by the same method for both the client and server.
@@ -108,19 +109,18 @@ public class MainClient {
             Network.PleyerPositionNom pp = (Network.PleyerPositionNom) object;
             frameUpdates.put(pp.nom, true);
             if (pp.nom == client.getID()) return;
-            //otherPlayer.put(pp.nom, pp);
+            if(MainGame.status != MainGame.STATUS_GAME_GAMEPLAY) return;
             try {
-
-                mg.getGamePlayScreen().getTanksOther().getTankForID(pp.nom).getPosition().set(pp.xp,pp.yp);
-                mg.getGamePlayScreen().getTanksOther().getTankForID(pp.nom).getDirection_tower().setAngleDeg(pp.roy_tower);
-
-
-            }catch (NullPointerException e){}
+                mg.getGamePlayScreen().getTanksOther().setTankPosition(pp, mg.getMainClient().frameUpdates.get(pp.nom));
+                mg.getMainClient().frameUpdates.put(pp.nom, false); /// закрывает флаг о рендере __
+            } catch (NullPointerException e) {
+               // e.printStackTrace();
+            }
 
             return;
         }
 
-        if(object instanceof Network.StockMessOut){
+        if (object instanceof Network.StockMessOut) {
             routerSM.routeSM((Network.StockMessOut) object);
 //            Network.StockMessOut sm = (Network.StockMessOut) object;
 //            System.out.println(sm);

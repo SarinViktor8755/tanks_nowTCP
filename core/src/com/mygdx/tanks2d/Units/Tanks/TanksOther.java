@@ -137,7 +137,7 @@ public class TanksOther { /// много танков )))
 
     /////////////
     public int createOponent(float x, float y, int nomer, float rotation) {
-
+        System.out.println("create");
         OpponentsTanks r = new OpponentsTanks(
                 new Vector2(x, y),
                 new Vector2(1, 0),
@@ -161,6 +161,7 @@ public class TanksOther { /// много танков )))
 
     public void createFuelTank(int id){ // создание пустой балвани
         listOpponents.put(id,new OpponentsTanks(new Vector2(-8000,-8000),new Vector2(0,0),0,true,id,listOpponents,gsp));
+
     }
 
     public void randerOtherTanks(SpriteBatch sb) {

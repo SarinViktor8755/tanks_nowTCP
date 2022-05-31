@@ -32,6 +32,13 @@ public class MainGame extends Game {
 	static public final int HIDE_SCREEN = 315;
 
 
+
+	public static final int STATUS_GAME_MENU = 1;
+	public static final int STATUS_GAME_GAMEPLAY = 2;
+	public static final int STATUS_GAME_PAUSE = 3;
+
+	static public int status = STATUS_GAME_MENU;
+
 	public MainGame(int tip) {
 		assetManager = new AssetManager();
 		assetsManagerGame = new AssetsManagerGame(assetManager);
@@ -74,6 +81,7 @@ public class MainGame extends Game {
 		assetsManagerGame.loadAllAsseGame();
 		this.gamePlayScreen = new GamePlayScreen(this);
 		this.setScreen(this.gamePlayScreen);
+		MainGame.status = STATUS_GAME_GAMEPLAY;
 		//     mainClient.getClient().dispose();
 	}
 

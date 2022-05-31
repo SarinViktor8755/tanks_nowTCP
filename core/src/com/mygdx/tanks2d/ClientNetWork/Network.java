@@ -13,8 +13,8 @@ public class Network {
     //final public static String ip = "185.231.68.81";
     //final public static String ip = "omskSarin2020.online";
  //final  public static String ip = "127.0.0.1";
-  //  final  public static String host = "127.0.0.1";
-   final public static String host = "92.124.144.204";
+    final  public static String host = "127.0.0.1";
+  // final public static String host = "92.124.144.204";
 
     static public void register(EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
@@ -37,6 +37,16 @@ public class Network {
         public float xp;
         public float yp;
         public float roy_tower;
+
+        @Override
+        public String toString() {
+            return "PleyerPositionNom{" +
+                    "nom=" + nom +
+                    ", xp=" + xp +
+                    ", yp=" + yp +
+                    ", roy_tower=" + roy_tower +
+                    '}';
+        }
     }
 
 
