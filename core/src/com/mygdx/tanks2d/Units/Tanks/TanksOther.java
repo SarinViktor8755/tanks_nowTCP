@@ -159,9 +159,14 @@ public class TanksOther { /// много танков )))
         if (t.getCommand() != 0 && t.color < 1) t.color = t.color + dt;
     }
 
+    public void createFuelTank(int id){ // создание пустой балвани
+        listOpponents.put(id,new OpponentsTanks(new Vector2(-8000,-8000),new Vector2(0,0),0,true,id,listOpponents,gsp));
+    }
+
     public void randerOtherTanks(SpriteBatch sb) {
         OpponentsTanks t;
-       // System.out.println(this.listOpponents.size());
+        System.out.println(this.listOpponents.size());
+
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
             t = tank.getValue();
             updateColor(t, Gdx.graphics.getDeltaTime());
@@ -364,8 +369,6 @@ public class TanksOther { /// много танков )))
 //    }
 
     public OpponentsTanks getTankForID(int id) {
-        OpponentsTanks ot= this.listOpponents.get(id);
-        if (ot == null) this.listOpponents.put(id, new OpponentsTanks());
         return this.listOpponents.get(id);
     }
 

@@ -67,7 +67,7 @@ public class OpponentsTanks { // ОДИН ТАНК
         //this.nikName = getNikNameGen();
         this.live = true;
         this.command = 0;
-        this.position = new Vector2(-2000,-2000);
+        this.position = new Vector2(MathUtils.random(500),MathUtils.random(500));
         this.direction = new Vector2(-2000,-2000);
         this.direction_tower = new Vector2(1, 0);
 

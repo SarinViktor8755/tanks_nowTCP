@@ -110,8 +110,10 @@ public class MainClient {
             if (pp.nom == client.getID()) return;
             //otherPlayer.put(pp.nom, pp);
             try {
+
                 mg.getGamePlayScreen().getTanksOther().getTankForID(pp.nom).getPosition().set(pp.xp,pp.yp);
                 mg.getGamePlayScreen().getTanksOther().getTankForID(pp.nom).getDirection_tower().setAngleDeg(pp.roy_tower);
+
 
             }catch (NullPointerException e){}
 
