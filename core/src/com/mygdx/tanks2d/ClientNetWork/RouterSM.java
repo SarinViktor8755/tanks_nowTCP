@@ -44,15 +44,15 @@ public class RouterSM {
         }
 
         if (Heading_type.PARAMETERS_PLAYER == sm.tip) {
-            OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int)sm.p3);
-            opponentsTanks.hp = (int) sm.p1;
-            opponentsTanks.command = (int) sm.p2;
-
-
-            position.set(sm.p1, sm.p2);
-            velocity.set(0, 400);
-            velocity.setAngleDeg(sm.p3); /// навправление
-            mainGame.getGamePlayScreen().playAnimation(position,velocity,(int)sm.p4);
+//            OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int)sm.p3);
+//            opponentsTanks.hp = (int) sm.p1;
+//            opponentsTanks.command = (int) sm.p2;
+//
+//
+//            position.set(sm.p1, sm.p2);
+//            velocity.set(0, 400);
+//            velocity.setAngleDeg(sm.p3); /// навправление
+//            mainGame.getGamePlayScreen().playAnimation(position,velocity,(int)sm.p4);
             return;
         }
 

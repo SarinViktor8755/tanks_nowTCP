@@ -149,8 +149,8 @@ public class GameServer {
         else return false;
     }
 
-
-
-
+    public ListPlayers getLp() {
+        return lp;
+    }
 }
 

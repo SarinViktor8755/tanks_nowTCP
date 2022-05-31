@@ -57,11 +57,8 @@ public class Bullet implements Pool.Poolable {
         BULLET_SPEED = bulletSpeed;
     }
 
-    @Override
-    public String toString() {
-        return "Bullet{" +
-                "position=" + position.x + "  " + position.y +
-                ", nom=" + nom +
-                '}';
+
+    public int getAuthor_bullet() {
+        return author_bullet;
     }
 }

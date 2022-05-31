@@ -178,8 +178,7 @@ public class TanksOther { /// много танков )))
 
             t.update(Gdx.graphics.getDeltaTime());
 
-            //   t.setCommand(MathUtils.random(1,2));
-            //  System.out.println("command " + t.getCommand());
+
 
 
             sb.setColor(t.getColor(), t.getColor() + .5f, t.getColor(), 1);

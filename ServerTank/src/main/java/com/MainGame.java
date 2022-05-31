@@ -30,6 +30,8 @@ public class MainGame {
 
     }
 
+
+
     private void startSecondaryThread_50() { // выполняется каждые 50 мс
         new Thread(new Runnable() {
             @Override

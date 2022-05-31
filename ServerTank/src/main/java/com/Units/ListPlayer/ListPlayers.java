@@ -1,8 +1,12 @@
 package main.java.com.Units.ListPlayer;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.ClientNetWork.Network;
 
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import main.java.com.GameServer;
@@ -15,6 +19,8 @@ public class ListPlayers {
     GameServer gameServer;
     Network.PleyerPositionNom pn = new Network.PleyerPositionNom();
 
+    Vector2 temp1 = new Vector2();
+    Vector2 temp2 = new Vector2();
 
     public ListPlayers(GameServer gameServer) {
         this.players = new ConcurrentHashMap<>();
@@ -72,7 +78,7 @@ public class ListPlayers {
         gameServer.getServer().sendToAllExceptTCP(id, pn);
     }
 
-    public void sendParametersPlayers(int aboutPlayerID){ // рассылка о характеристиках игрока по id
+    public void sendParametersPlayers(int aboutPlayerID) { // рассылка о характеристиках игрока по id
         Network.StockMessOut sm = new Network.StockMessOut();
         Player p = this.players.get(aboutPlayerID);
         try {
@@ -83,7 +89,8 @@ public class ListPlayers {
             //sm.p4 = еще какой т опараметр;
             sm.tip = Heading_type.PARAMETERS_PLAYER;
             gameServer.getServer().sendToAllExceptTCP(aboutPlayerID, sm);
-        }catch (NullPointerException e){}
+        } catch (NullPointerException e) {
+        }
     }
 
     @Override
@@ -91,5 +98,30 @@ public class ListPlayers {
         return "ListPlayers{" +
                 "players=" + players +
                 '}';
+    }
+
+    public boolean projectile_collide_with_players(int author_id, float xs, float ys) {
+        boolean res = false;
+        temp1.set(xs, ys);
+        Iterator<Map.Entry<Integer, Player>> entries = players.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry<Integer, Player> entry = entries.next();
+            //System.out.println("ID = " + entry.getKey() + " День недели = " + entry.getValue());
+            //entry.getValue().xp
+            temp2.set(entry.getValue().xp, entry.getValue().yp);
+
+            res = (
+                    (temp1.dst2(temp2) < 500) &&
+                            author_id != entry.getValue().getId()
+            );
+
+           // System.out.println(MathUtils.isEqual(xs, entry.getValue().xp, 30) + "  " + MathUtils.isEqual(ys, entry.getValue().xp, 30) + "   " + (author_id != entry.getValue().getId()));
+            if (res) return true;
+
+
+        }
+        return false;
+
+
     }
 }

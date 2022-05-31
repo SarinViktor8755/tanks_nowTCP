@@ -31,7 +31,7 @@ public class IndexBullets {
         // добавьте в наш массив маркеры, чтобы мы могли получить к ним доступ в нашем методе визуализации
         activeBullets.add(b);
 //        System.out.println("activeBullets.size " + activeBullets.size);
-//        System.out.println("++ bullet " + nom);
+       // System.out.println("++ bullet " + );
 
 
         /// ОТПРАВКА О ТОМ ЧТО УМЕР СНАРЯД
@@ -57,9 +57,14 @@ public class IndexBullets {
             bullet.update(dt);
 
             ////////////
-            if(MathUtils.randomBoolean(.02f)){
+           // System.out.println(bullet.getAuthor_bullet());
+            if(gameServer.getLp().projectile_collide_with_players(bullet.getAuthor_bullet(),bullet.position.x, bullet.position.y)){
                 delBullet(bullet);
             }
+
+            if(gameServer.getMainGame().getMapSpace().isPointInCollision(bullet.position.x,bullet.position.y)) delBullet(bullet);
+
+
             ////////////
 
             System.out.println("  " + activeBullets.get(i));
