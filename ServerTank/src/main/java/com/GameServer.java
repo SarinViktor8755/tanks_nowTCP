@@ -55,7 +55,8 @@ public class GameServer {
                                    if (object instanceof Network.StockMessOut) {// полученеи сообщения
                                        Network.StockMessOut sm = (Network.StockMessOut) object;
                                        System.out.println(sm);
-                                       send_PARAMETERS_PLAYER(lp.getPlayerForId(connection.getID()).getHp(),1,lp.getPlayerForId(connection.getID()).getNikName(),connection.getID());
+
+                                       send_PARAMETERS_PLAYER(lp.getPlayerForId(connection.getID()).getHp(),Heading_type.RED_COMMAND,lp.getPlayerForId(connection.getID()).getNikName(),connection.getID());
                                        RouterMassege.routeSM(sm,connection.getID(), getMainGame().gameServer);
                                    }
 
@@ -108,10 +109,10 @@ public class GameServer {
     public void send_PARAMETERS_PLAYER(int HP,int comant, String nikName, int idPlayer){
         Network.StockMessOut stockMessOut = new Network.StockMessOut();
         stockMessOut.tip = Heading_type.PARAMETERS_PLAYER;
-        stockMessOut.p1 = HP;
-        stockMessOut.p2 = comant;//
-        stockMessOut.p3 = idPlayer;
-        stockMessOut.textM = nikName;
+        stockMessOut.p1 = comant; // ХП
+        stockMessOut.p2 = comant;// КОМАНДА
+        stockMessOut.p3 = HP; // номер игрока
+        stockMessOut.textM = nikName; // ник нейм
         this.server.sendToAllTCP(stockMessOut);
     }
 

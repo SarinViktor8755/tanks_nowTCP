@@ -369,6 +369,7 @@ public class TanksOther { /// много танков )))
 //    }
 
     public OpponentsTanks getTankForID(int id) {
+        //// надо создать танк
         return this.listOpponents.get(id);
     }
 

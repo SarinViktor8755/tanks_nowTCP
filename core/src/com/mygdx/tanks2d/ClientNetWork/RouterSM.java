@@ -44,6 +44,10 @@ public class RouterSM {
         }
 
         if (Heading_type.PARAMETERS_PLAYER == sm.tip) {
+            OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int)sm.p1);
+            opponentsTanks.hp = (int)sm.p1;
+            opponentsTanks.setNikPlayer(sm.textM);
+
 //            OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int)sm.p3);
 //            opponentsTanks.hp = (int) sm.p1;
 //            opponentsTanks.command = (int) sm.p2;
