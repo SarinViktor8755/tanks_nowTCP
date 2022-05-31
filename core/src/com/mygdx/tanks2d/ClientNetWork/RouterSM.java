@@ -26,7 +26,6 @@ public class RouterSM {
     }
 
     public void routeSM(Network.StockMessOut sm){
-
             if (Heading_type.MY_SHOT == sm.tip) {
                 position.set(sm.p1, sm.p2);
                 velocity.set(0, 400);
@@ -36,10 +35,10 @@ public class RouterSM {
             }
 
         if (Heading_type.SHELL_RUPTURE == sm.tip) {
-            System.out.println("BOOOOOOOOM!!!!!!!!!!!  " + sm.p1 + "  " + sm.p2 + "  " +  ((int)sm.p3));
+           // System.out.println("BOOOOOOOOM!!!!!!!!!!!  " + sm.p1 + "  " + sm.p2 + "  " +  ((int)sm.p3));
             Vector2 pp = new Vector2(sm.p1 ,sm.p2 );
 //            positionTemp.set(sm.p1 ,sm.p2 );
-            mainGame.getGamePlayScreen().playAnimation1(pp,velocity);
+            mainGame.getGamePlayScreen().playExplosion(pp,velocity);
             mainGame.getGamePlayScreen().getBullets().removeBullet((int)sm.p3);
             return;
         }
@@ -50,10 +49,17 @@ public class RouterSM {
             opponentsTanks.command = (int) sm.p2;
 
 
-
             position.set(sm.p1, sm.p2);
             velocity.set(0, 400);
             velocity.setAngleDeg(sm.p3); /// навправление
+            mainGame.getGamePlayScreen().playAnimation(position,velocity,(int)sm.p4);
+            return;
+        }
+
+        if (Heading_type.DISCONECT_PLAYER == sm.tip) {
+            OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int)sm.p3);
+            opponentsTanks.hp = (int) sm.p1;
+
             mainGame.getGamePlayScreen().playAnimation(position,velocity,(int)sm.p4);
             return;
         }

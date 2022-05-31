@@ -105,11 +105,10 @@ public class MainClient {
     public void router(Object object) {
         if (!onLine) return;
         if (object instanceof Network.PleyerPositionNom) { // полученеи позиции играков
-
             Network.PleyerPositionNom pp = (Network.PleyerPositionNom) object;
             frameUpdates.put(pp.nom, true);
             if (pp.nom == client.getID()) return;
-            if(MainGame.status != MainGame.STATUS_GAME_GAMEPLAY) return;
+
             try {
                 mg.getGamePlayScreen().getTanksOther().setTankPosition(pp, mg.getMainClient().frameUpdates.get(pp.nom));
                 mg.getMainClient().frameUpdates.put(pp.nom, false); /// закрывает флаг о рендере __

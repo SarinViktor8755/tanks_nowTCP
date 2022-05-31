@@ -170,11 +170,11 @@ public class TanksOther { /// много танков )))
 
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
             t = tank.getValue();
+            if(!tank.getValue().live) return;
             updateColor(t, Gdx.graphics.getDeltaTime());
             if (t.getNikPlayer() != null) {
                 textFont.draw(sb, t.getNikPlayer(), t.getPosition().x - t.getNikPlayer().length() * 4, t.getPosition().y + 50);
             }
-
 
             t.update(Gdx.graphics.getDeltaTime());
 

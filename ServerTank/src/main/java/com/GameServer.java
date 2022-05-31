@@ -41,6 +41,7 @@ public class GameServer {
                                @Override
                                public void disconnected(Connection connection) {
                                    super.disconnected(connection);
+                                   send_DISCONECT_PLAYER(connection.getID());
                                }
 
                                @Override
@@ -112,8 +113,16 @@ public class GameServer {
         stockMessOut.p3 = idPlayer;
         stockMessOut.textM = nikName;
         this.server.sendToAllTCP(stockMessOut);
-
     }
+
+    public void send_DISCONECT_PLAYER(int idPlayer){
+        Network.StockMessOut stockMessOut = new Network.StockMessOut();
+        stockMessOut.tip = Heading_type.DISCONECT_PLAYER;
+        stockMessOut.p1 = idPlayer;
+        this.server.sendToAllTCP(stockMessOut);
+    }
+
+
 
     public MainGame getMainGame() {
         return mainGame;
