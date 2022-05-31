@@ -57,6 +57,10 @@ public class MainGame {
     }
 
 
+    public IndexMap getMapSpace() {
+        return mapSpace;
+    }
+
     private void startSecondaryThread_25() {
         new Thread(new Runnable() {
             @Override
@@ -81,6 +85,7 @@ public class MainGame {
 
                         Thread.sleep(timer_tread_25);
                         float time = (float) (deltaTime * .001);
+                        bullets.updateBulets(deltaTime);
 
 
 //     не останавливать поток все функции должны быть конечными )))

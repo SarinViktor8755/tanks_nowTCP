@@ -9,7 +9,7 @@ import com.mygdx.tanks2d.Utils.VectorUtils;
 
 
 import java.util.ArrayDeque;
-
+import java.util.ConcurrentModificationException;
 
 
 public class ParticleCustum {
@@ -171,6 +171,9 @@ public class ParticleCustum {
 
 
         for (Explosion_Death ed : explosion_Death_little) {
+            try {
+
+
             if (!ed.isLife()) continue;
             ed.update();
 
@@ -184,6 +187,7 @@ public class ParticleCustum {
                     ed.getPosition().x - (tex.getRegionWidth() / 2/ed.getKefm()*ed.getTime_life()), ed.getPosition().y - (tex.getRegionHeight() / 2/ed.getKefm()*ed.getTime_life()),
                     xw/ed.getKefm()*ed.getTime_life(), yw/ed.getKefm()*ed.getTime_life()
             );
+            }catch (ConcurrentModificationException e){}
         }
 
         for (Explosion_Death ed : explosion_Death) {

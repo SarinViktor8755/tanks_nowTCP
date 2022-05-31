@@ -9,6 +9,7 @@ public class Bullet implements Pool.Poolable {
     // fields for bullets position and direction
     private final static int BULLET_SPEED = 400;
 
+
     public Vector2 position = new Vector2(0, 0);
     public Vector2 direction = new Vector2(0, 0);
 
@@ -31,7 +32,6 @@ public class Bullet implements Pool.Poolable {
 
         this.direction.clamp(BULLET_SPEED,BULLET_SPEED);
         this.direction.setLength(BULLET_SPEED);
-
 
         position.add(direction.scl(Gdx.graphics.getDeltaTime()));
     }

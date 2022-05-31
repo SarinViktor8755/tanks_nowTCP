@@ -92,6 +92,16 @@ public class GameServer {
 //
 //    }
 
+    public void sendSHELL_RUPTURE(float x, float y, int nom){
+        Network.StockMessOut stockMessOut = new Network.StockMessOut();
+        stockMessOut.tip = Heading_type.SHELL_RUPTURE;
+        stockMessOut.p1 = x;
+        stockMessOut.p2 = y;
+        stockMessOut.p3 = nom;
+        this.server.sendToAllTCP(stockMessOut);
+        System.out.println("BOOOOOOOOOOOOOOOOOOOOOOOM");
+    }
+
     public MainGame getMainGame() {
         return mainGame;
     }

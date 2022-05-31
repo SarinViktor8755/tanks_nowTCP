@@ -11,9 +11,13 @@ public class RouterSM {
     static Vector2 position;
 
 
+    static Vector2 positionTemp;
+
+
     public RouterSM(MainGame mainGame) {
         velocity = new Vector2();
         position = new Vector2();
+        positionTemp = new Vector2();
         this.velocity.set(45,1);
         this.position.set(1,1);
 
@@ -26,9 +30,9 @@ public class RouterSM {
                 position.set(sm.p1, sm.p2);
                 velocity.set(0, 400);
                 velocity.setAngleDeg(sm.p3); /// навправление
-                System.out.println(sm);
+                //System.out.println(sm);
 
-                mainGame.getGamePlayScreen().playAnimation(position,velocity,22);
+                mainGame.getGamePlayScreen().playAnimation(position,velocity,(int)sm.p4);
 
                 //mainGame.getGamePlayScreen().getBullets().addBullet(position,velocity.cpy(), (int) sm.p4);
 
@@ -64,10 +68,12 @@ public class RouterSM {
             }
 
         if (Heading_type.SHELL_RUPTURE == sm.tip) {
-            System.out.println("BOOOOOOOOM!!!!!!!!!!!  " + sm.p1 + "  " + sm.p2);
+            System.out.println("BOOOOOOOOM!!!!!!!!!!!  " + sm.p1 + "  " + sm.p2 + "  " +  ((int)sm.p3));
+
+            Vector2 pp = new Vector2(sm.p1 ,sm.p2 );
+//            positionTemp.set(sm.p1 ,sm.p2 );
+           mainGame.getGamePlayScreen().playAnimation1(pp,velocity);
             mainGame.getGamePlayScreen().getBullets().removeBullet((int)sm.p3);
-
-
             return;
         }
 

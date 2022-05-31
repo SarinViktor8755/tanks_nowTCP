@@ -1,5 +1,6 @@
 package main.java.com.Units.Bullet;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -39,10 +40,8 @@ public class IndexBullets {
 
     private boolean checkingGoingAbroad(float x, float y) {
         // System.out.println(!gameServer.getMainGame().getMapSpace().isPointInCollision(x, y));
-
-
-//        if (gameServer.getMainGame().getMapSpace().isPointInCollision(x, y)) return true;
-//        if (!gameServer.getMainGame().getMapSpace().isPointWithinMmap(x, y)) return true;
+        if (gameServer.getMainGame().getMapSpace().isPointInCollision(x, y)) return true;
+        if (!gameServer.getMainGame().getMapSpace().isPointWithinMmap(x, y)) return true;
         return false;
     }
 
@@ -56,11 +55,20 @@ public class IndexBullets {
         for (int i = 0; i < activeBullets.size; i++) {
             bullet = activeBullets.get(i);
             bullet.update(dt);
+
+            ////////////
+            if(MathUtils.randomBoolean(.05f)){
+                gameServer.sendSHELL_RUPTURE(bullet.position.x, bullet.position.y,bullet.getNom());
+            }
+            ////////////
+
             System.out.println("  " + activeBullets.get(i));
             if (checkingGoingAbroad(bullet.position.x, bullet.position.y)) {
                 freeBullet(i,bullet);
                 System.out.println("вышел за границу карты x: " + bullet.position.x +"  y: " + bullet.position.y);
             }
+
+
         }
         /// System.out.println(activeBullets.size);
     }

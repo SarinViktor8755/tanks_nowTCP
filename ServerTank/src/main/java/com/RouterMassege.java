@@ -6,8 +6,6 @@ import com.mygdx.tanks2d.ClientNetWork.Network;
 
 public class RouterMassege {
 
-
-
     public static void routeSM(Network.StockMessOut sm,int id_coonect, GameServer gameServer){
         if (Heading_type.MY_SHOT == sm.tip) {
             Vector2 velBullet = new Vector2(700, 0).setAngleDeg(sm.p3);

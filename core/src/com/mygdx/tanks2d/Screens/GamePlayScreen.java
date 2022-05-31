@@ -115,6 +115,12 @@ public class GamePlayScreen implements Screen {
         mainGame.getGamePlayScreen().getAudioEngine().pleySoundKickStick(cameraGame.getCamera().position.x,cameraGame.getCamera().position.y, pos.x, pos.y);
     }
 
+    public void playAnimation1(Vector2 pos,Vector2 vel){ // добавляет анимацию выстрела
+
+        mainGame.getGamePlayScreen().pc.addPasricalDeath_little(pos.x, pos.y, 2.7f);
+        mainGame.getGamePlayScreen().getAudioEngine().pleySoundKickStick(cameraGame.getCamera().position.x,cameraGame.getCamera().position.y, pos.x, pos.y);
+    }
+
     @Override
     public void render(float delta) {
 
