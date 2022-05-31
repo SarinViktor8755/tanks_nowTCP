@@ -3,6 +3,7 @@ package com.mygdx.tanks2d.Units.Tanks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
 import com.mygdx.tanks2d.Utils.VectorUtils;
 
@@ -54,6 +55,24 @@ public class OpponentsTanks { // ОДИН ТАНК
 
         this.nomder = nomder;
         towerRotation = new TowerRotation(this.direction, this.direction_tower, this.position, listOpponents);
+        directionMovementControll = new Vector2(direction);
+        this.gsp = gsp;
+        hp = MathUtils.random(20, 100);
+        move = false;
+        temp_delta = new Vector2(0,0);
+
+    }
+
+    public OpponentsTanks() {
+        //this.nikName = getNikNameGen();
+        this.live = true;
+        this.command = 0;
+        this.position = new Vector2(-2000,-2000);
+        this.direction = new Vector2(-2000,-2000);
+        this.direction_tower = new Vector2(1, 0);
+
+        this.nomder = nomder;
+        towerRotation = new TowerRotation(this.direction, this.direction_tower, this.position, gsp.getTanksOther().listOpponents);
         directionMovementControll = new Vector2(direction);
         this.gsp = gsp;
         hp = MathUtils.random(20, 100);

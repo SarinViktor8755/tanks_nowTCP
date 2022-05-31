@@ -364,6 +364,8 @@ public class TanksOther { /// много танков )))
 //    }
 
     public OpponentsTanks getTankForID(int id) {
+        OpponentsTanks ot= this.listOpponents.get(id);
+        if (ot == null) this.listOpponents.put(id, new OpponentsTanks());
         return this.listOpponents.get(id);
     }
 

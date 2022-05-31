@@ -104,11 +104,17 @@ public class MainClient {
     public void router(Object object) {
         if (!onLine) return;
         if (object instanceof Network.PleyerPositionNom) { // полученеи позиции играков
-            //  System.out.println(((Network.PleyerPositionNom) object).xp);
+
             Network.PleyerPositionNom pp = (Network.PleyerPositionNom) object;
             frameUpdates.put(pp.nom, true);
             if (pp.nom == client.getID()) return;
-            otherPlayer.put(pp.nom, pp);
+            //otherPlayer.put(pp.nom, pp);
+            try {
+                mg.getGamePlayScreen().getTanksOther().getTankForID(pp.nom).getPosition().set(pp.xp,pp.yp);
+                mg.getGamePlayScreen().getTanksOther().getTankForID(pp.nom).getDirection_tower().setAngleDeg(pp.roy_tower);
+
+            }catch (NullPointerException e){}
+
             return;
         }
 
