@@ -54,6 +54,7 @@ public class GameServer {
                                    if (object instanceof Network.StockMessOut) {// полученеи сообщения
                                        Network.StockMessOut sm = (Network.StockMessOut) object;
                                        System.out.println(sm);
+                                       send_PARAMETERS_PLAYER(lp.getPlayerForId(connection.getID()).getHp(),1,lp.getPlayerForId(connection.getID()).getNikName(),connection.getID());
                                        RouterMassege.routeSM(sm,connection.getID(), getMainGame().gameServer);
                                    }
 
@@ -99,7 +100,19 @@ public class GameServer {
         stockMessOut.p2 = y;
         stockMessOut.p3 = nom;
         this.server.sendToAllTCP(stockMessOut);
-        System.out.println("BOOOOOOOOOOOOOOOOOOOOOOOM");
+
+    }
+
+
+    public void send_PARAMETERS_PLAYER(int HP,int comant, String nikName, int idPlayer){
+        Network.StockMessOut stockMessOut = new Network.StockMessOut();
+        stockMessOut.tip = Heading_type.PARAMETERS_PLAYER;
+        stockMessOut.p1 = HP;
+        stockMessOut.p2 = comant;//
+        stockMessOut.p3 = idPlayer;
+        stockMessOut.textM = nikName;
+        this.server.sendToAllTCP(stockMessOut);
+
     }
 
     public MainGame getMainGame() {
@@ -126,6 +139,8 @@ public class GameServer {
         if (server.getConnections().length > 0) return true;
         else return false;
     }
+
+
 
 
 }

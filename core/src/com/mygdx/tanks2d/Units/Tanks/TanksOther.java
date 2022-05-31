@@ -22,9 +22,6 @@ import java.util.Map;
 
 public class TanksOther { /// много танков )))
 
-    public static int RED_COMMAND = 1;
-    public static int BLUE_COMMAND = 2;
-
     private BitmapFont textFont;
 
     HashMap<Integer, OpponentsTanks> listOpponents;
@@ -144,7 +141,7 @@ public class TanksOther { /// много танков )))
         OpponentsTanks r = new OpponentsTanks(
                 new Vector2(x, y),
                 new Vector2(1, 0),
-                0, true,
+                Heading_type.RED_COMMAND, true,
                 nomer, listOpponents, gsp
         );
         listOpponents.put(nomer, r);
@@ -180,7 +177,7 @@ public class TanksOther { /// много танков )))
 
 
             sb.setColor(t.getColor(), t.getColor() + .5f, t.getColor(), 1);
-            if (t.getCommand() == RED_COMMAND) {
+            if (t.getCommand() == Heading_type.RED_COMMAND) {
                 if (!t.move) b = img;
                 else if (MathUtils.sin(gsp.getTimeInGame() * 50) >= 0) b = img;
                 else b = img2;

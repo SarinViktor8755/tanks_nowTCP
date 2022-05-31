@@ -13,6 +13,8 @@ public class Bullet implements Pool.Poolable {
     public Vector2 position = new Vector2(0, 0);
     public Vector2 direction = new Vector2(0, 0);
 
+    //public boolean vis = true;
+
     public int namber = 0;
 
 
@@ -23,25 +25,33 @@ public class Bullet implements Pool.Poolable {
     @Override
     public void reset() {
         //вызывается при выстреле пули
-        this.position.set(0, 0);
-        this.direction.set(0, 0);
+        this.position.setZero();
+        this.direction.setZero();
+        this.namber = 0;
+
     }
 
     // метод, который мы можем вызвать для обновления нашей логики маркеров
-    public void update() {
+    public void update(float delta) {
 
-        this.direction.clamp(BULLET_SPEED,BULLET_SPEED);
+        this.direction.clamp(BULLET_SPEED, BULLET_SPEED);
         this.direction.setLength(BULLET_SPEED);
 
-        position.add(direction.scl(Gdx.graphics.getDeltaTime()));
+        //   position.cpy().add(direction.scl(Gdx.graphics.getDeltaTime()));
+        // System.out.println(direction.len());
+        position.x = position.x + direction.x * delta;
+        position.y = position.y + direction.y * delta;
+        ///   System.out.println(delta);
     }
 
     // способ задания положения и направления пуль (стрельбы)
     public void fireBullet(float xpos, float ypos, float xvel, float yvel, int n) {
+
         this.position.set(xpos, ypos);
-        this.direction.set(xvel, yvel).clamp(BULLET_SPEED,BULLET_SPEED);
+        this.direction.set(xvel, yvel).clamp(BULLET_SPEED, BULLET_SPEED);
         this.direction.setLength(BULLET_SPEED);
         this.namber = n;
+
     }
 
     // то же, что и вышеописанный метод с векторами

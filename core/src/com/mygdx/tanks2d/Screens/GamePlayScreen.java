@@ -148,7 +148,7 @@ public class GamePlayScreen implements Screen {
 
 /////////////стрельба
 
-        this.bullets.randerBullets();
+        this.bullets.randerBullets(delta);
         this.pc.render(getBatch());
         this.startFlashForMainTank();                                                  // вспышка из дула и вспышка вокруг танка
 

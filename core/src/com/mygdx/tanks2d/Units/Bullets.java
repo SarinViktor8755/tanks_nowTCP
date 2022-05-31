@@ -31,26 +31,29 @@ public class Bullets {
         b.fireBullet(pos.x, pos.y, vel.x, vel.y, nomer);
         // добавьте в наш массив маркеры, чтобы мы могли получить к ним доступ в нашем методе визуализации
         activeBullets.add(b);
+
         // System.out.println(activeBullets.size);
     }
 
-    public void randerBullets() {
+    public void randerBullets(float delta) {
         float width = 5;
         float height = 13;
         SpriteBatch sb = gpl.getBatch();
         sb.setColor(1, MathUtils.random(0,255),  MathUtils.random(0,255), 1);
         for (Bullet b : activeBullets) {
+
             if (!checkingGoingAbroad(b.position.x, b.position.y)) {
                 removeBullet(b);
                 continue;
             }
+
 
             for (int i = 0; i < MathUtils.random(1, 4); i++) {
                 if (MathUtils.randomBoolean(.7f))
                    // System.out.println(b.getNamber() + " - -- - -");
                     gpl.pc.addParticalsSmokeOneBullet(b.position.x + MathUtils.random(-MAX_distribution_smoke, +MAX_distribution_smoke), b.position.y + MathUtils.random(-MAX_distribution_smoke, +MAX_distribution_smoke));
             }
-            b.update(); // update bullet
+            b.update(delta); // update bullet
 //                if(i ==1)
             sb.draw(img,
                     b.position.x - width / 2,
@@ -77,11 +80,13 @@ public class Bullets {
 
     public void removeBullet(int nomBullet){  // удаление по номеру
         System.out.println("FINE:");
+        Bullet b;
         for (int i = 0; i < activeBullets.size; i++) {
-            //System.out.println("FINE:  "+ activeBullets.get(i).namber + "  " + nomBullet);
-            if(activeBullets.get(i).namber == nomBullet){
+            b = activeBullets.get(i);
+            if(b.namber == nomBullet){
+                //bp.free(b);
+                b.position.set(-20_000,-20_000);
 
-                bp.free(activeBullets.get(i));
             }
         }
 

@@ -305,8 +305,8 @@ public class ParticleCustum {
     }
 
     private boolean checkViseble(float x, float y) {
-        if (!MathUtils.isEqual(gps.getTank().getPosition().x, x, 350)) return false;
-        if (!MathUtils.isEqual(gps.getTank().getPosition().y, y, 350)) return false;
+        if (!MathUtils.isEqual(gps.getCameraGame().getCameraPosition().x, x, 500)) return false;
+        if (!MathUtils.isEqual(gps.getCameraGame().getCameraPosition().y, y, 350)) return false;
         return true;
     }
 

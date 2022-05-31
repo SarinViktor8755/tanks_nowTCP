@@ -36,7 +36,7 @@ public class OpponentsTanks { // ОДИН ТАНК
     // описание
     public int hp;
     //private String nikName;
-    Integer command;// команда
+     public Integer command;// команда
     private String nikPlayer;
 
     public Vector2 getDirectionMovementControll() {

@@ -57,8 +57,8 @@ public class IndexBullets {
             bullet.update(dt);
 
             ////////////
-            if(MathUtils.randomBoolean(.05f)){
-                gameServer.sendSHELL_RUPTURE(bullet.position.x, bullet.position.y,bullet.getNom());
+            if(MathUtils.randomBoolean(.02f)){
+                delBullet(bullet);
             }
             ////////////
 
@@ -79,6 +79,11 @@ public class IndexBullets {
         bp.free(bullet);
         activeBullets.removeIndex(index);
 
+    }
+
+    public void delBullet(Bullet bullet){
+        gameServer.sendSHELL_RUPTURE(bullet.position.x, bullet.position.y,bullet.getNom());
+        bullet.position.set(-20_000,-20_000);
     }
 
 

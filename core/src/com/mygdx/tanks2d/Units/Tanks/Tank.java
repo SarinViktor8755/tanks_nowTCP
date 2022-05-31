@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.Screens.Controll.Controller;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
 
@@ -35,7 +36,7 @@ public class Tank {
 
     float deltaSled;
     Vector2 deltaSledVec;
-    Integer command = 1; // по умолчанию 1 синяя команда временно
+    Integer command = Heading_type.BLUE_COMMAND; // по умолчанию 1 синяя команда временно
     final float SPEED = 90f;
     final float SPEED_ROTATION = 180f;
 
@@ -217,10 +218,9 @@ public class Tank {
         tr.setRotation(false);
         update(directionMovement, inTouch);
 
-        command = 1;
 
      //   if (MathUtils.randomBoolean(0.2f)) command = MathUtils.random(0, 3);
-        if (command == gsp.getTanksOther().RED_COMMAND) {
+        if (command == Heading_type.RED_COMMAND) {
             sb.draw(img,
                     position.x - 20, position.y - 20,
                     20, 20,
@@ -240,7 +240,7 @@ public class Tank {
                     0, 0,
                     img.getWidth(), img.getHeight(),
                     false, false);
-        } else if (command == gsp.getTanksOther().BLUE_COMMAND) {
+        } else if (command == Heading_type.BLUE_COMMAND) {
             sb.draw(imgr,
                     position.x - 20, position.y - 20,
                     20, 20,

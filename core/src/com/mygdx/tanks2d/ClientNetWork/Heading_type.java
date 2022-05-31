@@ -21,4 +21,10 @@ public class Heading_type {
     public static final int DISCONECT_PLAYER = 11;
 
     public static final int SHELL_RUPTURE = 12; // удаление пули - уничтожение ее
+
+    public static final int BLUE_COMMAND = 44;
+    public static final int RED_COMMAND = 45;
+
+    public static final int LIFE_TANK = 47;
+    public static final int DEATH_TANK = 48;
 }
