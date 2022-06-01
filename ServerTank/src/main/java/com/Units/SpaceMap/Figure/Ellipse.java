@@ -22,6 +22,11 @@ public class Ellipse implements Figure {
         return false;
     }
 
+    @Override
+    public Vector2 get_vector2_from_center(int x, int y) {
+        return null;
+    }
+
     public Vector2 getPositionCenter() {
         return positionCenter;
     }

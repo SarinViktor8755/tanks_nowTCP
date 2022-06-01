@@ -32,4 +32,8 @@ public class CircleCollision {
     public String toString() {
         return "CircleCollision{circule=" + circule + ", radius=" + radius + '}';
     }
+
+    Vector2 get_vector2_from_center(int xp, int yp){
+        return null;
+    }
 }

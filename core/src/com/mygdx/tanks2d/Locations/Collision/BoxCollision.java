@@ -20,6 +20,10 @@ public class BoxCollision {
         return false;
     }
 
+    Vector2 get_vector2_from_center(int x, int y){
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Box{" +
