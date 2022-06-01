@@ -30,7 +30,8 @@ public class MainClient {
 //    public ArrayDeque<PacketModel> inDequePacket; // входящие пакеты для обработки;
 
     public MainClient(MainGame mg) {
-
+        this.mg = mg;
+        routerSM = new RouterSM(mg);
 //        // pre java 8 lambdas
 //        Thread t = new Thread(new Runnable() {
 //            public void run() {
@@ -43,8 +44,8 @@ public class MainClient {
 
         client = new Client();
         client.start();
-        routerSM = new RouterSM(mg);
-        this.mg = mg;
+
+
 
         // For consistency, the classes to be sent over the network are
         // registered by the same method for both the client and server.
@@ -105,6 +106,7 @@ public class MainClient {
     public void router(Object object) {
         if (!onLine) return;
         if (object instanceof Network.PleyerPositionNom) { // полученеи позиции играков
+
             Network.PleyerPositionNom pp = (Network.PleyerPositionNom) object;
             frameUpdates.put(pp.nom, true);
             if (pp.nom == client.getID()) return;

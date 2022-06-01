@@ -79,7 +79,7 @@ public class Bullets {
     }
 
     public void removeBullet(int nomBullet){  // удаление по номеру
-        System.out.println("FINE:");
+      //  System.out.println("FINE:");
         Bullet b;
         for (int i = 0; i < activeBullets.size; i++) {
             b = activeBullets.get(i);

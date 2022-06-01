@@ -16,7 +16,9 @@ public class RouterMassege {
 
         if (Heading_type.BUTTON_STARTGAME == sm.tip) {
             gameServer.lp.getPlayerForId(id_coonect).setNikName(sm.textM);
+
             // ответ массив имен играков )))
+
             return;
         }
         if (Heading_type.MY_TOKKEN == sm.tip) {

@@ -11,8 +11,11 @@ import com.mygdx.tanks2d.ClientNetWork.Network;
 
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 import main.java.com.Units.ListPlayer.ListPlayers;
+import main.java.com.Units.ListPlayer.Player;
 
 public class GameServer {
 
@@ -55,9 +58,18 @@ public class GameServer {
                                    if (object instanceof Network.StockMessOut) {// полученеи сообщения
                                        Network.StockMessOut sm = (Network.StockMessOut) object;
                                        System.out.println(sm);
+                                       RouterMassege.routeSM(sm, connection.getID(), getMainGame().gameServer);
+                                   }
 
-                                       send_PARAMETERS_PLAYER(lp.getPlayerForId(connection.getID()).getHp(),Heading_type.RED_COMMAND,lp.getPlayerForId(connection.getID()).getNikName(),connection.getID());
-                                       RouterMassege.routeSM(sm,connection.getID(), getMainGame().gameServer);
+                                   if (object instanceof Network.GivePlayerParameters) {
+                                       System.out.println(connection.getID() + " ::GivePlayerParameters" + (Network.GivePlayerParameters) object);
+                                       Network.GivePlayerParameters gpp = (Network.GivePlayerParameters) object;
+                                       Player p = mainGame.gameServer.getLp().getPlayerForId(gpp.nomerPlayer);
+                                       p.setNikName(gpp.nik);
+                                       System.out.println(p.getNikName());
+                                       if (p.getNikName() != null)
+                                           mainGame.gameServer.send_PARAMETERS_PLAYER(p, connection.getID(),gpp.nomerPlayer);
+
                                    }
 
 
@@ -70,32 +82,8 @@ public class GameServer {
         return server;
     }
 
-//    private void routerMassege(Network.StockMessOut sm, int id_coonect) {
-//
-//
-////        if (Heading_type.MY_SHOT == sm.tip) {
-////
-//////            System.out.println(sm.textM);
-//////            lp.getPlayerForId(id_coonect).setTokken(sm.textM);
-////            return;
-////        }
-////
-////        if (Heading_type.BUTTON_STARTGAME == sm.tip) {
-////            lp.getPlayerForId(id_coonect).setNikName(sm.textM);
-////            return;
-////        }
-////        if (Heading_type.MY_TOKKEN == sm.tip) {
-////            System.out.println(sm.textM);
-////            lp.getPlayerForId(id_coonect).setTokken(sm.textM);
-////            return;
-////        }
-////
-//
-//
-//
-//    }
 
-    public void sendSHELL_RUPTURE(float x, float y, int nom){
+    public void sendSHELL_RUPTURE(float x, float y, int nom) {
         Network.StockMessOut stockMessOut = new Network.StockMessOut();
         stockMessOut.tip = Heading_type.SHELL_RUPTURE;
         stockMessOut.p1 = x;
@@ -105,24 +93,27 @@ public class GameServer {
 
     }
 
-
-    public void send_PARAMETERS_PLAYER(int HP,int comant, String nikName, int idPlayer){
+    public void send_PARAMETERS_PLAYER(int HP, int comant, String nikName, int forIdPlayer,int aboutPlayer) {
         Network.StockMessOut stockMessOut = new Network.StockMessOut();
         stockMessOut.tip = Heading_type.PARAMETERS_PLAYER;
-        stockMessOut.p1 = comant; // ХП
-        stockMessOut.p2 = comant;// КОМАНДА
+        stockMessOut.p1 = aboutPlayer; // ХП
+        stockMessOut.p2 = Heading_type.RED_COMMAND;// КОМАНДА
         stockMessOut.p3 = HP; // номер игрока
+        stockMessOut.p4 = HP; // номер игрока
         stockMessOut.textM = nikName; // ник нейм
-        this.server.sendToAllTCP(stockMessOut);
+        this.server.sendToTCP(forIdPlayer, stockMessOut);
     }
 
-    public void send_DISCONECT_PLAYER(int idPlayer){
+    public void send_PARAMETERS_PLAYER(Player p, int forIdPlayer, int abautPlayer) {
+        send_PARAMETERS_PLAYER(p.getHp(), p.getCommand(), p.getNikName(), forIdPlayer,abautPlayer);
+    }
+
+    public void send_DISCONECT_PLAYER(int idPlayer) {
         Network.StockMessOut stockMessOut = new Network.StockMessOut();
         stockMessOut.tip = Heading_type.DISCONECT_PLAYER;
         stockMessOut.p1 = idPlayer;
         this.server.sendToAllTCP(stockMessOut);
     }
-
 
 
     public MainGame getMainGame() {

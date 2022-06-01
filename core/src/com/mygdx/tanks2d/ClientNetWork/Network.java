@@ -21,6 +21,7 @@ public class Network {
         kryo.register(PleyerPositionNom.class);
         kryo.register(StockMessOut.class);
         kryo.register(StockMessInClient.class);
+        kryo.register(GivePlayerParameters.class);
     }
 
     /////////////////////////////////////
@@ -78,4 +79,18 @@ public class Network {
         public String textM;
         Integer nomerPlayer;
     }
+
+    public static class GivePlayerParameters{   // лиент просит параметры играка )))
+        public  int nomerPlayer;
+        public String nik;
+
+        @Override
+        public String toString() {
+            return
+                    "nomerPlayer=" + nomerPlayer +
+                    ", nik='" + nik + '\'' +
+                    '}';
+        }
+    }
+
 }

@@ -137,13 +137,7 @@ public class TanksOther { /// много танков )))
 
     /////////////
     public int createOponent(float x, float y, int nomer, float rotation) {
-        System.out.println("create");
-        OpponentsTanks r = new OpponentsTanks(
-                new Vector2(x, y),
-                new Vector2(1, 0),
-                Heading_type.RED_COMMAND, true,
-                nomer, listOpponents, gsp
-        );
+        OpponentsTanks r = new OpponentsTanks(new Vector2(x, y),new Vector2(1, 0), 0, true, nomer, listOpponents, gsp);
         listOpponents.put(nomer, r);
         listSled.put(nomer, .0f);
         return nomer;
@@ -166,19 +160,19 @@ public class TanksOther { /// много танков )))
 
     public void randerOtherTanks(SpriteBatch sb) {
         OpponentsTanks t;
-        System.out.println(this.listOpponents.size());
+       // System.out.println(this.listOpponents.size());
 
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
             t = tank.getValue();
+           // System.out.println(t);
             if(!tank.getValue().live) return;
             updateColor(t, Gdx.graphics.getDeltaTime());
             if (t.getNikPlayer() != null) {
                 textFont.draw(sb, t.getNikPlayer(), t.getPosition().x - t.getNikPlayer().length() * 4, t.getPosition().y + 50);
             }
+            else  gsp.getMainGame().getMainClient().getNetworkPacketStock().toSendMyParPlayer(t.nomder);
 
             t.update(Gdx.graphics.getDeltaTime());
-
-
 
 
             sb.setColor(t.getColor(), t.getColor() + .5f, t.getColor(), 1);
@@ -217,6 +211,7 @@ public class TanksOther { /// много танков )))
 
 
             addSled(t);
+
         }
         sb.setColor(1, 1, 1, 1);
     }
@@ -232,8 +227,14 @@ public class TanksOther { /// много танков )))
         } catch (NullPointerException e) {
             deltaSledVec.put(t.nomder, new Vector2(t.getPosition().x, t.getPosition().y));
         }
+     //   checkParam(t);
 
     }
+
+//    public void checkParam(OpponentsTanks t){
+//        float dst2 = t.getPosition().dst2(gsp.getMainGame().getGamePlayScreen().getCameraGame().getCamera().position.x,gsp.getMainGame().getGamePlayScreen().getCameraGame().getCamera().position.y);
+//        if(t.getNikPlayer()==null) gsp.getMainGame().getMainClient().getNetworkPacketStock().toSendMyParPlayer(t.nomder);
+//    }
 
     public void updateOtherTank(boolean onLine) {
          updateClienOtherTank();

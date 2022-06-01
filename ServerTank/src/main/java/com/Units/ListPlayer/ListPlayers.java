@@ -106,22 +106,11 @@ public class ListPlayers {
         Iterator<Map.Entry<Integer, Player>> entries = players.entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry<Integer, Player> entry = entries.next();
-            //System.out.println("ID = " + entry.getKey() + " День недели = " + entry.getValue());
-            //entry.getValue().xp
             temp2.set(entry.getValue().xp, entry.getValue().yp);
-
-            res = (
-                    (temp1.dst2(temp2) < 500) &&
-                            author_id != entry.getValue().getId()
-            );
-
-           // System.out.println(MathUtils.isEqual(xs, entry.getValue().xp, 30) + "  " + MathUtils.isEqual(ys, entry.getValue().xp, 30) + "   " + (author_id != entry.getValue().getId()));
+            res = ((temp1.dst2(temp2) < 500) && author_id != entry.getValue().getId());
             if (res) return true;
-
-
         }
         return false;
-
-
     }
+
 }
