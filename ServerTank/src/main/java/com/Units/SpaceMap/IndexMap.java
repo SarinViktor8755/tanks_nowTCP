@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import main.java.com.GameServer;
 import main.java.com.Units.SpaceMap.Figure.Ellipse;
 import main.java.com.Units.SpaceMap.Figure.Figure;
 import main.java.com.Units.SpaceMap.Figure.Rectangle;
@@ -47,7 +48,7 @@ public class IndexMap {
         for (int i = 0; i < arr.length(); i++) {
             ceateObjectmap((JSONObject) arr.get(i));
         }
-
+        System.out.println("install_map : " + GameServer.getDate());
     }
 
     ////////////////

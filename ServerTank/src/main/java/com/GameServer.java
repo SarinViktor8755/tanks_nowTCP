@@ -11,9 +11,11 @@ import com.mygdx.tanks2d.ClientNetWork.Network;
 
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
+import main.java.com.Bots.IndexBot;
 import main.java.com.Units.ListPlayer.ListPlayers;
 import main.java.com.Units.ListPlayer.Player;
 
@@ -21,6 +23,7 @@ public class GameServer {
 
     Server server;
     MainGame mainGame;
+    IndexBot indexBot;
 
 
     Network.PleyerPositionNom ppn = new Network.PleyerPositionNom();
@@ -76,6 +79,7 @@ public class GameServer {
                                }
                            }
         );
+        this.indexBot = new IndexBot(this,10);
     }
 
     public Server getServer() {
@@ -141,8 +145,20 @@ public class GameServer {
         else return false;
     }
 
+    public IndexBot getIndexBot() {
+        return indexBot;
+    }
+
     public ListPlayers getLp() {
         return lp;
+    }
+
+    public static String getDate(){
+        // Инициализация объекта date
+        Date date = new Date();
+        // Вывод текущей даты и времени с использованием toString()
+        return String.valueOf(date);
+
     }
 }
 

@@ -5,8 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.ClientNetWork.Network;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 
 import main.java.com.GameServer;
@@ -26,6 +28,7 @@ public class ListPlayers {
         this.players = new ConcurrentHashMap<>();
         this.playersTokken = new ConcurrentHashMap<>();
         this.gameServer = gameServer;
+        System.out.println("install_ListPlayers : " + GameServer.getDate());
     }
 
     public Player getPlayerForId(int id) { // почему то вызывается  иногда
