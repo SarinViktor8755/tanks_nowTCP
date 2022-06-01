@@ -2,6 +2,8 @@ package main.java.com;
 
 import static com.mygdx.tanks2d.ClientNetWork.Network.register;
 
+import static java.lang.Integer.parseInt;
+
 import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -26,7 +28,6 @@ public class GameServer {
     IndexBot indexBot;
 
 
-    Network.PleyerPositionNom ppn = new Network.PleyerPositionNom();
     static long previousStepTime; // шаг для дельты
     ListPlayers lp = new ListPlayers(this);
 
@@ -79,7 +80,7 @@ public class GameServer {
                                }
                            }
         );
-        this.indexBot = new IndexBot(this,10);
+        this.indexBot = new IndexBot(this,GameServer.getCountBot(args));
     }
 
     public Server getServer() {
@@ -145,6 +146,10 @@ public class GameServer {
         else return false;
     }
 
+    public int countLivePlayer(){
+        return  server.getConnections().length;
+    }
+
     public IndexBot getIndexBot() {
         return indexBot;
     }
@@ -158,7 +163,15 @@ public class GameServer {
         Date date = new Date();
         // Вывод текущей даты и времени с использованием toString()
         return String.valueOf(date);
+    }
 
+    private static int getCountBot(String[] par){
+        int res = 10;
+        try {
+            res = Integer.parseInt(par[0]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+        return res;
     }
 }
 

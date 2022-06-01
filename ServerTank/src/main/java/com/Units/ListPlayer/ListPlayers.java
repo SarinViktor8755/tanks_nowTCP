@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import main.java.com.GameServer;
 
 public class ListPlayers {
-    static public final int DEFULT_COUNT_BOT = 4;
+    static public final int DEFULT_COUNT_BOT = 20;
 
     ConcurrentHashMap<Integer, Player> players;
     ConcurrentHashMap<String, Integer> playersTokken; // tooken/ id
@@ -53,6 +53,10 @@ public class ListPlayers {
         this.players.put(con, new Player(con));
     }
 
+    public void addPlayer(Player p) { // конструктоор для ботов
+        this.players.put(p.getId(), p);
+    }
+
     public void clearList() {
         this.players.clear();
     }
@@ -80,6 +84,8 @@ public class ListPlayers {
         pn.roy_tower = pp.roy_tower;
         gameServer.getServer().sendToAllExceptTCP(id, pn);
     }
+
+
 
     public void sendParametersPlayers(int aboutPlayerID) { // рассылка о характеристиках игрока по id
         Network.StockMessOut sm = new Network.StockMessOut();
@@ -115,5 +121,6 @@ public class ListPlayers {
         }
         return false;
     }
+
 
 }

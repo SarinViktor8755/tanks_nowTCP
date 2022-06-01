@@ -27,7 +27,6 @@ public class Player {
         nikName = String.valueOf("Player no." + this.id);
 
        // this.behaviourBot = new BehaviourBot();
-
     }
 
     public void settPosition(Vector2 p) {
