@@ -53,12 +53,16 @@ public class RouterSM {
 //                stockMessOut.p4 = HP; // номер игрока
 //                stockMessOut.textM = nikName; // ник нейм
                 int id = mainGame.getMainClient().getClient().getID();
-                if (id == (int) sm.p1) saveParametrsMtTank(sm);
-                else {
+                if (id == (int) sm.p1) {
+                    saveParametrsMtTank(sm);
+
+                } else {
                     OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p1);
                     opponentsTanks.hp = (int) sm.p4;
                     opponentsTanks.command = (int) sm.p2;
                     opponentsTanks.setNikPlayer(sm.textM);
+                    if (opponentsTanks.hp < 0)
+                        mainGame.getGamePlayScreen().getPc().addAnimationDeath(mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p1).getPosition().x, mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p1).getPosition().y);
                 }
 
             } catch (NullPointerException e) {
@@ -84,5 +88,7 @@ public class RouterSM {
     private void saveParametrsMtTank(Network.StockMessOut sm) {
         mainGame.getGamePlayScreen().getTank().setHp((int) sm.p3);
         mainGame.getGamePlayScreen().getTank().setCommand(Heading_type.RED_COMMAND);
+        if (mainGame.getGamePlayScreen().getTank().getHp() < 0)
+            mainGame.getGamePlayScreen().getPc().addAnimationDeath(mainGame.getGamePlayScreen().getTank().getPosition().x, mainGame.getGamePlayScreen().getTank().getPosition().y);
     }
 }

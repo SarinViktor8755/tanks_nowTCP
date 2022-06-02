@@ -65,7 +65,7 @@ public class ParticleCustum {
             this.pasricalExplosionsBigParam.add(new PasricalExplosionBigParameter());
         }
 
-        for (int i = 0; i < 450; i++) {
+        for (int i = 0; i < 800; i++) {
             this.pasricalGarbage.add(new Garbage());
         }
 
@@ -102,13 +102,22 @@ public class ParticleCustum {
 
     }
 
+    public void addAnimationDeath(float x, float y) {
+        this.addPasricalDeath(x, y);
+        for (int i = 0; i < MathUtils.random(5, 12); i++) {
+            this.addGarbage(x, y);
+        }
+
+
+    }
+
 
     public void render(SpriteBatch sb) {
 //        i = 0;
 //        k = 0;
 
         if (MathUtils.randomBoolean(0.0005f)) {
-            this.addPasricalDeath(gps.getTank().getPosition().x + MathUtils.random(-300, 500), gps.getTank().getPosition().y);
+
 
         }
 
@@ -116,6 +125,11 @@ public class ParticleCustum {
 //            this.addPasricalDeath_little(gps.getTank().getPosition().x + MathUtils.random(-300,300) , gps.getTank().getPosition().y+ MathUtils.random(-300,300), MathUtils.random(2,5));
 //        }
 
+        if (MathUtils.randomBoolean(0.1f)) { // dphsd cvthnb
+
+            //this.addPasricalDeath(x,y);
+
+        }
 
         for (ParticleSmoke u : particleDeque) {
             if (!u.isLife()) continue;
@@ -273,10 +287,10 @@ public class ParticleCustum {
         this.explosion_Death.offerFirst(a);
     }
 
-    public void addPasricalDeath_little(float x, float y,float kefM) {
+    public void addPasricalDeath_little(float x, float y, float kefM) {
         if (!checkViseble(x, y)) return;
         Explosion_Death a = this.explosion_Death_little.pollLast();
-        a.setParameters(x, y,kefM);
+        a.setParameters(x, y, kefM);
         this.explosion_Death_little.offerFirst(a);
     }
 

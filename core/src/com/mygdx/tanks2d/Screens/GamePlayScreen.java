@@ -74,6 +74,10 @@ public class GamePlayScreen implements Screen {
     public GamePlayScreen() {
     }
 
+    public ParticleCustum getPc() {
+        return pc;
+    }
+
     @Override
     public void show() {
         controller.getDirectionMovement().set(0, 0);
@@ -141,9 +145,9 @@ public class GamePlayScreen implements Screen {
 
         try {
             this.pc.randerGarbage(batch);
-        }catch (ConcurrentModificationException e){}
 
-        this.pc.randerGarbage(batch);
+
+
 
         if(MathUtils.randomBoolean(.5f))
         //mainGame.getMainClient().getNetworkPacketStock().toSendMyNik();
@@ -169,7 +173,7 @@ public class GamePlayScreen implements Screen {
       //  this.getGameSpace().getLighting().renderLights(cameraGame.getCamera()); временно
         this.controller.draw();
         this.getBatch().setColor(1, 1, 1, 1);
-
+        }catch (ConcurrentModificationException e){}
     }
 
     public TanksOther getTanksOther() {
