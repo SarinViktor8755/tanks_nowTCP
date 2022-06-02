@@ -22,6 +22,8 @@ public class MainGame extends Game {
 
 	private Screen mainMenu;
 
+	public static String nik_name;
+
 	//public AssetsManagerGame assetsManagerGame;
 
 	static public boolean ANDROID;      // андроид

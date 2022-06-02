@@ -77,6 +77,7 @@ public class ParticleCustum {
     }
 
     public void randerGarbage(SpriteBatch spriteBatch) {
+
         int k = 0;
         for (Garbage g : pasricalGarbage) {  // частицы
             //if (!fd.isLife()) continue;
@@ -107,7 +108,7 @@ public class ParticleCustum {
 //        k = 0;
 
         if (MathUtils.randomBoolean(0.0005f)) {
-            this.addPasricalDeath(gps.getTank().getPosition().x + MathUtils.random(-300,500) , gps.getTank().getPosition().y);
+            this.addPasricalDeath(gps.getTank().getPosition().x + MathUtils.random(-300, 500), gps.getTank().getPosition().y);
 
         }
 
@@ -169,34 +170,32 @@ public class ParticleCustum {
         }
 
 
-
         for (Explosion_Death ed : explosion_Death_little) {
-            try {
 
 
             if (!ed.isLife()) continue;
             ed.update();
 
             /////////////////
-            TextureAtlas.AtlasRegion tex =  textureAtlasDeathExplosion.findRegion(ed.getNameTextureRegion());
-            float xw = MathUtils.map(100,0,100,0,tex.getRegionWidth());
-            float yw = MathUtils.map(100,0,100,0,tex.getRegionHeight());
+            TextureAtlas.AtlasRegion tex = textureAtlasDeathExplosion.findRegion(ed.getNameTextureRegion());
+            float xw = MathUtils.map(100, 0, 100, 0, tex.getRegionWidth());
+            float yw = MathUtils.map(100, 0, 100, 0, tex.getRegionHeight());
             /////////////////
             sb.draw(
                     tex,
-                    ed.getPosition().x - (tex.getRegionWidth() / 2/ed.getKefm()*ed.getTime_life()), ed.getPosition().y - (tex.getRegionHeight() / 2/ed.getKefm()*ed.getTime_life()),
-                    xw/ed.getKefm()*ed.getTime_life(), yw/ed.getKefm()*ed.getTime_life()
+                    ed.getPosition().x - (tex.getRegionWidth() / 2 / ed.getKefm() * ed.getTime_life()), ed.getPosition().y - (tex.getRegionHeight() / 2 / ed.getKefm() * ed.getTime_life()),
+                    xw / ed.getKefm() * ed.getTime_life(), yw / ed.getKefm() * ed.getTime_life()
             );
-            }catch (ConcurrentModificationException e){}
+
         }
 
         for (Explosion_Death ed : explosion_Death) {
             if (!ed.isLife()) continue;
             ed.update();
             /////////////////
-            TextureAtlas.AtlasRegion tex =  textureAtlasDeathExplosion.findRegion(ed.getNameTextureRegion());
-            float xw = MathUtils.map(100,0,100,0,tex.getRegionWidth());
-            float yw = MathUtils.map(100,0,100,0,tex.getRegionHeight());
+            TextureAtlas.AtlasRegion tex = textureAtlasDeathExplosion.findRegion(ed.getNameTextureRegion());
+            float xw = MathUtils.map(100, 0, 100, 0, tex.getRegionWidth());
+            float yw = MathUtils.map(100, 0, 100, 0, tex.getRegionHeight());
             /////////////////
             sb.draw(
                     tex,
@@ -204,6 +203,7 @@ public class ParticleCustum {
                     xw, yw
             );
         }
+
     }
 
     public void addParticalsSmoke(int quantity, float x, float y, int hp) {

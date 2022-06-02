@@ -83,6 +83,14 @@ public class Tank {
 
     }
 
+    public Integer getCommand() {
+        return command;
+    }
+
+    public void setCommand(Integer command) {
+        this.command = command;
+    }
+
     public int getHp() {
         return hp;
     }

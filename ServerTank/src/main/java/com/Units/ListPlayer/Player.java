@@ -2,11 +2,12 @@ package main.java.com.Units.ListPlayer;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.tanks2d.MainGame;
 
 public class Player {
     public static final int STATUS_MENU = 1;
     public static final int STATUS_IN_GAME = 2;
-    public static final int STATUS_DISCONECT = 6;
+
 
     private static int RED_COMMAND = 1;
     private static int BLUE_COMMAND = 2;
@@ -24,7 +25,7 @@ public class Player {
         hp = 100;
         death = 1;
         command = MathUtils.random(1, 2);
-        nikName = String.valueOf("Player no." + this.id);
+        nikName = "Player no." + this.id;
 
        // this.behaviourBot = new BehaviourBot();
     }
@@ -135,6 +136,11 @@ public class Player {
 
     public void setCommand(int command) {
         this.command = command;
+    }
+
+    public void minusHP(int minus){
+        this.hp -= minus;
+        MathUtils.clamp(hp,0,100);
     }
 
 

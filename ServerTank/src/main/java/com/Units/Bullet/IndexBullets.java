@@ -58,8 +58,13 @@ public class IndexBullets {
 
             ////////////
            // System.out.println(bullet.getAuthor_bullet());
-            if(gameServer.getLp().projectile_collide_with_players(bullet.getAuthor_bullet(),bullet.position.x, bullet.position.y)){
-                delBullet(bullet);
+
+            /// попадание по игкроку(np)
+            int np = gameServer.getLp().projectile_collide_with_players(bullet.getAuthor_bullet(),bullet.position.x, bullet.position.y);
+            if(np!=-1){
+                delBullet(bullet); // /тут ели попали в игрок 1. минусуем хп 2. уничтожаем патрон 3. рассылаем игрока
+                gameServer.getLp().getPlayerForId(np).minusHP(25);
+                gameServer.send_PARAMETERS_PLAYER(gameServer.getLp().getPlayerForId(np)); // рассылка всем
             }
 
             if(gameServer.getMainGame().getMapSpace().isPointInCollision(bullet.position.x,bullet.position.y)) delBullet(bullet);
@@ -67,7 +72,7 @@ public class IndexBullets {
 
             ////////////
 
-            System.out.println("  " + activeBullets.get(i));
+          //  System.out.println("  " + activeBullets.get(i));
             if (checkingGoingAbroad(bullet.position.x, bullet.position.y)) {
                 freeBullet(i,bullet);
                 System.out.println("вышел за границу карты x: " + bullet.position.x +"  y: " + bullet.position.y);

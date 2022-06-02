@@ -18,6 +18,7 @@ public class ListPlayers {
 
     ConcurrentHashMap<Integer, Player> players;
     ConcurrentHashMap<String, Integer> playersTokken; // tooken/ id
+
     GameServer gameServer;
     Network.PleyerPositionNom pn = new Network.PleyerPositionNom();
 
@@ -109,17 +110,19 @@ public class ListPlayers {
                 '}';
     }
 
-    public boolean projectile_collide_with_players(int author_id, float xs, float ys) {
-        boolean res = false;
+    public int projectile_collide_with_players(int author_id, float xs, float ys) {
+        int res = -1;
         temp1.set(xs, ys);
         Iterator<Map.Entry<Integer, Player>> entries = players.entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry<Integer, Player> entry = entries.next();
             temp2.set(entry.getValue().xp, entry.getValue().yp);
-            res = ((temp1.dst2(temp2) < 500) && author_id != entry.getValue().getId());
-            if (res) return true;
+            if(((temp1.dst2(temp2) < 500) && author_id != entry.getValue().getId()))
+                res = entry.getKey();
+                ;
+            if (res!=-1) return res;
         }
-        return false;
+        return res;
     }
 
 

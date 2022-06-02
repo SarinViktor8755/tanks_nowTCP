@@ -24,6 +24,8 @@ import com.mygdx.tanks2d.Units.Bullets;
 import com.mygdx.tanks2d.Units.Tanks.Tank;
 import com.mygdx.tanks2d.Units.Tanks.TanksOther;
 
+import java.util.ConcurrentModificationException;
+
 
 public class GamePlayScreen implements Screen {
     private MainGame mainGame;
@@ -135,7 +137,12 @@ public class GamePlayScreen implements Screen {
         this.batch.begin();
         this.gameSpace.renderSpace((OrthographicCamera) cameraGame.getCamera());                //рендер пространство
         this.cameraGame.getCamera().update();
-        this.getGameSpace().getRadspurens().randerRadspurens(batch);                            // следы от танка
+        this.getGameSpace().getRadspurens().randerRadspurens(batch);// следы от танка
+
+        try {
+            this.pc.randerGarbage(batch);
+        }catch (ConcurrentModificationException e){}
+
         this.pc.randerGarbage(batch);
 
         if(MathUtils.randomBoolean(.5f))

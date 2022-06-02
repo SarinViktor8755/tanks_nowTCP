@@ -4,11 +4,16 @@ import static com.badlogic.gdx.math.MathUtils.random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.mygdx.tanks2d.MainGame;
 
 public class NikName {
     public static String getNikName() {
-        Preferences prefs = Gdx.app.getPreferences("NikName");
-        return prefs.getString("nik", "UserName_" + random(1024));
+        String nik = MainGame.nik_name;
+        if (MainGame.nik_name == null) {
+            Preferences prefs = Gdx.app.getPreferences("NikName");
+            return prefs.getString("nik", "UserName_" + random(1024));
+        } else return MainGame.nik_name;
+
     }
 
     public static void setNikName(String nik) {
@@ -21,7 +26,7 @@ public class NikName {
     public static String getTokken() {
         String token;
         String tokken = "tokken";
-        Preferences prefs = Gdx.app.getPreferences("tokken");
+        Preferences prefs = Gdx.app.getPreferences("NikName");
         if (!prefs.contains(tokken)) token = genirateTokk();
         else token = prefs.getString(tokken);
         prefs.putString(tokken, token);
@@ -33,6 +38,6 @@ public class NikName {
 
     private static String genirateTokk() {
         long longToken = Math.abs(random.nextLong());
-        return Long.toString(longToken, 16);
+        return Long.toString(longToken, 32);
     }
 }

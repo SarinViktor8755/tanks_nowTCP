@@ -113,6 +113,21 @@ public class GameServer {
         send_PARAMETERS_PLAYER(p.getHp(), p.getCommand(), p.getNikName(), forIdPlayer,abautPlayer);
     }
 
+    public void send_PARAMETERS_PLAYER(Player p) { // для всех рассылк апараметров
+        Network.StockMessOut stockMessOut = new Network.StockMessOut();
+        stockMessOut.tip = Heading_type.PARAMETERS_PLAYER;
+        stockMessOut.p1 = p.getId(); // ХП
+        stockMessOut.p2 = Heading_type.RED_COMMAND;// КОМАНДА
+        stockMessOut.p3 = p.getHp(); // номер игрока
+        stockMessOut.p4 = p.getHp(); // номер игрока
+        stockMessOut.textM = p.getTokken(); // ник нейм
+
+        this.server.sendToAllTCP(stockMessOut);
+    }
+
+
+
+
     public void send_DISCONECT_PLAYER(int idPlayer) {
         Network.StockMessOut stockMessOut = new Network.StockMessOut();
         stockMessOut.tip = Heading_type.DISCONECT_PLAYER;

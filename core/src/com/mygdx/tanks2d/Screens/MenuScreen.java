@@ -248,6 +248,8 @@ public class MenuScreen implements Screen {
             statusConnetct.setColor(0,0,0,1);
             textButton.setText("Play Game");
 
+            MainGame.nik_name = NikName.getNikName();
+
         } else {
             statusConnetct.setText("Server:disconnect");
             statusConnetct.setColor(Color.RED);
