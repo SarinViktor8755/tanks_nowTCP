@@ -58,7 +58,7 @@ public class RouterSM {
 
                 } else {
                     OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p1);
-                    opponentsTanks.hp = (int) sm.p4;
+                    opponentsTanks.hp = (int) sm.p3;
                     opponentsTanks.command = (int) sm.p2;
                     opponentsTanks.setNikPlayer(sm.textM);
                     if (opponentsTanks.hp < 0)

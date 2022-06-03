@@ -137,13 +137,14 @@ public class GamePlayScreen implements Screen {
         this.batch.setProjectionMatrix(cameraGame.getCamera().combined);
 
         this.cameraGame.getCamera().update();
-
         this.batch.begin();
+        try {
+
         this.gameSpace.renderSpace((OrthographicCamera) cameraGame.getCamera());                //рендер пространство
         this.cameraGame.getCamera().update();
         this.getGameSpace().getRadspurens().randerRadspurens(batch);// следы от танка
 
-        try {
+
             this.pc.randerGarbage(batch);
 
 
@@ -169,11 +170,14 @@ public class GamePlayScreen implements Screen {
 //        batch.setColor(1,1,1,1);
         //////////////////////////////////////
 
-        this.batch.end();
+            this.batch.end();
       //  this.getGameSpace().getLighting().renderLights(cameraGame.getCamera()); временно
         this.controller.draw();
         this.getBatch().setColor(1, 1, 1, 1);
-        }catch (ConcurrentModificationException e){}
+
+        }catch (ConcurrentModificationException e){this.batch.end();}
+
+
     }
 
     public TanksOther getTanksOther() {
