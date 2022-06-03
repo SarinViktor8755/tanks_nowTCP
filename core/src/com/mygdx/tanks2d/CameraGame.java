@@ -30,22 +30,22 @@ public class CameraGame{
         floatCamera = false;
         targetPoint = new Vector2();
         this.sizeMap = sm;
-
         this.wl = wl;
         this.hl = hl;
-
     }
 
     public void moveFloatCameraToPoint(float x , float y, float speed){
         this.targetPoint.set(x,y);
+       // System.out.println("moveFloatCameraToPoint");
         this.camera.position.sub(this.camera.position.cpy().sub(targetPoint.x,targetPoint.y,0).scl(Gdx.graphics.getDeltaTime() * speed));
         fixBounds();
     }
 
     public void jampCameraToPoint(float x , float y){
         //this.camera.position.set(x,y,0);
-        this.camera.position.set(x,y,0);
         fixBounds();
+        this.camera.position.set(x,y,0);
+
     }
 
 

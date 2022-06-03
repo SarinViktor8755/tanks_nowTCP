@@ -25,7 +25,6 @@ public class MainCollision {
     }
 
     public boolean isCollisionsRectangle(Vector2 pos) {
-       // System.out.println(box);
         for (BoxCollision b : box) {
             if (!b.isCollisionTank(pos)) return false;
         }

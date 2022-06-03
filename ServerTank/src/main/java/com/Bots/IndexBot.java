@@ -84,19 +84,55 @@ public class IndexBot extends Thread {
 
     public void send_bot_coordinates(){
         System.out.println("send_cor");
-//        Iterator<Map.Entry<Integer, Player>> entries = this.botList.entrySet().iterator();
-//        while (entries.hasNext()) {
-//            Network.PleyerPosition pp = new Network.PleyerPosition();
-//         //   pp.yp = entries.g.
-//            System.out.println();
-//
-//            gs.getLp().sendToAllPlayerPosition(-1, (Network.PleyerPosition) pp);
-//
-////            Map.Entry<Integer, Player> entry = entries.next();
-////            temp2.set(entry.getValue().xp, entry.getValue().yp);
-////            res = ((temp1.dst2(temp2) < 500) && author_id != entry.getValue().getId());
-////            if (res) return true;
-//        }
+        Iterator<Map.Entry<Integer, Player>> entries = this.botList.entrySet().iterator();
+        while (entries.hasNext()) {
+            if(MathUtils.randomBoolean()) continue;
+            Player p = entries.next().getValue();
+            float x = gs.getLp().getPlayerForId(p.getId()).getXp() + MathUtils.random(-1.5f,1.5f);
+            float y = gs.getLp().getPlayerForId(p.getId()).getYp()+ MathUtils.random(-1.5f,1.5f);
+            gs.getLp().getPlayerForId(p.getId()).setXp(x);
+            gs.getLp().getPlayerForId(p.getId()).setYp(y);
+
+            Network.PleyerPosition pp = new Network.PleyerPosition();
+            pp.xp = p.getXp();
+            pp.yp = p.getYp();
+            pp.roy_tower = 45;
+
+            gs.getLp().sendToAllPlayerPosition(p.getId(), pp);
+           // System.out.println(p);
+
+
+            if(MathUtils.randomBoolean(.6f)){
+                botShoot(p.getId());
+                System.out.println("shoot" + p.getId());
+            }
+
+        }
+
+
+    }
+
+    public void botShoot(int idBot){ /// доделаааать
+        Player bot = gs.getLp().getPlayerForId(idBot);
+
+     //   Heading_type.MY_SHOT, x, y, alignShoot,  (5000 + MathUtils.random(999999) + x - y), null
+//        pack.tip = tip;
+//        pack.p1 = p1;
+//        pack.p2 = p2;
+//        pack.p3 = p3;
+//        pack.p4 = p4;
+//        pack.textM = text;
+//        client.sendTCP(pack);
+        Vector2 velBullet = new Vector2(700, 0).setAngleDeg(bot.getRotTower());
+        Network.StockMessOut sm = new Network.StockMessOut();
+        sm.p1 = 50;
+        sm.p2 = 50;
+        sm.p3 = 45;
+        sm.p4 = 5000 + MathUtils.random(99999999);
+        sm.tip = Heading_type.MY_SHOT;
+
+        gs.getMainGame().getBullets().addBullet(new Vector2(bot.getXp(),bot.getYp()),velBullet,44,bot.getId());
+        gs.getServer().sendToAllTCP(sm);
     }
 
     public void updateCountBot(int lPlayers, int target_plaers) {

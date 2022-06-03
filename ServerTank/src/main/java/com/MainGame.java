@@ -32,6 +32,9 @@ public class MainGame {
 
     }
 
+    public IndexBullets getBullets() {
+        return bullets;
+    }
 
     private void startSecondaryThread_50() { // выполняется каждые 50 мс
         new Thread(new Runnable() {
@@ -41,21 +44,11 @@ public class MainGame {
                     while (true) {
                         if (gameServer.isServerLivePlayer()) Thread.sleep(timer_tread_50);
                         else Thread.sleep(450);
-                        //updateGame();
-//                        System.out.println("serverLife :: " + gameServer.isServerLivePlayer());
-//                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                        //
-//                        if (!gameServer.isServerLivePlayer()) {
-//                            Thread.sleep(300);
-//                            continue;
-//                        }
-                        //   System.out.println("Thread 50 !!!");
 
-                        //   System.out.println("_________________________");
                         gameServer.indexBot.updateCountBot(gameServer.countLivePlayer(), targetPlayer); // контроль количество ботов
                         gameServer.indexBot.send_bot_coordinates();
 
-//
+
 //                        поток 50 можно остоновить при отсутвии игрков
 //                                нужно будет обнулить игру результаты
 

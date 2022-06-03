@@ -140,6 +140,7 @@ public class GameServer {
         return mainGame;
     }
 
+
     private int getSizeBot(String args[]) {
         try {
             return Integer.valueOf(args[0]);

@@ -143,6 +143,21 @@ public class Player {
         MathUtils.clamp(hp,0,100);
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Player{" +
+                "status=" + status +
+                ", xp=" + xp +
+                ", yp=" + yp +
+                ", r=" + r +
+                ", rotTower=" + rotTower +
+                ", hp=" + hp +
+                ", frags=" + frags +
+                ", death=" + death +
+                ", command=" + command +
+                ", id=" + id +
+                ", tokken='" + tokken + '\'' +
+                ", nikName='" + nikName + '\'' +
+                '}';
+    }
 }

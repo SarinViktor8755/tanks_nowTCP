@@ -28,7 +28,7 @@ public class RouterSM {
 
     public void routeSM(Network.StockMessOut sm) {
         if (Heading_type.MY_SHOT == sm.tip) {
-            position.set(sm.p1, sm.p2);
+            position.set(50, 50);
             velocity.set(0, 400);
             velocity.setAngleDeg(sm.p3); /// навправление
             mainGame.getGamePlayScreen().playAnimation(position, velocity, (int) sm.p4);
@@ -76,7 +76,7 @@ public class RouterSM {
             OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p3);
 //            opponentsTanks.hp = (int) sm.p1;
 
-            mainGame.getGamePlayScreen().playAnimation(position, velocity, (int) sm.p4);
+           // mainGame.getGamePlayScreen().playAnimation(position, velocity, (int) sm.p4);
             return;
         }
 
