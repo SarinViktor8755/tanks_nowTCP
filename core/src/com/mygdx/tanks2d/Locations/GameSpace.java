@@ -98,8 +98,8 @@ public class GameSpace {
     }
 
     public boolean checkObstacles(Vector2 pos){ // проверянет координаты с обьектами
-        if(mainCollision.isCircleCircle(pos)) return false;
-        if(mainCollision.isCollisionsRectangle(pos)) return false;
+//        if(mainCollision.isCircleCircle(pos)) return false;
+//        if(mainCollision.isCollisionsRectangle(pos)) return false;
         return true;
     }
 

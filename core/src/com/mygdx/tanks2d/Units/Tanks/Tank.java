@@ -36,7 +36,7 @@ public class Tank {
 
     float deltaSled;
     Vector2 deltaSledVec;
-    Integer command = Heading_type.BLUE_COMMAND; // по умолчанию 1 синяя команда временно
+    Integer command = Heading_type.RED_COMMAND; // по умолчанию 1 синяя команда временно
     final float SPEED = 90f;
     final float SPEED_ROTATION = 180f;
 
@@ -134,6 +134,8 @@ public class Tank {
         generatorSled();
 
 
+        collisinRectangleTrue();
+        collisinCircleTrue();
     }
 
     private void generatorSled() {
@@ -146,52 +148,36 @@ public class Tank {
 
     private void moveMainTank(Vector2 directionMovementControll) { // движние основного танка
         //System.out.println(direction.len());
-        if (MathUtils.sin(gsp.getTimeInGame() * 50) >= 0)
-            img = gsp.getMainGame().getAssetManager().get("trb1.png");
-        else img = gsp.getMainGame().getAssetManager().get("trb2.png");
-        if (raz > 20)
+
+/////////////////////////////ВРАЩЕНИЕ БАШНИ
+        if (raz > 10) // поворот башни
             if ((directionMovementControll.angleDeg(direction) > 180)) {
                 this.direction.setAngleDeg(direction.angleDeg() - Gdx.graphics.getDeltaTime() * SPEED_ROTATION);
             } else {
                 this.direction.setAngleDeg(direction.angleDeg() + Gdx.graphics.getDeltaTime() * SPEED_ROTATION);
             }
+/////////////////////////
+//        if ((gsp.getTanksOther().isCollisionsTanks(position.cpy().add(direction.cpy().nor().scl(3)))) != null) {  // танки другие
+//        } else if ((gsp.getTanksOther().isCollisionsTanks(position.cpy().add(direction.cpy().nor().scl(6)))) != null) {  // танки другие
+//        } else
 
-        if ((gsp.getTanksOther().isCollisionsTanks(position.cpy().add(direction.cpy().nor().scl(3)))) != null) {  // танки другие
-        } else if ((gsp.getTanksOther().isCollisionsTanks(position.cpy().add(direction.cpy().nor().scl(6)))) != null) {  // танки другие
-        } else
-            ////////////////////////////
-            if (!gsp.getGameSpace().getMainCollision().isCollisionsRectangle(            // квараты
-                    getPosition().cpy().sub(getDirection().cpy().nor().scl(-5))
-            )) {
 
-                this.position.add(direction.cpy().rotateDeg(180).clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime() / 10));
+        if (gsp.getGameSpace().checkMapBorders(position.cpy().add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime())))) // границы карты
+            this.position.add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime()));
 
-                if (gsp.getGameSpace().getMainCollision().isCollisionsRectangle(            // квараты + 45
-                        getPosition().cpy().sub(getDirection().cpy().nor().scl(-5).rotateDeg(35))
-                )) {
-                    this.position.add(direction.cpy().rotateDeg(35).clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime() / 2));
-                } else if (gsp.getGameSpace().getMainCollision().isCollisionsRectangle(            // квараты + 45
-                        getPosition().cpy().sub(getDirection().cpy().nor().scl(-5).rotateDeg(-35))
-                )) {
-                    this.position.add(direction.cpy().rotateDeg(-35).clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime() / 2));
-                }
-                //   System.out.println("collision");
-            } else if (!gsp.getGameSpace().getMainCollision().isCircleCircle(position)) { // КРУГИ
-                this.position.add(direction.cpy().rotateDeg(180).clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime() / 10));
-                if (gsp.getGameSpace().getMainCollision().isCircleCircle(            // КРУГИ + 45
-                        getPosition().cpy().sub(getDirection().cpy().nor().scl(-5).rotateDeg(90))
-                )) {
-                    this.position.add(direction.cpy().rotateDeg(35).clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime() / 2));
-                } else if (gsp.getGameSpace().getMainCollision().isCircleCircle(            // КРУГИ - 45
-                        getPosition().cpy().sub(getDirection().cpy().nor().scl(-5).rotateDeg(-90))
-                )) {
-                    this.position.add(direction.cpy().rotateDeg(-35).clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime() / 2));
-                }
+        ///////////////////
 
-                // position.cpy().add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime() * -5));
-                // this.direction.scl(-1);
-            } else if (gsp.getGameSpace().checkMapBorders(position.cpy().add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime())))) // границы карты
-                this.position.add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime()));
+    }
+
+
+    public void collisinRectangleTrue(){
+        Vector2 c = gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition());
+        if(c!=null)position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
+    }
+
+    public void collisinCircleTrue(){
+        Vector2 c = gsp.getGameSpace().getMainCollision().isCircleCircle(getPosition());
+        if(c!=null)position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
     }
 
     private void generatorSmoke() { // генератор Дыма для танка
@@ -227,7 +213,7 @@ public class Tank {
         update(directionMovement, inTouch);
 
 
-     //   if (MathUtils.randomBoolean(0.2f)) command = MathUtils.random(0, 3);
+        //   if (MathUtils.randomBoolean(0.2f)) command = MathUtils.random(0, 3);
         if (command == Heading_type.RED_COMMAND) {
             sb.draw(img,
                     position.x - 20, position.y - 20,

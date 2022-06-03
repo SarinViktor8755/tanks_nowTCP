@@ -48,8 +48,9 @@ public class MainGame extends Game {
 
 		mainClient = new MainClient(this);
 
-		if (tip == 1) ANDROID = true;
-		else ANDROID = false;
+		if (tip == 1) ANDROID = false;
+		else ANDROID = true;
+
 
 
 

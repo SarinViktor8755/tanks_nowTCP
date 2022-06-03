@@ -374,9 +374,9 @@ public class TanksOther { /// много танков )))
         return this.listOpponents.get(id);
     }
 
-    public Integer isCollisionsTanks(Vector2 pos) {
+    public Vector2 isCollisionsTanks(Vector2 pos) {
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
-            if (tank.getValue().isCollisionsTanks(pos)) return tank.getKey();
+            if (tank.getValue().isCollisionsTanks(pos)) return new Vector2(1,1);
         }
         return null;
     }

@@ -53,7 +53,7 @@ public class MainGame {
 //                                нужно будет обнулить игру результаты
 
 
-                        System.out.println("is_end_math : " + is_end_math());
+             //           System.out.println("is_end_math : " + is_end_math());
 
                     }
                 } catch (Exception e) {

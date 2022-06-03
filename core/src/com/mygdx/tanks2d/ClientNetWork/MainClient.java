@@ -115,7 +115,7 @@ public class MainClient {
                 mg.getGamePlayScreen().getTanksOther().setTankPosition(pp, mg.getMainClient().frameUpdates.get(pp.nom));
                 mg.getMainClient().frameUpdates.put(pp.nom, false); /// закрывает флаг о рендере __
             } catch (NullPointerException e) {
-               // e.printStackTrace();
+                 e.printStackTrace();
             }
 
             return;

@@ -1,27 +1,36 @@
 package com.mygdx.tanks2d.InputProcessor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
 
-public class InputProcessorPC implements InputProcessor {
+import java.io.InputStream;
+
+public class InputProcessorDesktop implements InputProcessor {
     GamePlayScreen gps;
+    Vector2 velocity;
 
 
-    public InputProcessorPC(GamePlayScreen gamePlayScreen) {
+
+    public InputProcessorDesktop(GamePlayScreen gamePlayScreen) {
         this.gps = gamePlayScreen;
-
+        this.velocity = new Vector2(0,0);
+        Gdx.input.setInputProcessor(this);
+        System.out.println("create_InputProcessor");
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
     public boolean keyDown(int keycode) {
-
-
+        System.out.println(">>>>>");
+        System.out.println(keycode);
             return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-
+        System.out.println(keycode);
         return false;
     }
 

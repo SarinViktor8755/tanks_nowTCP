@@ -82,30 +82,41 @@ public class IndexBot extends Thread {
 
     }
 
+    public void updateDeltaTimeBots(float deltaTime){
+        Iterator<Map.Entry<Integer, Player>> entries = this.botList.entrySet().iterator();
+        while (entries.hasNext()) {
+            Player p = entries.next().getValue();
+          //  p.u
+        }
+    }
+
     public void send_bot_coordinates(){
-        System.out.println("send_cor");
+      //  System.out.println("send_cor");
         Iterator<Map.Entry<Integer, Player>> entries = this.botList.entrySet().iterator();
         while (entries.hasNext()) {
             if(MathUtils.randomBoolean()) continue;
             Player p = entries.next().getValue();
-            float x = gs.getLp().getPlayerForId(p.getId()).getXp() + MathUtils.random(-1.5f,1.5f);
-            float y = gs.getLp().getPlayerForId(p.getId()).getYp()+ MathUtils.random(-1.5f,1.5f);
-            gs.getLp().getPlayerForId(p.getId()).setXp(x);
-            gs.getLp().getPlayerForId(p.getId()).setYp(y);
+
+
+//
+//            float x = p1.getXp() + MathUtils.random(-1.5f,1.5f);
+//            float y = p1.getYp()+ MathUtils.random(-1.5f,1.5f);
+//            p1.setXp(x);
+//            p1.setYp(y);
 
             Network.PleyerPosition pp = new Network.PleyerPosition();
             pp.xp = p.getXp();
             pp.yp = p.getYp();
-            pp.roy_tower = 45;
+            pp.roy_tower = pp.roy_tower;
 
             gs.getLp().sendToAllPlayerPosition(p.getId(), pp);
            // System.out.println(p);
 
 
-            if(MathUtils.randomBoolean(.6f)){
-                botShoot(p.getId());
-                System.out.println("shoot" + p.getId());
-            }
+//            if(MathUtils.randomBoolean(.006f)){
+//                botShoot(p.getId());
+//                System.out.println("shoot" + p.getId());
+//            }
 
         }
 

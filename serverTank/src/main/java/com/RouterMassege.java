@@ -11,6 +11,7 @@ public class RouterMassege {
             Vector2 velBullet = new Vector2(700, 0).setAngleDeg(sm.p3);
             gameServer.getMainGame().bullets.addBullet(new Vector2(sm.p1, sm.p2), velBullet, (int)sm.p4,id_coonect);
             gameServer.getServer().sendToAllTCP(sm);
+            System.out.println("shooooooooooot");
             return;
         }
 

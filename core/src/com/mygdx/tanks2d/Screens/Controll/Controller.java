@@ -46,6 +46,7 @@ public class Controller {
     private Label labelHP;
     private BitmapFont font;
 
+    private GamePlayScreen gamePlayScreen;
 
     private boolean buttonChangingOpponent;
 
@@ -58,6 +59,8 @@ public class Controller {
 
     public Controller(GamePlayScreen gsp) {
        // gsp.getAssetManager().get("de.pack", TextureAtlas.class);
+
+
 
         distance = new Vector2();
         inTuchMove = false;
@@ -84,7 +87,7 @@ public class Controller {
         final Image stick = new Image(gsp.getAssetsManagerGame().get("button.pack", TextureAtlas.class).findRegion("b"));
         pointStick = new Image(gsp.getAssetsManagerGame().get("button.pack", TextureAtlas.class).findRegion("stick"));
 ////////////////
-        System.out.println(pointStick.getImageHeight()+ "  ==== ___ ");
+       // System.out.println(pointStick.getImageHeight()+ "  ==== ___ ");
 
         pointStick.setSize(90, 90);
 
@@ -187,6 +190,7 @@ public class Controller {
         stage.addActor(labelHP);
 //////////////////////////////////
         //   stage.setDebugAll(true);
+//        if(!MainGame.ANDROID)
         stage.addActor(gropuButton);
 
         resetPoint(stick);

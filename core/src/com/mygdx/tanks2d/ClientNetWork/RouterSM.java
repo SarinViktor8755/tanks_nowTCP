@@ -28,19 +28,25 @@ public class RouterSM {
 
     public void routeSM(Network.StockMessOut sm) {
         if (Heading_type.MY_SHOT == sm.tip) {
-            position.set(50, 50);
+            position.set(sm.p1, sm.p2);
             velocity.set(0, 400);
             velocity.setAngleDeg(sm.p3); /// навправление
-            mainGame.getGamePlayScreen().playAnimation(position, velocity, (int) sm.p4);
+            try {
+                mainGame.getGamePlayScreen().playAnimation(position, velocity, (int) sm.p4);
+            }catch (NullPointerException e){e.printStackTrace();}
             return;
         }
 
-        if (Heading_type.SHELL_RUPTURE == sm.tip) {
+        if (Heading_type.SHELL_RUPTURE == sm.tip) { // РАЗРЫВ СНАРЯДА
             // System.out.println("BOOOOOOOOM!!!!!!!!!!!  " + sm.p1 + "  " + sm.p2 + "  " +  ((int)sm.p3));
             Vector2 pp = new Vector2(sm.p1, sm.p2);
 //            positionTemp.set(sm.p1 ,sm.p2 );
+            try {
+
+
             mainGame.getGamePlayScreen().playExplosion(pp, velocity);
             mainGame.getGamePlayScreen().getBullets().removeBullet((int) sm.p3);
+            }catch (NullPointerException e){e.printStackTrace();}
             return;
         }
 

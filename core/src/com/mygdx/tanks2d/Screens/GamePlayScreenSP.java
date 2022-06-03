@@ -1,21 +1,5 @@
 package com.mygdx.tanks2d.Screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.tanks2d.AudioEngine.AudioEngine;
-import com.mygdx.tanks2d.CameraGame;
-import com.mygdx.tanks2d.InputProcessor.InputProcessorPC;
-import com.mygdx.tanks2d.Locations.GameSpace;
-import com.mygdx.tanks2d.MainGame;
-import com.mygdx.tanks2d.ParticleEffect.ParticleCustum;
-import com.mygdx.tanks2d.Screens.Controll.Controller;
-import com.mygdx.tanks2d.Units.Bullets;
-import com.mygdx.tanks2d.Units.Tanks.Tank;
-import com.mygdx.tanks2d.Units.Tanks.TanksOtherSP;
-
 
 public class GamePlayScreenSP extends GamePlayScreen{
 //    private MainGame mainGame;

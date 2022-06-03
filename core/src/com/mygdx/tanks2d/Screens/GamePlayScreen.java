@@ -13,9 +13,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.AudioEngine.AudioEngine;
 import com.mygdx.tanks2d.CameraGame;
-import com.mygdx.tanks2d.ClientNetWork.NetworkPacketStock;
 import com.mygdx.tanks2d.ClientNetWork.ServiceClient;
-import com.mygdx.tanks2d.InputProcessor.InputProcessorPC;
+import com.mygdx.tanks2d.InputProcessor.InputProcessorDesktop;
 import com.mygdx.tanks2d.Locations.GameSpace;
 import com.mygdx.tanks2d.MainGame;
 import com.mygdx.tanks2d.ParticleEffect.ParticleCustum;
@@ -34,7 +33,7 @@ public class GamePlayScreen implements Screen {
     private float timeInGame = 0; // время в игре
     private GameSpace gameSpace; // карта_ локация
     private AudioEngine audioEngine;// игравой движок
-    private InputProcessorPC inputProcessorPC;
+    private InputProcessorDesktop inputProcessorPC;
     private Controller controller;
     private Tank tank;
     public Vector2 pos;
@@ -53,7 +52,7 @@ public class GamePlayScreen implements Screen {
 
         this.tanksOther = new TanksOther(this);
 
-        this.inputProcessorPC = new InputProcessorPC(this);
+        this.inputProcessorPC = new InputProcessorDesktop(this);
         Gdx.input.setInputProcessor(inputProcessorPC);
         this.pos = new Vector2(150, 150);
         this.cameraGame = new CameraGame(MainGame.WHIDE_SCREEN * 1.2f, MainGame.HIDE_SCREEN * 1.2f, gameSpace.getSizeLocationPixel(), gameSpace.WITH_LOCATION, gameSpace.HEIHT_LOCATION);
@@ -67,11 +66,17 @@ public class GamePlayScreen implements Screen {
         bullets = new Bullets(this);
         pc = new ParticleCustum(this, mainGame.getAssetManager().get("particle1.png", Texture.class), mainGame.getAssetManager().get("fire.png", Texture.class), mainGame.getAssetManager().get("iron.png", Texture.class),mainGame.getAssetManager().get("de.pack", TextureAtlas.class));
 
+
+//        if(!MainGame.ANDROID){
+//            inputProcessorPC = new InputProcessorDesktop(this);
+//
+//        }
         //getMainGame().getMainClient().getNetworkPacketStock().toSendMyNik();
         //get
     }
 
     public GamePlayScreen() {
+
     }
 
     public ParticleCustum getPc() {
@@ -116,8 +121,10 @@ public class GamePlayScreen implements Screen {
     }
 
     public void playAnimation(Vector2 pos,Vector2 vel,int nom){ // добавляет анимацию выстрела
-        this.getBullets().addBullet(pos,vel,nom);
         mainGame.getGamePlayScreen().pc.addPasricalDeath_little(pos.x, pos.y, 2.7f);
+        this.getBullets().addBullet(pos,vel,nom);
+        //System.out.println("playAnimation");
+
         mainGame.getGamePlayScreen().getAudioEngine().pleySoundKickStick(cameraGame.getCamera().position.x,cameraGame.getCamera().position.y, pos.x, pos.y);
     }
 

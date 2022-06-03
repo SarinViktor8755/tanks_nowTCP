@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class MainCollision {
     GamePlayScreen gsp;
 
+    Vector2 tempVector;
     private ArrayList<BoxCollision> box = new ArrayList<>();
     private ArrayList<CircleCollision> circle = new ArrayList<>();
 
@@ -17,6 +18,7 @@ public class MainCollision {
         this.gsp = gsp;
         this.circle = new ArrayList<>();
         this.box = new ArrayList<>();
+        tempVector = new Vector2();
     }
 
     public void addRectangleMapObject(Vector2 rn, Vector2 lu) {
@@ -24,11 +26,24 @@ public class MainCollision {
 
     }
 
-    public boolean isCollisionsRectangle(Vector2 pos) {
+
+
+    public Vector2 isCollisionsRectangle(Vector2 pos) {
         for (BoxCollision b : box) {
-            if (!b.isCollisionTank(pos)) return false;
+            if (!b.isCollisionTank(pos)){
+                tempVector.set(pos.cpy().sub(b.center));
+
+                if(Math.abs(tempVector.x) > Math.abs(tempVector.y)){
+                    if(tempVector.x>0) return  new Vector2(1,0); else return  new Vector2(-1,0);
+                }else {
+                    if(tempVector.y>0) return  new Vector2(0,1); else return  new Vector2(0,-1);
+                }
+
+
+            }
+
         }
-        return true;
+        return null;
     }
 
     ////////////////////////
@@ -37,11 +52,15 @@ public class MainCollision {
         this.circle.add(new CircleCollision(c, r));
     }
 
-    public boolean isCircleCircle(Vector2 pos) {
+    public Vector2 isCircleCircle(Vector2 pos) {
         for (CircleCollision c : circle) {
-           if (!c.isCollisionCircle(pos)) return false;
-        }
-        return true;
+           if (!c.isCollisionCircle(pos)) {
+
+               return tempVector.set(pos.cpy().sub(c.circule).nor());
+           }
+           }
+
+        return null;
     }
 
 }
