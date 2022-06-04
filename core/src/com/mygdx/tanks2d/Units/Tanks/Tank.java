@@ -136,6 +136,14 @@ public class Tank {
 
         collisinRectangleTrue();
         collisinCircleTrue();
+        collisinOtherTanksTrue();
+    }
+
+    private void collisinOtherTanksTrue() {
+        Vector2 ct = gsp.getTanksOther().isCollisionsTanks(position);
+        if (ct != null) {  // танки другие
+            position.add(ct.scl(2 * SPEED * Gdx.graphics.getDeltaTime()));
+        }
     }
 
     private void generatorSled() {
@@ -157,9 +165,7 @@ public class Tank {
                 this.direction.setAngleDeg(direction.angleDeg() + Gdx.graphics.getDeltaTime() * SPEED_ROTATION);
             }
 /////////////////////////
-//        if ((gsp.getTanksOther().isCollisionsTanks(position.cpy().add(direction.cpy().nor().scl(3)))) != null) {  // танки другие
-//        } else if ((gsp.getTanksOther().isCollisionsTanks(position.cpy().add(direction.cpy().nor().scl(6)))) != null) {  // танки другие
-//        } else
+        collisinOtherTanksTrue();
 
 
         if (gsp.getGameSpace().checkMapBorders(position.cpy().add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime())))) // границы карты
@@ -170,14 +176,14 @@ public class Tank {
     }
 
 
-    public void collisinRectangleTrue(){
+    public void collisinRectangleTrue() {
         Vector2 c = gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition());
-        if(c!=null)position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
+        if (c != null) position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
     }
 
-    public void collisinCircleTrue(){
+    public void collisinCircleTrue() {
         Vector2 c = gsp.getGameSpace().getMainCollision().isCircleCircle(getPosition());
-        if(c!=null)position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
+        if (c != null) position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
     }
 
     private void generatorSmoke() { // генератор Дыма для танка

@@ -278,7 +278,7 @@ public class OpponentsTanks { // ОДИН ТАНК
 
     public boolean isCollisionsTanks(Vector2 posTank) {
         float len = VectorUtils.getLen2(posTank, this.position);
-        if (len > 3 && len < 1300) return true;
+        if (len > 5 && len < 1300) return true;
         return false;
     }
 

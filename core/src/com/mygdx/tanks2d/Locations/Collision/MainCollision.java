@@ -22,26 +22,22 @@ public class MainCollision {
     }
 
     public void addRectangleMapObject(Vector2 rn, Vector2 lu) {
-        this.box.add( new BoxCollision(rn, lu));
+        this.box.add(new BoxCollision(rn, lu));
 
     }
 
-
-
     public Vector2 isCollisionsRectangle(Vector2 pos) {
         for (BoxCollision b : box) {
-            if (!b.isCollisionTank(pos)){
+            if (!b.isCollisionTank(pos)) {
                 tempVector.set(pos.cpy().sub(b.center));
-
-                if(Math.abs(tempVector.x) > Math.abs(tempVector.y)){
-                    if(tempVector.x>0) return  new Vector2(1,0); else return  new Vector2(-1,0);
-                }else {
-                    if(tempVector.y>0) return  new Vector2(0,1); else return  new Vector2(0,-1);
+                if (Math.abs(tempVector.x) > Math.abs(tempVector.y)) {
+                    if (tempVector.x > 0) return new Vector2(1, 0);
+                    else return new Vector2(-1, 0);
+                } else {
+                    if (tempVector.y > 0) return new Vector2(0, 1);
+                    else return new Vector2(0, -1);
                 }
-
-
             }
-
         }
         return null;
     }
@@ -54,11 +50,11 @@ public class MainCollision {
 
     public Vector2 isCircleCircle(Vector2 pos) {
         for (CircleCollision c : circle) {
-           if (!c.isCollisionCircle(pos)) {
+            if (!c.isCollisionCircle(pos)) {
 
-               return tempVector.set(pos.cpy().sub(c.circule).nor());
-           }
-           }
+                return tempVector.set(pos.cpy().sub(c.circule).nor());
+            }
+        }
 
         return null;
     }
