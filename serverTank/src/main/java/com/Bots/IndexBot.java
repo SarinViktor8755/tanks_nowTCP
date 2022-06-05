@@ -21,7 +21,7 @@ public class IndexBot extends Thread {
     private static BehaviourBot botBehavior;
 
     private static int NOM_ID_BOT = -100;
-    final float SPEED_ROTATION = 180f;
+
     private final Vector2 speed_constanta = new Vector2(90, 0);
 
     private Vector2 temp_position_vector;
