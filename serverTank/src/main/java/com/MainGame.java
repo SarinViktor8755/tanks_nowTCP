@@ -46,7 +46,7 @@ public class MainGame {
                         else Thread.sleep(450);
 
                         gameServer.indexBot.updateCountBot(gameServer.countLivePlayer(), targetPlayer); // контроль количество ботов
-                        gameServer.indexBot.send_bot_coordinates();
+                        gameServer.indexBot.updaeteBot(timer_tread_50);
 
 
 //                        поток 50 можно остоновить при отсутвии игрков

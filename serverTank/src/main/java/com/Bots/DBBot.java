@@ -4,113 +4,101 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class DBBot {
-    private final float ZERO_ATTACK = 1;
+    private static final float SPEED_RUN_1 = 90f;
+    private int id;
+    private Vector2 position;
+    private Vector2 body_rotation_angle;
+    private Vector2 angle_rotation_tower;
+    private float hp;
 
-    // таймеры
-    private float timer_attack = 0;
-    private float timer_tact = 0;
-    private float timer_stop = 0;
+    private String nikName;
 
-    private Vector2 target;
-    private Vector2 directionOfFollowing;
+    private float timerShoot; // время с последней аттаки
 
-    private Vector2 dublication_rotation;
-    private Vector2 dublication_position;
-    private boolean rotationKapkan = MathUtils.randomBoolean();
+    //////////////////////Target
 
-    public DBBot() {
-        this.timer_attack = 3;
-        this.timer_tact = 0;
-        this.timer_stop = 0;
-        this.directionOfFollowing = new Vector2(0, 0);
-        this.target = new Vector2(Integer.MIN_VALUE, -1);
-        this.directionOfFollowing = new Vector2(1, 1);
-        this.dublication_rotation = new Vector2(Vector2.X);
-        this.dublication_position = new Vector2(Vector2.X);
-        this.directionOfFollowing.setAngleDeg(MathUtils.random(365));
+    private Vector2 target_position;
+    private Vector2 target_body_rotation_angle;
+    private Vector2 target_angle_rotation_tower;
+
+
+    public int getId() {
+        return id;
     }
 
-    public void updateTimer(float dt) {
-        this.timer_attack -= dt;
-        this.timer_tact -= dt;
-        this.timer_stop -= dt;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public boolean isRedyAttack() {
-        if (timer_attack < 0) return true;
-        else return false;
+    public Vector2 getPosition() {
+        return position;
     }
 
-    public void newAttackZero() {
-        this.timer_attack = ZERO_ATTACK;
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 
-    public float getZERO_ATTACK() {
-        return ZERO_ATTACK;
+    public Vector2 getBody_rotation_angle() {
+        return body_rotation_angle.setLength(SPEED_RUN_1);
     }
 
-    public float getTimer_attack() {
-        return timer_attack;
+    public void setBody_rotation_angle(Vector2 body_rotation_angle) {
+        this.body_rotation_angle = body_rotation_angle;
     }
 
-    public void setTimer_attack(float timer_attack) {
-        this.timer_attack = timer_attack;
+    public Vector2 getAngle_rotation_tower() {
+        return angle_rotation_tower;
     }
 
-    public float getTimer_tact() {
-        return timer_tact;
+    public void setAngle_rotation_tower(Vector2 angle_rotation_tower) {
+        this.angle_rotation_tower = angle_rotation_tower;
     }
 
-    public void setTimer_tact(float timer_tact) {
-        this.timer_tact = timer_tact;
+    public float getHp() {
+        return hp;
     }
 
-    public float getTimer_stop() {
-        return timer_stop;
+    public void setHp(float hp) {
+        this.hp = hp;
     }
 
-    public void setTimer_stop(float timer_stop) {
-        this.timer_stop = timer_stop;
+    public String getNikName() {
+        return nikName;
     }
 
-    public Vector2 getTarget() {
-        return target;
+    public void setNikName(String nikName) {
+        this.nikName = nikName;
     }
 
-    public void setTarget(Vector2 target) {
-        this.target = target;
+    public float getTimerShoot() {
+        return timerShoot;
     }
 
-    public Vector2 getDirectionOfFollowing() {
-        return directionOfFollowing;
+    public void setTimerShoot(float timerShoot) {
+        this.timerShoot = timerShoot;
     }
 
-    public void setDirectionOfFollowing(Vector2 directionOfFollowing) {
-        this.directionOfFollowing = directionOfFollowing;
+    public Vector2 getTarget_position() {
+        return target_position;
     }
 
-    public boolean tackEnding() {
-        if (timer_tact < 0) return true;
-        else return false;
+    public void setTarget_position(Vector2 target_position) {
+        this.target_position = target_position;
     }
 
-    public boolean isRotationKapkan() {
-        return rotationKapkan;
+    public Vector2 getTarget_body_rotation_angle() {
+        return target_body_rotation_angle;
     }
 
-    public void setRotationKapkan(boolean rotationKapkan) {
-        this.rotationKapkan = rotationKapkan;
+    public void setTarget_body_rotation_angle(Vector2 target_body_rotation_angle) {
+        this.target_body_rotation_angle = target_body_rotation_angle;
     }
 
-    public void setTarget(float v, float v1) {
-        this.getTarget().set(v, v1);
+    public Vector2 getTarget_angle_rotation_tower() {
+        return target_angle_rotation_tower;
     }
 
-    public boolean isZeroTarget() {
-        if (this.target.x == Integer.MIN_VALUE) return true;
-        return false;
+    public void setTarget_angle_rotation_tower(Vector2 target_angle_rotation_tower) {
+        this.target_angle_rotation_tower = target_angle_rotation_tower;
     }
-
-
-
 }

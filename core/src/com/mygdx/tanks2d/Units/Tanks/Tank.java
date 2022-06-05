@@ -156,17 +156,8 @@ public class Tank {
 
     private void moveMainTank(Vector2 directionMovementControll) { // движние основного танка
         //System.out.println(direction.len());
-
-/////////////////////////////ВРАЩЕНИЕ БАШНИ
-        if (raz > 10) // поворот башни
-            if ((directionMovementControll.angleDeg(direction) > 180)) {
-                this.direction.setAngleDeg(direction.angleDeg() - Gdx.graphics.getDeltaTime() * SPEED_ROTATION);
-            } else {
-                this.direction.setAngleDeg(direction.angleDeg() + Gdx.graphics.getDeltaTime() * SPEED_ROTATION);
-            }
-/////////////////////////
+        rotation_the_tower(directionMovementControll);
         collisinOtherTanksTrue();
-
 
         if (gsp.getGameSpace().checkMapBorders(position.cpy().add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime())))) // границы карты
             this.position.add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime()));
@@ -174,6 +165,16 @@ public class Tank {
         ///////////////////
 
     }
+
+    private void rotation_the_tower(Vector2 directionMovementControll){
+        if (raz > 10) // поворот башни
+            if ((directionMovementControll.angleDeg(direction) > 180)) {
+                this.direction.setAngleDeg(direction.angleDeg() - Gdx.graphics.getDeltaTime() * SPEED_ROTATION);
+            } else {
+                this.direction.setAngleDeg(direction.angleDeg() + Gdx.graphics.getDeltaTime() * SPEED_ROTATION);
+            }
+    }
+
 
 
     public void collisinRectangleTrue() {

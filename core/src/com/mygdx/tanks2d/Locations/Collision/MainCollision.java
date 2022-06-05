@@ -30,7 +30,7 @@ public class MainCollision {
         for (BoxCollision b : box) {
             if (!b.isCollisionTank(pos)) {
                 tempVector.set(pos.cpy().sub(b.center));
-                if (Math.abs(tempVector.x) > Math.abs(tempVector.y)) {
+                if (Math.abs(tempVector.x) >= Math.abs(tempVector.y)) {
                     if (tempVector.x > 0) return new Vector2(1, 0);
                     else return new Vector2(-1, 0);
                 } else {

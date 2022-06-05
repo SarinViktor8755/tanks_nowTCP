@@ -228,12 +228,6 @@ public class OpponentsTanks { // ОДИН ТАНК
     }
 
 
-    @Override
-    public String toString() {
-        return "OpponentsTanks{" +
-                ", nikPlayer='" + nikPlayer + '\'' +
-                '}';
-    }
 
     public TowerRotation getTowerRotation() {
         return towerRotation;
