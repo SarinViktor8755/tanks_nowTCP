@@ -47,13 +47,13 @@ public class BehaviourBot { // поведение бота - вектор нап
         gs.getServer().sendToAllTCP(sm);
     }
 
-//    public static void updatePlayerInPlayList(ListPlayers listPlayers){
+    public static void updatePlayerInPlayList(){
 //        for (var entry : map.entrySet()) {
 //            System.out.println(entry.getKey() + "/" + entry.getValue());
 //        }
 //
 //
-//    }
+    }
 
 
 }

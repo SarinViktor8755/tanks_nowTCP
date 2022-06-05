@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 
+import main.java.com.Bots.DBBot;
 import main.java.com.GameServer;
 
 public class ListPlayers {
@@ -84,6 +85,16 @@ public class ListPlayers {
         pn.yp = pp.yp;
         pn.roy_tower = pp.roy_tower;
         gameServer.getServer().sendToAllExceptTCP(id, pn);
+    }
+
+    public void accept_bot(DBBot dbBot){
+        Player p_bot = getPlayerForId(dbBot.getId());
+        p_bot.xp = dbBot.getPosition().x;
+        p_bot.yp = dbBot.getPosition().y;
+        p_bot.rotTower = dbBot.getAngle_rotation_tower().angleDeg();
+
+
+
     }
 
 

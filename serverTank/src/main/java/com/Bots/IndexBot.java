@@ -11,10 +11,11 @@ import java.util.Iterator;
 import java.util.Map;
 
 import main.java.com.GameServer;
+import main.java.com.Units.ListPlayer.ListPlayers;
 import main.java.com.Units.ListPlayer.Player;
 
 public class IndexBot extends Thread {
-    HashMap<Integer, Player> botList;
+
     HashMap<Integer, DBBot> dbBots;
 
 
@@ -36,7 +37,7 @@ public class IndexBot extends Thread {
     public IndexBot(GameServer gameServer, int number_bots) {
         this.countBot = number_bots;
         this.temp_position_vector = new Vector2();
-        this.botList = new HashMap<Integer, Player>();
+
         this.gs = gameServer;
         this.dbBots = new HashMap<>();
         this.sizeBot = number_bots;
@@ -60,12 +61,11 @@ public class IndexBot extends Thread {
         p.setHp(MathUtils.random(80));
 
 
-        this.botList.put(NOM_ID_BOT, p);
+
         NOM_ID_BOT--;
         System.out.println("add_bot+ : " + NOM_ID_BOT);
 
 
-        this.botList.put(p.getId(),p); // добавляем в базу ботов
         gs.getLp().addPlayer(p); // добавляем в базу играков
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,27 +82,28 @@ public class IndexBot extends Thread {
 
     }
 
-    public void updateDeltaTimeBots(float deltaTime){
-        Iterator<Map.Entry<Integer, Player>> entries = this.botList.entrySet().iterator();
-        while (entries.hasNext()) {
-            Player p = entries.next().getValue();
-          //  p.u
+    public void upateMainPlayerList(ListPlayers listPlayers){ //обносить основй список играков )_)) закидуть ботов в листПлаер
+        Iterator<Map.Entry<Integer, DBBot>> bot = this.dbBots.entrySet().iterator();
+        while (bot.hasNext()) {
+            listPlayers.accept_bot((DBBot) bot);
+
+
         }
+
     }
 
     public void send_bot_coordinates(){
-
-        Iterator<Map.Entry<Integer, Player>> entries = this.botList.entrySet().iterator();
+        Iterator<Map.Entry<Integer, DBBot>> entries = this.dbBots.entrySet().iterator();
         while (entries.hasNext()) {
             if(MathUtils.randomBoolean()) continue;
-            Player p = entries.next().getValue();
+            DBBot bot = entries.next().getValue();
 
             Network.PleyerPosition pp = new Network.PleyerPosition();
-            pp.xp = p.getXp();
-            pp.yp = p.getYp();
+            pp.xp = bot.getPosition().x;
+            pp.yp = bot.getPosition().y;
             pp.roy_tower = pp.roy_tower;
 
-            gs.getLp().sendToAllPlayerPosition(p.getId(), pp);
+            gs.getLp().sendToAllPlayerPosition(bot.getId(), pp);
            // System.out.println(p);
 
 
@@ -127,8 +128,8 @@ public class IndexBot extends Thread {
 
 
     public void updateCountBot(int lPlayers, int target_plaers) {
-        if ((lPlayers + botList.size() + 1) < target_plaers) addBot();
-        if ((lPlayers + botList.size() + 1) > target_plaers) delBot();
+        if ((lPlayers + dbBots.size() + 1) < target_plaers) addBot();
+        if ((lPlayers + dbBots.size() + 1) > target_plaers) delBot();
     }
 
     private void delBot() {
