@@ -46,6 +46,7 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
+        implementation 'com.android.support:multidex:1.0.3'
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-desktop"

@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 
 import main.java.com.GameServer;
 import main.java.com.MainGame;
+import main.java.com.Units.ListPlayer.Player;
 
 public class IndexBullets {
 
@@ -63,8 +64,9 @@ public class IndexBullets {
             int np = gameServer.getLp().projectile_collide_with_players(bullet.getAuthor_bullet(),bullet.position.x, bullet.position.y);
             if(np!=-1){
                 delBullet(bullet); // /тут ели попали в игрок 1. минусуем хп 2. уничтожаем патрон 3. рассылаем игрока
-                gameServer.getLp().getPlayerForId(np).minusHP(25);
-                gameServer.send_PARAMETERS_PLAYER(gameServer.getLp().getPlayerForId(np)); // рассылка всем
+                Player player = gameServer.getLp().getPlayerForId(np);
+                player.minusHP(25);
+                gameServer.send_PARAMETERS_PLAYER(player); // рассылка всем
             }
 
             if(gameServer.getMainGame().getMapSpace().isPointInCollision(bullet.position.x,bullet.position.y)) delBullet(bullet);

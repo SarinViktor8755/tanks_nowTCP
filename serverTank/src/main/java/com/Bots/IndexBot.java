@@ -133,9 +133,9 @@ public class IndexBot extends Thread {
 
 
     public void updateCountBot(int lPlayers, int target_plaers) {
-        if ((dbBots.size() - 1 + lPlayers) < target_plaers) addBot();
-        if ((dbBots.size() - 1 + lPlayers) > target_plaers) delBot();
-        System.out.println(lPlayers + "  " + dbBots.size());
+        if ((dbBots.size() + lPlayers) < target_plaers) addBot();
+        if ((dbBots.size() + lPlayers) > target_plaers) delBot();
+    //    System.out.println(lPlayers + "  " + dbBots.size());
     }
 
     private void delBot() {

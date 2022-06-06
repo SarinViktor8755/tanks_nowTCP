@@ -92,12 +92,7 @@ public class ListPlayers {
         p_bot.xp = dbBot.getPosition().x;
         p_bot.yp = dbBot.getPosition().y;
         p_bot.rotTower = dbBot.getAngle_rotation_tower().angleDeg();
-
-
-
     }
-
-
 
     public void sendParametersPlayers(int aboutPlayerID) { // рассылка о характеристиках игрока по id
         Network.StockMessOut sm = new Network.StockMessOut();
@@ -114,14 +109,8 @@ public class ListPlayers {
         }
     }
 
-    @Override
-    public String toString() {
-        return "ListPlayers{" +
-                "players=" + players +
-                '}';
-    }
 
-    public int projectile_collide_with_players(int author_id, float xs, float ys) {
+    public int projectile_collide_with_players(int author_id, float xs, float ys){
         int res = -1;
         temp1.set(xs, ys);
         Iterator<Map.Entry<Integer, Player>> entries = players.entrySet().iterator();
@@ -130,7 +119,7 @@ public class ListPlayers {
             temp2.set(entry.getValue().xp, entry.getValue().yp);
             if(((temp1.dst2(temp2) < 500) && author_id != entry.getValue().getId()))
                 res = entry.getKey();
-                ;
+
             if (res!=-1) return res;
         }
         return res;
