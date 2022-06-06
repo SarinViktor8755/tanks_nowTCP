@@ -17,6 +17,7 @@ public class ParticleCustum {
     ArrayDeque<PasricalExplosion> pasricalExplosions; // мелкие взрывы
     ArrayDeque<PasricalExplosionBigParameter> pasricalExplosionsBigParam; // большие взрывы
     ArrayDeque<Garbage> pasricalGarbage; // большие взрывы
+    ArrayDeque<Shard> shardsArr;
     ArrayDeque<Explosion_Death> explosion_Death; // взрыв из тотал анигилейшен
     ArrayDeque<Explosion_Death> explosion_Death_little; // взрыв из тотал анигилейшен
 
@@ -24,17 +25,21 @@ public class ParticleCustum {
     private Texture t;
     private Texture f;
     private Texture iron;
+    private Texture shardsTex;// осколки
     private TextureAtlas textureAtlasDeathExplosion; /// атлес текстур взрыва тотала
 
 
     GamePlayScreen gps;
 
-    public ParticleCustum(GamePlayScreen gps, Texture t, Texture f, Texture iron, TextureAtlas de) {
+    public ParticleCustum(GamePlayScreen gps, Texture t, Texture f, Texture iron, TextureAtlas de,Texture shards) {
         this.t = t;
         this.f = f;
         this.iron = iron;
         this.textureAtlasDeathExplosion = de;
+        this.shardsTex = shards;
 
+
+        this.shardsArr= new ArrayDeque<>();
         this.particleDeque = new ArrayDeque<>();
         this.pasricalExplosions = new ArrayDeque<>();
         this.pasricalExplosionsBigParam = new ArrayDeque<>();
@@ -42,6 +47,11 @@ public class ParticleCustum {
         this.explosion_Death = new ArrayDeque<>(); ///  текстур взрыва тотала
         this.explosion_Death_little = new ArrayDeque<>(); ///  текстур взрыва тотала__little
 
+
+        for (int i = 0; i < 2000; i++) {
+            Shard ed = new Shard();
+            this.shardsArr.add(ed);
+        }
 
         for (int i = 0; i < 4; i++) {
             Explosion_Death ed = new Explosion_Death();
@@ -72,6 +82,7 @@ public class ParticleCustum {
 
         this.gps = gps;
         t.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Linear);
+        shards.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Linear);
         //f.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Linear);
 
     }
@@ -79,26 +90,34 @@ public class ParticleCustum {
     public void randerGarbage(SpriteBatch spriteBatch) {
 
         int k = 0;
-        for (Garbage g : pasricalGarbage) {  // частицы
-            //if (!fd.isLife()) continue;
-            k++;
 
+//        for (Garbage g : pasricalGarbage) {  // oskolki
+//            //if (!fd.isLife()) continue;
+//            k++;
+//
+//
+//            g.upDate();
+//            spriteBatch.setColor(1, 1, 1, 1 - (MathUtils.map(0f, pasricalGarbage.size(), 0.3f, 1f, k)));
+//
+//
+//            spriteBatch.draw(iron,
+//                    g.getPos().x - iron.getWidth() / 2, g.getPos().y - iron.getHeight() / 2,
+//                    f.getWidth(), f.getHeight(),
+//                    iron.getWidth() / 2, iron.getHeight() / 2,
+//                    1, 1,
+//                    g.getRot(),
+//                    0, 0,
+//                    iron.getWidth(), iron.getHeight(),
+//                    false, false);
+//        }
 
-            g.upDate();
-            spriteBatch.setColor(1, 1, 1, 1 - (MathUtils.map(0f, pasricalGarbage.size(), 0.3f, 1f, k)));
-
-            //System.out.println(fd.getAlpha());
-            spriteBatch.draw(iron,
-                    g.getPos().x - iron.getWidth() / 2, g.getPos().y - iron.getHeight() / 2,
-                    f.getWidth(), f.getHeight(),
-                    iron.getWidth() / 2, iron.getHeight() / 2,
-                    1, 1,
-                    g.getRot(),
-                    0, 0,
-                    iron.getWidth(), iron.getHeight(),
-                    false, false);
+        for (Shard s : shardsArr) {  // частицы
+            s.upDate();
+            spriteBatch.setColor(1,1,1,1);
+           // spriteBatch.draw(shardsTex,MathUtils.random(150,500),MathUtils.random(150,500));
+            spriteBatch.draw(shardsTex,s.getPos().x,s.getPos().y);
         }
-        spriteBatch.setColor(1, 1, 1, 1);
+
 
     }
 
@@ -113,23 +132,6 @@ public class ParticleCustum {
 
 
     public void render(SpriteBatch sb) {
-//        i = 0;
-//        k = 0;
-
-        if (MathUtils.randomBoolean(0.0005f)) {
-
-
-        }
-
-//        if (MathUtils.randomBoolean(0.1f)) {
-//            this.addPasricalDeath_little(gps.getTank().getPosition().x + MathUtils.random(-300,300) , gps.getTank().getPosition().y+ MathUtils.random(-300,300), MathUtils.random(2,5));
-//        }
-
-        if (MathUtils.randomBoolean(0.1f)) { // dphsd cvthnb
-
-            //this.addPasricalDeath(x,y);
-
-        }
 
         for (ParticleSmoke u : particleDeque) {
             if (!u.isLife()) continue;
@@ -185,8 +187,6 @@ public class ParticleCustum {
 
 
         for (Explosion_Death ed : explosion_Death_little) {
-
-
             if (!ed.isLife()) continue;
             ed.update();
 
@@ -298,6 +298,21 @@ public class ParticleCustum {
         Garbage g = this.pasricalGarbage.pollLast();
         g.setParametors(x, y);
         this.pasricalGarbage.offerFirst(g);
+    }
+
+
+    public void addShares(float x, float y) {
+        Shard g = this.shardsArr.pollLast();
+        g.setParametors(x, y);
+       // System.out.println(x+ "   " + y);
+        System.out.println(this.shardsArr.offerFirst(g));
+    }
+
+    public void addShares(float x, float y, float vx, float vy) {
+        Shard g = this.shardsArr.pollLast();
+        g.setParametors(x,y);
+        g.setParametors( x,  y,  vx,  vy);
+        this.shardsArr.offerFirst(g);
     }
 
 

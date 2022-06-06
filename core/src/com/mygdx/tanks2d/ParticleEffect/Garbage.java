@@ -32,9 +32,18 @@ public class Garbage {
     public void  setParametors(float x ,float y){
         this.pos.set(x,y);
         this.velocity.set(MathUtils.random(-1f,1f),MathUtils.random(-1f,1f)).scl(500);
-        this.timeLife = .07f;
+        this.timeLife = .4f;
         this.rot = MathUtils.random(0,360);
     }
+    public void  setParametors(float x, float y, float vx, float vy){
+        this.pos.set(x,y);
+        this.velocity.set(vx,vy).nor().scl(MathUtils.random(150,900));
+        this.rot = MathUtils.random(0,360);
+        this.timeLife = MathUtils.random(.03f,.1f);
+        this.rot = MathUtils.random(0,360);
+    }
+
+
 
     public float getRot() {
         return rot;

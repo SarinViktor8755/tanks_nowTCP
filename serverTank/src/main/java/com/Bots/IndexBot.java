@@ -61,12 +61,14 @@ public class IndexBot extends Thread {
         p.setHp(MathUtils.random(80));
 
 
-
         NOM_ID_BOT--;
         System.out.println("add_bot+ : " + NOM_ID_BOT);
 
 
         gs.getLp().addPlayer(p); // добавляем в базу играков
+
+        DBBot bot = new DBBot();
+        dbBots.put(p.getId(), bot);
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +84,7 @@ public class IndexBot extends Thread {
 
     }
 
-    public void upateMainPlayerList(ListPlayers listPlayers){ //обносить основй список играков )_)) закидуть ботов в листПлаер
+    public void upateMainPlayerList(ListPlayers listPlayers) { //обносить основй список играков )_)) закидуть ботов в листПлаер
         Iterator<Map.Entry<Integer, DBBot>> bot = this.dbBots.entrySet().iterator();
         while (bot.hasNext()) {
             listPlayers.accept_bot((DBBot) bot);
@@ -92,19 +94,25 @@ public class IndexBot extends Thread {
 
     }
 
-    public void send_bot_coordinates(){
+    public void send_bot_coordinates() {
         Iterator<Map.Entry<Integer, DBBot>> entries = this.dbBots.entrySet().iterator();
         while (entries.hasNext()) {
-            if(MathUtils.randomBoolean()) continue;
-            DBBot bot = entries.next().getValue();
+            try {
 
-            Network.PleyerPosition pp = new Network.PleyerPosition();
-            pp.xp = bot.getPosition().x;
-            pp.yp = bot.getPosition().y;
-            pp.roy_tower = pp.roy_tower;
 
-            gs.getLp().sendToAllPlayerPosition(bot.getId(), pp);
-           // System.out.println(p);
+                if (MathUtils.randomBoolean()) continue;
+                DBBot bot = entries.next().getValue();
+
+                Network.PleyerPosition pp = new Network.PleyerPosition();
+                pp.xp = bot.getPosition().x;
+                pp.yp = bot.getPosition().y;
+                pp.roy_tower = pp.roy_tower;
+
+                gs.getLp().sendToAllPlayerPosition(bot.getId(), pp);
+            } catch (NullPointerException e) {
+            }
+            ;
+            // System.out.println(p);
 
 
 //            if(MathUtils.randomBoolean(.006f)){
@@ -117,19 +125,17 @@ public class IndexBot extends Thread {
 
     }
 
-    public void updaeteBot(float deltaTime){
-
-
+    public void updaeteBot(float deltaTime) {
 
 
         send_bot_coordinates();
     }
 
 
-
     public void updateCountBot(int lPlayers, int target_plaers) {
-        if ((lPlayers + dbBots.size() + 1) < target_plaers) addBot();
-        if ((lPlayers + dbBots.size() + 1) > target_plaers) delBot();
+        if ((dbBots.size() - 1 + lPlayers) < target_plaers) addBot();
+        if ((dbBots.size() - 1 + lPlayers) > target_plaers) delBot();
+        System.out.println(lPlayers + "  " + dbBots.size());
     }
 
     private void delBot() {

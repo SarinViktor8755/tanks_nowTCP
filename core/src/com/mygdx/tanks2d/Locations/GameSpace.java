@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.Locations.Collision.MainCollision;
 import com.mygdx.tanks2d.Locations.UtilsLighting.b2d.BodyBuilder;
@@ -25,6 +26,7 @@ public class GameSpace {
     private LightingBox2D lighting;
     private OrthographicCamera camera;
     private Radspurens radspurens;
+
     // private static ArrayList<String> maps = new ArrayList<>();
     public final int WITH_LOCATION;
     public final int HEIHT_LOCATION;
@@ -42,7 +44,7 @@ public class GameSpace {
     public GameSpace(GamePlayScreen gps, MainGame mainGame) {
 
         this.gps = gps;
-        radspurens = new Radspurens(gps.getAssetsManagerGame().get("sled.png", Texture.class));
+        radspurens = new Radspurens(gps.getAssetsManagerGame().get("sled.png", Texture.class),gps.getAssetsManagerGame().get("crater.png", Texture.class));
 
 
         float unitScale = 1f;
@@ -170,7 +172,12 @@ public class GameSpace {
 
     public void addSled(float x, float y, float align) {
         radspurens.addRadspurenTank(x, y, align);
+
+      //  radspurens.addCrater(x + 50, y, align);
+
+       // mainGame.getGamePlayScreen().getGameSpace().getRadspurens().addCrater(sm.p1, sm.p2, MathUtils.random());
     }
+
 
     public GamePlayScreen getGps() {
         return gps;

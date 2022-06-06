@@ -4,6 +4,7 @@ public class RadspurenTank {
     float xp,yp,aligbDeg,timer;
     boolean life;
 
+
     public RadspurenTank(float xp, float yp, float aligbDeg, boolean life) {
         this.xp = xp;
         this.yp = yp;

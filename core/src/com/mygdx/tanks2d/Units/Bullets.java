@@ -36,6 +36,10 @@ public class Bullets {
         // System.out.println(activeBullets.size);
     }
 
+    public Bullet getBullet(int id){
+      return activeBullets.get(id);
+    }
+
     public void randerBullets(float delta) {
         float width = 5;
         float height = 13;
@@ -79,21 +83,21 @@ public class Bullets {
         bp.free(b);
     }
 
-    public void removeBullet(int nomBullet){  // удаление по номеру
+    public Vector2 removeBullet(int nomBullet){  // удаление по номеру
       //  System.out.println("FINE:");
         Bullet b;
         for (int i = 0; i < activeBullets.size; i++) {
             b = activeBullets.get(i);
             if(b.namber == nomBullet){
-                //bp.free(b);
                 b.position.set(-20_000,-20_000);
-
+                return b.direction;
             }
         }
 
 
 //        activeBullets.removeValue(b, true);
 //        bp.free(b);
+        return null;
     }
 
     private boolean checkingGoingAbroad(float x, float y) {

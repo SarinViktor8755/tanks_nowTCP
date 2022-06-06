@@ -1,9 +1,11 @@
 package com.mygdx.tanks2d.ClientNetWork;
 
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.MainGame;
 import com.mygdx.tanks2d.Units.Tanks.OpponentsTanks;
+import com.mygdx.tanks2d.Units.Tanks.Tank;
 
 public class RouterSM {
 
@@ -33,20 +35,38 @@ public class RouterSM {
             velocity.setAngleDeg(sm.p3); /// навправление
             try {
                 mainGame.getGamePlayScreen().playAnimation(position, velocity, (int) sm.p4);
-            }catch (NullPointerException e){e.printStackTrace();}
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
             return;
         }
 
         if (Heading_type.SHELL_RUPTURE == sm.tip) { // РАЗРЫВ СНАРЯДА
-            // System.out.println("BOOOOOOOOM!!!!!!!!!!!  " + sm.p1 + "  " + sm.p2 + "  " +  ((int)sm.p3));
+
             Vector2 pp = new Vector2(sm.p1, sm.p2);
-//            positionTemp.set(sm.p1 ,sm.p2 );
+
+          //  mainGame.getGamePlayScreen().getGameSpace().getRadspurens().addCrater(sm.p1, sm.p2, MathUtils.random(0, 360));
+
+
+
             try {
+               // Vector2 v = mainGame.getGamePlayScreen().getBullets().getBullet((int) sm.p3).direction;
+
+                mainGame.getGamePlayScreen().playExplosion(pp, velocity);
+                Vector2 v = mainGame.getGamePlayScreen().getBullets().removeBullet((int) sm.p3);
+                v.rotateDeg(180);
+
+                for (int i = 0; i < MathUtils.random(10, 30); i++) {
+                    v.rotateDeg(MathUtils.random(-20,20));
+                    mainGame.getGamePlayScreen().getPc().addShares(sm.p1, sm.p2, v.x, v.y);
 
 
-            mainGame.getGamePlayScreen().playExplosion(pp, velocity);
-            mainGame.getGamePlayScreen().getBullets().removeBullet((int) sm.p3);
-            }catch (NullPointerException e){e.printStackTrace();}
+                }
+
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
             return;
         }
 
@@ -65,6 +85,7 @@ public class RouterSM {
                 } else {
                     OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p1);
                     System.out.println(opponentsTanks);
+                   // opponentsTanks = new OpponentsTanks();
                     opponentsTanks.hp = (int) sm.p3;
                     opponentsTanks.command = (int) sm.p2;
                     opponentsTanks.setNikPlayer(sm.textM);
@@ -73,7 +94,10 @@ public class RouterSM {
                 }
 
             } catch (NullPointerException e) {
-                e.printStackTrace();
+               // e.printStackTrace();
+                Tank myTank = mainGame.getGamePlayScreen().getTank();
+                myTank.setHp((int) sm.p3);
+                myTank.setCommand((int) sm.p2);
             }
             return;
         }
@@ -83,7 +107,7 @@ public class RouterSM {
             OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p3);
 //            opponentsTanks.hp = (int) sm.p1;
 
-           // mainGame.getGamePlayScreen().playAnimation(position, velocity, (int) sm.p4);
+            // mainGame.getGamePlayScreen().playAnimation(position, velocity, (int) sm.p4);
             return;
         }
 

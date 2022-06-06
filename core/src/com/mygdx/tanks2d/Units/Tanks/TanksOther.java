@@ -27,7 +27,7 @@ public class TanksOther { /// много танков )))
     HashMap<Integer, OpponentsTanks> listOpponents;
 
     HashMap<Integer, Float> listSled;
-    HashMap<Integer, Vector2> deltaSledVec;
+    HashMap<Integer, Vector2> deltaSledVec; // слкды танков
 
     GamePlayScreen gsp;
 
@@ -228,7 +228,6 @@ public class TanksOther { /// много танков )))
             deltaSledVec.put(t.nomder, new Vector2(t.getPosition().x, t.getPosition().y));
         }
      //   checkParam(t);
-
     }
 
 //    public void checkParam(OpponentsTanks t){

@@ -64,7 +64,7 @@ public class GamePlayScreen implements Screen {
         tank = new Tank(this);
 
         bullets = new Bullets(this);
-        pc = new ParticleCustum(this, mainGame.getAssetManager().get("particle1.png", Texture.class), mainGame.getAssetManager().get("fire.png", Texture.class), mainGame.getAssetManager().get("iron.png", Texture.class),mainGame.getAssetManager().get("de.pack", TextureAtlas.class));
+        pc = new ParticleCustum(this, mainGame.getAssetManager().get("particle1.png", Texture.class), mainGame.getAssetManager().get("fire.png", Texture.class), mainGame.getAssetManager().get("iron.png", Texture.class),mainGame.getAssetManager().get("de.pack", TextureAtlas.class),mainGame.getAssetManager().get("garnd.png", Texture.class));
 
 
 //        if(!MainGame.ANDROID){
@@ -149,6 +149,8 @@ public class GamePlayScreen implements Screen {
 
         this.gameSpace.renderSpace((OrthographicCamera) cameraGame.getCamera());                //рендер пространство
         this.cameraGame.getCamera().update();
+
+            this.getGameSpace().getRadspurens().randerCrater(batch);// следы от Crater
         this.getGameSpace().getRadspurens().randerRadspurens(batch);// следы от танка
 
 
@@ -266,6 +268,7 @@ public class GamePlayScreen implements Screen {
             this.getMainGame().getMainClient().getNetworkPacketStock().toSendMyShot(smooke.x, smooke.y, tank.getDirection_tower().angleDeg());
         }
     }
+
 
 
 

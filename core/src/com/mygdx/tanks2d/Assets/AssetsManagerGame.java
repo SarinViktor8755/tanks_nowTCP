@@ -68,7 +68,9 @@ public class AssetsManagerGame {
         assets.put("trb2.png", Texture.class);
 
 
+        assets.put("garnd.png", Texture.class);
         assets.put("sled.png", Texture.class);
+        assets.put("crater.png", Texture.class);
         //controller
 //        assets.put("flatDark26.png", Texture.class);
 //        assets.put("flatDark261.png", Texture.class);
