@@ -17,11 +17,11 @@ public class Radspurens { //следы кратеры
         listRadspurens = new ArrayDeque<>();
         listCrater = new ArrayDeque<>();
 
-        for (int i = 0; i < 1500; i++) {
+        for (int i = 0; i < 2300; i++) {
             listRadspurens.addFirst(new RadspurenTank(0, 0, 0, false));
         }
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 35; i++) {
             listCrater.addFirst(new Crater(0, 0, 0, false));
         }
         this.sled = sled;
@@ -59,8 +59,6 @@ public class Radspurens { //следы кратеры
 
     }
 
-
-
     public void randerRadspurens(SpriteBatch sb) {
         int size;
         float alpha;
@@ -89,10 +87,12 @@ public class Radspurens { //следы кратеры
     public void randerCrater(SpriteBatch sb) {
         int size;
         float alpha;
-        size = listRadspurens.size();
+        size = listCrater.size();
         for (RadspurenTank rt : listCrater) {
             if (!rt.life) {sb.setColor(1,1,1,1);return;}
-            alpha = MathUtils.clamp(.0012f * (float) size,0,.6f);
+            size--;
+
+            alpha = MathUtils.map(listCrater.size() - 10,0,1,0,size);
             sb.setColor(1,1,1,alpha);
             sb.draw(crater,
                     rt.xp - 64/2, rt.yp - 64/2,

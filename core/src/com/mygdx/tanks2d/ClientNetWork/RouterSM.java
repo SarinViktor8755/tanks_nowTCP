@@ -45,7 +45,7 @@ public class RouterSM {
 
             Vector2 pp = new Vector2(sm.p1, sm.p2);
 
-          //  mainGame.getGamePlayScreen().getGameSpace().getRadspurens().addCrater(sm.p1, sm.p2, MathUtils.random(0, 360));
+          mainGame.getGamePlayScreen().getGameSpace().getRadspurens().addCrater(sm.p1, sm.p2, MathUtils.random(0, 360));
 
 
 
@@ -81,7 +81,6 @@ public class RouterSM {
                 int id = mainGame.getMainClient().getClient().getID();
                 if (id == (int) sm.p1) {
                     saveParametrsMtTank(sm);
-
                 } else {
                     OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p1);
                     System.out.println(opponentsTanks);
@@ -95,9 +94,10 @@ public class RouterSM {
 
             } catch (NullPointerException e) {
                // e.printStackTrace();
-                Tank myTank = mainGame.getGamePlayScreen().getTank();
-                myTank.setHp((int) sm.p3);
-                myTank.setCommand((int) sm.p2);
+//                Tank myTank = mainGame.getGamePlayScreen().getTank();
+//                myTank.setHp((int) sm.p3);
+//                myTank.setCommand((int) sm.p2);
+                System.out.println(sm.p1);
             }
             return;
         }
