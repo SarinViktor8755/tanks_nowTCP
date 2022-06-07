@@ -9,9 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 
-
-
-
 public class CameraGame{
     OrthographicCamera camera;
     private FillViewport viewport;
@@ -39,6 +36,15 @@ public class CameraGame{
        // System.out.println("moveFloatCameraToPoint");
         this.camera.position.sub(this.camera.position.cpy().sub(targetPoint.x,targetPoint.y,0).scl(Gdx.graphics.getDeltaTime() * speed));
         fixBounds();
+    }
+
+    public void zoomCamera(){
+        if(camera.zoom > 5) camera.zoom = 5;
+        camera.zoom += 0.01;
+        
+
+
+
     }
 
     public void jampCameraToPoint(float x , float y){

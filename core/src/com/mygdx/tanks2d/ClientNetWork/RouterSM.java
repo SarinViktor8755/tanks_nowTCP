@@ -53,11 +53,7 @@ public class RouterSM {
                 for (int i = 0; i < MathUtils.random(10, 30); i++) {
                     v.rotateDeg(MathUtils.random(-20,20));
                     mainGame.getGamePlayScreen().getPc().addShares(sm.p1, sm.p2, v.x, v.y);
-
-
                 }
-
-
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }

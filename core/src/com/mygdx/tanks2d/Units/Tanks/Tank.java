@@ -326,6 +326,8 @@ public class Tank {
         if (isLive())
             gsp.getCameraGame().moveFloatCameraToPoint(temp.x, temp.y, (int) 3.5); //камера перемещение
         // куда пееремещать
+        else
+        gsp.getCameraGame().zoomCamera();
 
 
 //        gsp.getGameSpace().getLighting().setPointL(position.x, position.y); //освещение перемещение
