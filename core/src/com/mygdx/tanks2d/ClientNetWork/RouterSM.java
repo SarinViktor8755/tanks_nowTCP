@@ -42,17 +42,11 @@ public class RouterSM {
         }
 
         if (Heading_type.SHELL_RUPTURE == sm.tip) { // РАЗРЫВ СНАРЯДА
-
             Vector2 pp = new Vector2(sm.p1, sm.p2);
-
-          mainGame.getGamePlayScreen().getGameSpace().getRadspurens().addCrater(sm.p1, sm.p2, MathUtils.random(0, 360));
-
-
-
             try {
                // Vector2 v = mainGame.getGamePlayScreen().getBullets().getBullet((int) sm.p3).direction;
-
                 mainGame.getGamePlayScreen().playExplosion(pp, velocity);
+
                 Vector2 v = mainGame.getGamePlayScreen().getBullets().removeBullet((int) sm.p3);
                 v.rotateDeg(180);
 
@@ -88,8 +82,12 @@ public class RouterSM {
                     opponentsTanks.hp = (int) sm.p3;
                     opponentsTanks.command = (int) sm.p2;
                     opponentsTanks.setNikPlayer(sm.textM);
-                    if (opponentsTanks.hp < 0)
-                        mainGame.getGamePlayScreen().getPc().addAnimationDeath(mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p1).getPosition().x, mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p1).getPosition().y);
+                    if (opponentsTanks.hp < 0) {
+                        mainGame.getGamePlayScreen().pc.addPasricalDeath_little(opponentsTanks.getPosition().x, opponentsTanks.getPosition().y, 2.7f);
+                        mainGame.getGamePlayScreen().getPc().addAnimationDeath(opponentsTanks.getPosition().x, opponentsTanks.getPosition().y);
+                        mainGame.getGamePlayScreen().getGameSpace().getRadspurens().addCrater(opponentsTanks.getPosition().x, opponentsTanks.getPosition().y, MathUtils.random(0, 360));
+                    }
+
                 }
 
             } catch (NullPointerException e) {

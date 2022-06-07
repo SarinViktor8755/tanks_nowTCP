@@ -2,6 +2,7 @@ package main.java.com.Units.ListPlayer;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.tanks2d.ClientNetWork.Network;
 import com.mygdx.tanks2d.MainGame;
 
 public class Player {
@@ -27,7 +28,7 @@ public class Player {
         command = MathUtils.random(1, 2);
         nikName = "Player no." + this.id;
 
-       // this.behaviourBot = new BehaviourBot();
+        // this.behaviourBot = new BehaviourBot();
     }
 
     public void settPosition(Vector2 p) {
@@ -122,10 +123,12 @@ public class Player {
     }
 
     public String getNikName() {
+        System.out.println(this);
         return nikName;
     }
 
     public void setNikName(String nikName) {
+        System.out.println(nikName + "   " + this.id + "!!!!!!!!!!!!!!! setNikName" );
         this.nikName = nikName;
 
     }
@@ -138,9 +141,9 @@ public class Player {
         this.command = command;
     }
 
-    public void minusHP(int minus){
+    public void minusHP(int minus) {
         this.hp -= minus;
-        MathUtils.clamp(hp,0,100);
+        MathUtils.clamp(hp, 0, 100);
     }
 
     @Override
@@ -160,4 +163,6 @@ public class Player {
                 ", nikName='" + nikName + '\'' +
                 '}';
     }
+
+
 }

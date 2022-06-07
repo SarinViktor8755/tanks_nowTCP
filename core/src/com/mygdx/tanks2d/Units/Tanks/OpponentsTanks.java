@@ -57,7 +57,7 @@ public class OpponentsTanks { // ОДИН ТАНК
         towerRotation = new TowerRotation(this.direction, this.direction_tower, this.position, listOpponents);
         directionMovementControll = new Vector2(direction);
         this.gsp = gsp;
-        hp = MathUtils.random(20, 100);
+        hp = 100;
         move = false;
         temp_delta = new Vector2(0,0);
 
@@ -75,7 +75,7 @@ public class OpponentsTanks { // ОДИН ТАНК
         towerRotation = new TowerRotation(this.direction, this.direction_tower, this.position, gsp.getTanksOther().listOpponents);
         directionMovementControll = new Vector2(direction);
         this.gsp = gsp;
-        hp = MathUtils.random(20, 100);
+        hp = 100;
         move = false;
         temp_delta = new Vector2(0,0);
 

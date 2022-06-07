@@ -66,11 +66,15 @@ public class GameServer {
                                    }
 
                                    if (object instanceof Network.GivePlayerParameters) {
-                                       System.out.println(connection.getID() + " ::GivePlayerParameters" + (Network.GivePlayerParameters) object);
+                                       //System.out.println(connection.getID() + " ::GivePlayerParameters" + (Network.GivePlayerParameters) object);
                                        Network.GivePlayerParameters gpp = (Network.GivePlayerParameters) object;
+                                       lp.getPlayerForId(connection.getID()).setNikName(gpp.nik);
+
                                        Player p = mainGame.gameServer.getLp().getPlayerForId(gpp.nomerPlayer);
-                                       p.setNikName(gpp.nik);
-                                       System.out.println(p.getNikName());
+//                                       System.out.println("!!! :::  "+p);
+//
+//                                       System.out.println(p.getNikName());
+//                                       System.out.println(gpp);
                                        if (p.getNikName() != null)
                                            mainGame.gameServer.send_PARAMETERS_PLAYER(p, connection.getID(),gpp.nomerPlayer);
 
@@ -101,12 +105,15 @@ public class GameServer {
     public void send_PARAMETERS_PLAYER(int HP, int comant, String nikName, int forIdPlayer,int aboutPlayer) {
         Network.StockMessOut stockMessOut = new Network.StockMessOut();
         stockMessOut.tip = Heading_type.PARAMETERS_PLAYER;
+        System.out.println(nikName);
         stockMessOut.p1 = aboutPlayer; // ХП
         stockMessOut.p2 = Heading_type.RED_COMMAND;// КОМАНДА
         stockMessOut.p3 = HP; // номер игрока
         stockMessOut.p4 = HP; // номер игрока
         stockMessOut.textM = nikName; // ник нейм
         this.server.sendToTCP(forIdPlayer, stockMessOut);
+
+        System.out.println(nikName + ">>>>");
     }
 
     public void send_PARAMETERS_PLAYER(Player p, int forIdPlayer, int abautPlayer) {
@@ -121,6 +128,7 @@ public class GameServer {
         stockMessOut.p3 = p.getHp(); // ХП
         stockMessOut.p4 = p.getHp(); // номер игрока
         stockMessOut.textM = p.getTokken(); // ник нейм
+        System.out.println(">" + p.getTokken());
 
         this.server.sendToAllTCP(stockMessOut);
     }

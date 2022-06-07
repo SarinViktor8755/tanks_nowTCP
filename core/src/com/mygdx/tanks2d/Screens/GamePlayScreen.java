@@ -121,7 +121,7 @@ public class GamePlayScreen implements Screen {
     }
 
     public void playAnimation(Vector2 pos,Vector2 vel,int nom){ // добавляет анимацию выстрела
-        mainGame.getGamePlayScreen().pc.addPasricalDeath_little(pos.x, pos.y, 2.7f);
+        mainGame.getGamePlayScreen().pc.addPasricalDeath_little(pos.x, pos.y, 4.7f);
         this.getBullets().addBullet(pos,vel,nom);
         //System.out.println("playAnimation");
 

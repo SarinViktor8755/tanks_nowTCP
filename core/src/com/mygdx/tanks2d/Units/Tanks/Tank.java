@@ -166,7 +166,7 @@ public class Tank {
 
     }
 
-    private void rotation_the_tower(Vector2 directionMovementControll){
+    private void rotation_the_tower(Vector2 directionMovementControll) {
         if (raz > 10) // поворот башни
             if ((directionMovementControll.angleDeg(direction) > 180)) {
                 this.direction.setAngleDeg(direction.angleDeg() - Gdx.graphics.getDeltaTime() * SPEED_ROTATION);
@@ -174,7 +174,6 @@ public class Tank {
                 this.direction.setAngleDeg(direction.angleDeg() + Gdx.graphics.getDeltaTime() * SPEED_ROTATION);
             }
     }
-
 
 
     public void collisinRectangleTrue() {
@@ -324,7 +323,11 @@ public class Tank {
     public void getTargetCamera() {
         //directionMovementControll
         Vector2 temp = position.cpy().sub(direction_tower.cpy().scl(-160));
-        gsp.getCameraGame().moveFloatCameraToPoint(temp.x, temp.y, (int) 3.5); //камера перемещение
+        if (isLive())
+            gsp.getCameraGame().moveFloatCameraToPoint(temp.x, temp.y, (int) 3.5); //камера перемещение
+        // куда пееремещать
+
+
 //        gsp.getGameSpace().getLighting().setPointL(position.x, position.y); //освещение перемещение
 //        gsp.getGameSpace().getLighting().setCone(position.x, position.y, direction.angleDeg());
         gsp.getGameSpace().getLighting().setConeTower(position.x, position.y, direction_tower.angleDeg());
@@ -333,7 +336,7 @@ public class Tank {
     public void getTargetCamera(Vector2 t) {
         //directionMovementControll
         Vector2 temp = position.cpy().sub(t.cpy().nor().scl(-160));
-        gsp.getCameraGame().moveFloatCameraToPoint(temp.x, temp.y, (int) 3.5); //камера перемещение
+        //  gsp.getCameraGame().moveFloatCameraToPoint(temp.x, temp.y, (int) 3.5); //камера перемещение
 //        gsp.getGameSpace().getLighting().setPointL(position.x, position.y); //освещение перемещение
 //        gsp.getGameSpace().getLighting().setCone(position.x, position.y, direction.angleDeg());
         gsp.getGameSpace().getLighting().setConeTower(position.x, position.y, direction_tower.angleDeg());
@@ -345,5 +348,10 @@ public class Tank {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public boolean isLive() {
+        if (hp < 1) return false;
+        return true;
     }
 }

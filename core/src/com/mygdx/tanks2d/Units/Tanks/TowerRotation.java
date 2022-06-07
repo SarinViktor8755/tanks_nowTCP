@@ -52,6 +52,7 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
             if (MathUtils.randomBoolean(.3f)) targetDetectionTower(this.myPosition); // ищем цели
             nomTarget = selectTarget();
         } else {    // если  цели есть
+            if(listOpponents.get(nomTarget).hp< 0 ) {target_tank = 0; nomTarget=null; return;}
             turningTower(returnAngle(listOpponents.get(nomTarget).getPosition(), myPosition), delta);
             if (MathUtils.randomBoolean(.05f)) targetDetectionTower(this.myPosition); // ищем цели
             if (checkLen()) nomTarget = null;
@@ -76,6 +77,7 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
     private void targetDetectionTower(Vector2 positionMy) { // обноружение цели для башни - добавляем в очередь
         targetTreet.clear();
         for (Map.Entry<Integer, OpponentsTanks> tank : listOpponents.entrySet()) {
+            if (tank.getValue().hp < 0) continue;
             float l = tank.getValue().getPosition().cpy().sub(positionMy).len2();
             if (l < 2) continue; // иключение себя
             if (l < rast_to_target) {
@@ -92,7 +94,7 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
     }
 
     public void changeTarget() { //сменить цель
-        int a =0;
+        int a = 0;
         if (targetTreet.size() < 2) return;
         int tnt = Integer.MIN_VALUE;
         if (nomTarget != null) tnt = nomTarget;
@@ -106,18 +108,19 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        if(temp_nom_t == nomTarget) {
+        if (temp_nom_t == nomTarget) {
             changeTarget(a);
-        };
+        }
+        ;
     }
 
     public void changeTarget(int a) {
-      //  System.out.println("changeTarget " + a);
+        //  System.out.println("changeTarget " + a);
         a++;
         if (a < 3) changeTarget(a);
     }
 
-        private boolean checkLen() { // проерка длинны
+    private boolean checkLen() { // проерка длинны
         return listOpponents.get(nomTarget).getPosition().cpy().sub(myPosition).len2() > rast_to_target * 1.3f;
     }
 
@@ -159,7 +162,7 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
         return true;
     }
 
-    public int getAnTower(){
+    public int getAnTower() {
         return (int) direction_tower.angleDeg();
     }
 

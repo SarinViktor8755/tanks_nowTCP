@@ -90,6 +90,7 @@ public class TanksOther { /// много танков )))
         if (listOpponents.containsKey(p.nom)) { //Если такой опоннет есть - работаем с ним - нет - сощдаем новый
             OpponentsTanks ot = listOpponents.get(p.nom);
             /////////////
+
             if (!newFrame) { // нет фрейма
                 if (ot.move) {
                     temp.set(ot.getDirection()).clamp(90, 90).scl(Gdx.graphics.getDeltaTime());
@@ -128,7 +129,7 @@ public class TanksOther { /// много танков )))
                 listSled.put(p.nom, listSled.get(p.nom) + Gdx.graphics.getDeltaTime()); /// СЛЕДЫ
         } else {
             try {
-                createOponent(p.xp, p.yp,p.nom,p.roy_tower);
+                createOponent(p.xp, p.yp, p.nom, p.roy_tower);
             } catch (NullPointerException e) {
 
             }
@@ -137,7 +138,7 @@ public class TanksOther { /// много танков )))
 
     /////////////
     public int createOponent(float x, float y, int nomer, float rotation) {
-        OpponentsTanks r = new OpponentsTanks(new Vector2(x, y),new Vector2(1, 0), 0, true, nomer, listOpponents, gsp);
+        OpponentsTanks r = new OpponentsTanks(new Vector2(x, y), new Vector2(1, 0), 0, true, nomer, listOpponents, gsp);
         listOpponents.put(nomer, r);
         listSled.put(nomer, .0f);
         return nomer;
@@ -153,24 +154,25 @@ public class TanksOther { /// много танков )))
         if (t.getCommand() != 0 && t.color < 1) t.color = t.color + dt;
     }
 
-    public void createFuelTank(int id){ // создание пустой балвани
-        listOpponents.put(id,new OpponentsTanks(new Vector2(-8000,-8000),new Vector2(0,0),0,true,id,listOpponents,gsp));
+    public void createFuelTank(int id) { // создание пустой балвани
+        listOpponents.put(id, new OpponentsTanks(new Vector2(-8000, -8000), new Vector2(0, 0), 0, true, id, listOpponents, gsp));
 
     }
 
     public void randerOtherTanks(SpriteBatch sb) {
         OpponentsTanks t;
-       // System.out.println(this.listOpponents.size());
+        // System.out.println(this.listOpponents.size());
 
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
             t = tank.getValue();
-           // System.out.println(t);
-            if(!tank.getValue().live) return;
+            if (t.hp < 0) continue;
+            // System.out.println(t);
+            if (!tank.getValue().live) return;
             updateColor(t, Gdx.graphics.getDeltaTime());
             if (t.getNikPlayer() != null) {
                 textFont.draw(sb, t.getNikPlayer(), t.getPosition().x - t.getNikPlayer().length() * 4, t.getPosition().y + 50);
-            }
-            else  gsp.getMainGame().getMainClient().getNetworkPacketStock().toSendMyParPlayer(t.nomder);
+            } else
+                gsp.getMainGame().getMainClient().getNetworkPacketStock().toSendMyParPlayer(t.nomder);
 
             t.update(Gdx.graphics.getDeltaTime());
 
@@ -227,7 +229,7 @@ public class TanksOther { /// много танков )))
         } catch (NullPointerException e) {
             deltaSledVec.put(t.nomder, new Vector2(t.getPosition().x, t.getPosition().y));
         }
-     //   checkParam(t);
+        //   checkParam(t);
     }
 
 //    public void checkParam(OpponentsTanks t){
@@ -236,13 +238,13 @@ public class TanksOther { /// много танков )))
 //    }
 
     public void updateOtherTank(boolean onLine) {
-         updateClienOtherTank();
+        updateClienOtherTank();
 
     }
 
     public void updateClienOtherTank() {
         boolean flag_mess = false; /// флаг типа делать запрос по никам или нет
-       // System.out.println("getMainClient.otherPlayer " + gsp.getMainGame().getMainClient().otherPlayer.size());
+        // System.out.println("getMainClient.otherPlayer " + gsp.getMainGame().getMainClient().otherPlayer.size());
 
         try {
             Iterator key = gsp.getMainGame().getMainClient().otherPlayer.keySet().iterator();
@@ -267,7 +269,7 @@ public class TanksOther { /// много танков )))
 //            if (in.size() > 0) routingInMassage(in.pollFirst()); /// тут что то не так )))
 
             //if (flag_mess) if (MathUtils.randomBoolean(.01f))
-                //gsp.getMainGame().getMainClient().getNetworkPacketStock().toSendParametersOfPlayer();// nikname отображение
+            //gsp.getMainGame().getMainClient().getNetworkPacketStock().toSendParametersOfPlayer();// nikname отображение
 
         } catch (ConcurrentModificationException e) {
         }
@@ -284,7 +286,7 @@ public class TanksOther { /// много танков )))
 ////            return;
 ////        }
 ////
-   // Heading_type.SHELL_RUPTURE
+    // Heading_type.SHELL_RUPTURE
 ////        if (m.getP().tip == Heading_type.SHELL_RUPTURE) {
 ////            System.out.println("BOOOOOOOOM!!!!!!!!!!!  " + m.getP().p1 + "  " + m.getP().p2);
 ////            //gsp.getBullets().
@@ -375,9 +377,10 @@ public class TanksOther { /// много танков )))
 
     public Vector2 isCollisionsTanks(Vector2 pos) {
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
-            if(MathUtils.randomBoolean()) continue ;
+            if (MathUtils.randomBoolean()) continue;
+            if (tank.getValue().hp < 0) continue;
             if (tank.getValue().isCollisionsTanks(pos))
-            return new Vector2().set(pos.cpy().sub(tank.getValue().getPosition()).nor());
+                return new Vector2().set(pos.cpy().sub(tank.getValue().getPosition()).nor());
         }
         return null;
     }

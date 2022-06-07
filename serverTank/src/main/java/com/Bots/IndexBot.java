@@ -50,37 +50,22 @@ public class IndexBot extends Thread {
 
     private void addBot() {
         Player p = new Player(NOM_ID_BOT);
-        p.setNikName(getNikNameGen());
 
         if (MathUtils.randomBoolean()) p.setCommand(Heading_type.RED_COMMAND);
         else p.setCommand(Heading_type.BLUE_COMMAND);
 
-
         p.setXp(MathUtils.random(200, 1100));
         p.setYp(MathUtils.random(200, 1100));
-        p.setHp(MathUtils.random(80));
-
+        p.setHp(100);
+        p.setNikName(getNikNameGen());
 
         NOM_ID_BOT--;
         System.out.println("add_bot+ : " + NOM_ID_BOT);
-
 
         gs.getLp().addPlayer(p); // добавляем в базу играков
 
         DBBot bot = new DBBot();
         dbBots.put(p.getId(), bot);
-
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////
-//        allPlayers.put(nom,new TowerRotation(
-//                new Vector2(0,1),
-//                new Vector2(1,1).setAngleDeg(p.getR()),
-//                new Vector2(p.getXp(),p.getYp())
-//
-//        ));
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////
-
 
     }
 
@@ -95,34 +80,7 @@ public class IndexBot extends Thread {
     }
 
     public void send_bot_coordinates() {
-        Iterator<Map.Entry<Integer, DBBot>> entries = this.dbBots.entrySet().iterator();
-        while (entries.hasNext()) {
-            try {
-
-
-                if (MathUtils.randomBoolean()) continue;
-                DBBot bot = entries.next().getValue();
-
-                Network.PleyerPosition pp = new Network.PleyerPosition();
-                pp.xp = bot.getPosition().x;
-                pp.yp = bot.getPosition().y;
-                pp.roy_tower = pp.roy_tower;
-
-                gs.getLp().sendToAllPlayerPosition(bot.getId(), pp);
-            } catch (NullPointerException e) {
-            }
-            ;
-            // System.out.println(p);
-
-
-//            if(MathUtils.randomBoolean(.006f)){
-//                botShoot(p.getId());
-//                System.out.println("shoot" + p.getId());
-//            }
-
-        }
-
-
+        gs.getLp().send_bot_coordinates();
     }
 
     public void updaeteBot(float deltaTime) {
