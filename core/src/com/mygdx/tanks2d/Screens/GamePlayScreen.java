@@ -24,6 +24,7 @@ import com.mygdx.tanks2d.Units.Player;
 import com.mygdx.tanks2d.Units.Tanks.Tank;
 import com.mygdx.tanks2d.Units.Tanks.TanksOther;
 
+import java.io.IOException;
 import java.util.ConcurrentModificationException;
 
 
@@ -94,6 +95,16 @@ public class GamePlayScreen implements Screen {
     }
 
     public void update() {
+        if(!mainGame.getMainClient().getClient().isConnected()){
+            if(MathUtils.randomBoolean(.005f)) {
+                try {
+                    mainGame.getMainClient().getClient().reconnect(5000);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            //mainGame.transitionScreenGameToMenu();
+        }
         getMainGame().updateClien();
 
         // кинуть на сервер мои координаты

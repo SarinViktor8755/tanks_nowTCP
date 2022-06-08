@@ -4,11 +4,9 @@ package com.mygdx.tanks2d;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.tanks2d.Assets.AssetsManagerGame;
 import com.mygdx.tanks2d.ClientNetWork.MainClient;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
-import com.mygdx.tanks2d.Screens.GamePlayScreenSP;
 import com.mygdx.tanks2d.Screens.MenuScreen;
 import com.mygdx.tanks2d.adMod.AdAds;
 
@@ -86,6 +84,12 @@ public class MainGame extends Game {
 		this.setScreen(this.gamePlayScreen);
 		MainGame.status = STATUS_GAME_GAMEPLAY;
 		//     mainClient.getClient().dispose();
+	}
+
+	public void transitionScreenGameToMenu(){
+		this.mainMenu = new MenuScreen(this);
+		this.setScreen(this.mainMenu);
+		this.gamePlayScreen.dispose();
 	}
 
 	public void switchingFromGameMenu() {

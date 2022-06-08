@@ -71,7 +71,7 @@ public class Radspurens { //следы кратеры
                     rt.xp - 20, rt.yp - 20,
                     20, 20,
                     20, 40,
-                    1, 1,
+                    1, 1.095f,
                     rt.aligbDeg,
                     0, 0,
                     sled.getWidth(), sled.getHeight(),
