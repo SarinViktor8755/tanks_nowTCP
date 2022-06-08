@@ -79,9 +79,19 @@ public class RouterSM {
                     opponentsTanks.command = (int) sm.p2;
                     opponentsTanks.setNikPlayer(sm.textM);
                     if (opponentsTanks.hp < 0) {
+                        if(mainGame.getGamePlayScreen().getTimeInGame() < 1) return;
                         mainGame.getGamePlayScreen().pc.addPasricalDeath_little(opponentsTanks.getPosition().x, opponentsTanks.getPosition().y, 2.7f);
                         mainGame.getGamePlayScreen().getPc().addAnimationDeath(opponentsTanks.getPosition().x, opponentsTanks.getPosition().y);
-                        mainGame.getGamePlayScreen().getGameSpace().getRadspurens().addCrater(opponentsTanks.getPosition().x, opponentsTanks.getPosition().y, MathUtils.random(0, 360));
+
+//                        positionTemp.set(1,1);
+//                        for (int i = 0; i < 500; i++) {
+//                            positionTemp.setLength2(i/100);
+//                            mainGame.getGamePlayScreen().getPc().addShares(sm.p1, sm.p2,positionTemp.x,positionTemp.y);
+//                            positionTemp.rotateDeg(4);
+//
+//                        }
+
+                        mainGame.getGamePlayScreen().getGameSpace().getRadspurens().addCrater(opponentsTanks.getPosition().x, opponentsTanks.getPosition().y, MathUtils.random(0, 360)); // кратор
                     }
 
                 }

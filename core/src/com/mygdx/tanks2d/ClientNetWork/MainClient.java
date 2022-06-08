@@ -68,7 +68,6 @@ public class MainClient {
         // this.startClient();
 
         client.addListener(new Listener() {
-
             public void connected(Connection connection) {
                 setMyIdConnect(connection.getID());
             }
@@ -80,7 +79,7 @@ public class MainClient {
             public void disconnected(Connection connection) {
             }
         });
-        System.out.println(client.isConnected() + "!!!!!!!!!!!!!!!1");
+     //   System.out.println(client.isConnected() + "!!!!!!!!!!!!!!!1");
     }
 
     private void startClient() {

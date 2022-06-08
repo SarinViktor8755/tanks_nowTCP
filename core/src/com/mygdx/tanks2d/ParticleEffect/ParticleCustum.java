@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
 import com.mygdx.tanks2d.Utils.VectorUtils;
 
@@ -21,6 +22,7 @@ public class ParticleCustum {
     ArrayDeque<Explosion_Death> explosion_Death; // взрыв из тотал анигилейшен
     ArrayDeque<Explosion_Death> explosion_Death_little; // взрыв из тотал анигилейшен
 
+    Vector2 temp_V;
 
     private Texture t;
     private Texture f;
@@ -31,15 +33,15 @@ public class ParticleCustum {
 
     GamePlayScreen gps;
 
-    public ParticleCustum(GamePlayScreen gps, Texture t, Texture f, Texture iron, TextureAtlas de,Texture shards) {
+    public ParticleCustum(GamePlayScreen gps, Texture t, Texture f, Texture iron, TextureAtlas de, Texture shards) {
         this.t = t;
         this.f = f;
         this.iron = iron;
         this.textureAtlasDeathExplosion = de;
         this.shardsTex = shards;
 
-
-        this.shardsArr= new ArrayDeque<>();
+        temp_V = new Vector2(0, 0);
+        this.shardsArr = new ArrayDeque<>();
         this.particleDeque = new ArrayDeque<>();
         this.pasricalExplosions = new ArrayDeque<>();
         this.pasricalExplosionsBigParam = new ArrayDeque<>();
@@ -113,9 +115,9 @@ public class ParticleCustum {
 
         for (Shard s : shardsArr) {  // частицы
             s.upDate();
-            spriteBatch.setColor(1,1,1,1);
-           // spriteBatch.draw(shardsTex,MathUtils.random(150,500),MathUtils.random(150,500));
-            spriteBatch.draw(shardsTex,s.getPos().x,s.getPos().y);
+            spriteBatch.setColor(1, 1, 1, 1);
+            // spriteBatch.draw(shardsTex,MathUtils.random(150,500),MathUtils.random(150,500));
+            spriteBatch.draw(shardsTex, s.getPos().x, s.getPos().y);
         }
 
 
@@ -123,9 +125,13 @@ public class ParticleCustum {
 
     public void addAnimationDeath(float x, float y) {
         this.addPasricalDeath(x, y);
-        for (int i = 0; i < MathUtils.random(5, 12); i++) {
-            this.addGarbage(x, y);
+        for (int i = 0; i < 90; i++) {
+            addShares(x, y);
         }
+
+//        for (int i = 0; i < MathUtils.random(200, 260); i++) {
+//            this.addGarbage(x, y);
+//        }
 
 
     }
@@ -302,16 +308,17 @@ public class ParticleCustum {
 
 
     public void addShares(float x, float y) {
-        Shard g = this.shardsArr.pollLast();
-        g.setParametors(x, y);
-       // System.out.println(x+ "   " + y);
-        System.out.println(this.shardsArr.offerFirst(g));
+        temp_V.set(1,1).setLength2(MathUtils.random(150,230));
+        temp_V.setAngleDeg(MathUtils.random(0,360));
+        addShares(x, y, temp_V.x, temp_V.y);
+        // System.out.println("!");
+
     }
 
     public void addShares(float x, float y, float vx, float vy) {
         Shard g = this.shardsArr.pollLast();
-        g.setParametors(x,y);
-        g.setParametors( x,  y,  vx,  vy);
+        g.setParametors(x, y);
+        g.setParametors(x, y, vx, vy);
         this.shardsArr.offerFirst(g);
     }
 

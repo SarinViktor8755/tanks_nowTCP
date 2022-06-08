@@ -20,6 +20,7 @@ import com.mygdx.tanks2d.MainGame;
 import com.mygdx.tanks2d.ParticleEffect.ParticleCustum;
 import com.mygdx.tanks2d.Screens.Controll.Controller;
 import com.mygdx.tanks2d.Units.Bullets;
+import com.mygdx.tanks2d.Units.Player;
 import com.mygdx.tanks2d.Units.Tanks.Tank;
 import com.mygdx.tanks2d.Units.Tanks.TanksOther;
 
@@ -96,7 +97,7 @@ public class GamePlayScreen implements Screen {
         getMainGame().updateClien();
 
         // кинуть на сервер мои координаты
-        ServiceClient.sendMuCoordinat(tank.getPosition().x, tank.getPosition().y, tank.getTr().getAnTower(),mainGame.getMainClient().getClient());
+        if(!getTank().isLive()) ServiceClient.sendMuCoordinat(tank.getPosition().x, tank.getPosition().y, tank.getTr().getAnTower(),mainGame.getMainClient().getClient());
 
     //////////    mainGame.getMainClient().getNetworkPacketStock();
 
@@ -192,6 +193,7 @@ public class GamePlayScreen implements Screen {
     public TanksOther getTanksOther() {
         return tanksOther;
     }
+
 
     public Controller getController() {
         return controller;

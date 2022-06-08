@@ -46,6 +46,7 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
 
     private void makingDecisionTower(float delta) { // принятие решение башня
         //    System.out.println(timerTackt);
+
         if (nomTarget == null) { // если нет целей
             turningTower(this.direction.angleDeg(), delta);
             target_tank = 0;

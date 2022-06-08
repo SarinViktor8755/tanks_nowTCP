@@ -81,6 +81,8 @@ public class Tank {
         targetCoordinat = new Vector2(0, 0);
         deltaSledVec.set(this.getPosition());
 
+        gsp.getCameraGame().createNewTargetDeathRhim(gsp.getTanksOther().getRandomPlayer());
+
     }
 
     public Integer getCommand() {
@@ -100,7 +102,7 @@ public class Tank {
     }
 
     public void update(Vector2 directionMovementControll, boolean inTuch) {
-
+        if(!isLive()) this.position.set(-1111,-11111);
         // if (MathUtils.randomBoolean(.005f)) hp = MathUtils.random(0, 80);
         // if(MathUtils.randomBoolean(.05f)) gsp.pc.addPasricalExplosionDeath(position.x, position.y);
         upDateHpHud();
@@ -211,6 +213,7 @@ public class Tank {
 
 
     public void renderTank(Vector2 directionMovement, boolean inTouch) {
+
         if (tr.isRotation()) gsp.getAudioEngine().pleySoundOfTower();
         else gsp.getAudioEngine().stopSoundOfTower(); // звук башни
 
@@ -326,8 +329,10 @@ public class Tank {
         if (isLive())
             gsp.getCameraGame().moveFloatCameraToPoint(temp.x, temp.y, (int) 3.5); //камера перемещение
         // куда пееремещать
-        else
-        gsp.getCameraGame().zoomCamera();
+        else {
+            gsp.getCameraGame().deathStatus(this);
+            if (MathUtils.randomBoolean(.004f))gsp.getCameraGame().createNewTargetDeathRhim(gsp.getTanksOther().getRandomPlayer());
+        }
 
 
 //        gsp.getGameSpace().getLighting().setPointL(position.x, position.y); //освещение перемещение

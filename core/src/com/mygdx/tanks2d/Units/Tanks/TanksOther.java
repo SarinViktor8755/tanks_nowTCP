@@ -9,11 +9,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.ClientNetWork.Network;
-import com.mygdx.tanks2d.ClientNetWork.PacketModel;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
-import com.mygdx.tanks2d.Utils.VectorUtils;
 
-import java.util.ArrayDeque;
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -142,6 +139,15 @@ public class TanksOther { /// много танков )))
         listOpponents.put(nomer, r);
         listSled.put(nomer, .0f);
         return nomer;
+    }
+
+    public OpponentsTanks getRandomPlayer()  {
+        try {
+            return getTankForID((int) listOpponents.keySet().toArray()[MathUtils.random(listOpponents.size() +1 )]);
+        } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+
     }
 
 

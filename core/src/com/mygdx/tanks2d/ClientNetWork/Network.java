@@ -93,4 +93,9 @@ public class Network {
         }
     }
 
+    public static class statusPlayer{ // пакет статусов Live - 1
+        int idPlayer;
+        byte status;
+    }
+
 }

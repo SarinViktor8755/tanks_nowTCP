@@ -27,4 +27,6 @@ public class Heading_type {
 
     public static final int LIFE_TANK = 47;
     public static final int DEATH_TANK = 48;
+
+
 }

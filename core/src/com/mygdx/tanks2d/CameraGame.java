@@ -5,11 +5,18 @@ import static com.mygdx.tanks2d.MainGame.WHIDE_SCREEN;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.mygdx.tanks2d.Units.Tanks.OpponentsTanks;
+import com.mygdx.tanks2d.Units.Tanks.Tank;
 
 public class CameraGame{
+
+    OpponentsTanks targetCamera;
+
+
     OrthographicCamera camera;
     private FillViewport viewport;
     private boolean floatCamera;
@@ -39,13 +46,29 @@ public class CameraGame{
     }
 
     public void zoomCamera(){
-        if(camera.zoom > 5) camera.zoom = 5;
-        camera.zoom += 0.01;
+
+//        if(camera.zoom > 5) camera.zoom = 5;
+//        camera.zoom += 0.01;
         
 
 
 
     }
+
+    public void deathStatus(Tank tank){
+        fixBounds();
+        try {
+            moveFloatCameraToPoint(targetCamera.getPosition().x,targetCamera.getPosition().y,2.3f);
+        }catch (NullPointerException e){
+            tank.getGsp().getCameraGame().createNewTargetDeathRhim(tank.getGsp().getTanksOther().getRandomPlayer());
+        }
+    }
+
+    public void createNewTargetDeathRhim(OpponentsTanks ot){
+        this.targetCamera = ot;
+    }
+
+
 
     public void jampCameraToPoint(float x , float y){
         //this.camera.position.set(x,y,0);
