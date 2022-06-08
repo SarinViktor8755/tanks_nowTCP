@@ -4,12 +4,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class DBBot {
-    private static final float SPEED_RUN_1 = 90f;
+
     private int id;
-    private Vector2 position;
-    private Vector2 body_rotation_angle;
-    private Vector2 angle_rotation_tower;
-    private float hp;
+
 
     private String nikName;
 
@@ -21,6 +18,13 @@ public class DBBot {
     private Vector2 target_body_rotation_angle;
     private Vector2 target_angle_rotation_tower;
 
+    public DBBot(int id) {
+        this.id = id;
+        target_position = new Vector2(0,0);
+        target_body_rotation_angle  = new Vector2(1,1);
+        target_angle_rotation_tower  = new Vector2(1,1);
+        target_angle_rotation_tower.set(target_body_rotation_angle);
+    }
 
     public int getId() {
         return id;
@@ -30,37 +34,7 @@ public class DBBot {
         this.id = id;
     }
 
-    public Vector2 getPosition() {
-        return position;
-    }
 
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
-    public Vector2 getBody_rotation_angle() {
-        return body_rotation_angle.setLength(SPEED_RUN_1);
-    }
-
-    public void setBody_rotation_angle(Vector2 body_rotation_angle) {
-        this.body_rotation_angle = body_rotation_angle;
-    }
-
-    public Vector2 getAngle_rotation_tower() {
-        return angle_rotation_tower;
-    }
-
-    public void setAngle_rotation_tower(Vector2 angle_rotation_tower) {
-        this.angle_rotation_tower = angle_rotation_tower;
-    }
-
-    public float getHp() {
-        return hp;
-    }
-
-    public void setHp(float hp) {
-        this.hp = hp;
-    }
 
     public String getNikName() {
         return nikName;

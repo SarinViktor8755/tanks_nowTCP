@@ -54,8 +54,7 @@ public class IndexBot extends Thread {
         if (MathUtils.randomBoolean()) p.setCommand(Heading_type.RED_COMMAND);
         else p.setCommand(Heading_type.BLUE_COMMAND);
 
-        p.setXp(MathUtils.random(200, 1100));
-        p.setYp(MathUtils.random(200, 1100));
+        p.setPosition(MathUtils.random(200, 1100),MathUtils.random(200, 1100));
         p.setHp(100);
         p.setNikName(getNikNameGen());
 
@@ -64,20 +63,18 @@ public class IndexBot extends Thread {
 
         gs.getLp().addPlayer(p); // добавляем в базу играков
 
-        DBBot bot = new DBBot();
+        DBBot bot = new DBBot(p.getId());
         dbBots.put(p.getId(), bot);
 
     }
 
-    public void upateMainPlayerList(ListPlayers listPlayers) { //обносить основй список играков )_)) закидуть ботов в листПлаер
-        Iterator<Map.Entry<Integer, DBBot>> bot = this.dbBots.entrySet().iterator();
-        while (bot.hasNext()) {
-            listPlayers.accept_bot((DBBot) bot);
-
-
-        }
-
-    }
+//    public void upateMainPlayerList(ListPlayers listPlayers) { //обносить основй список играков )_)) закидуть ботов в листПлаер
+//        Iterator<Map.Entry<Integer, DBBot>> bot = this.dbBots.entrySet().iterator();
+//        while (bot.hasNext()) {
+//            listPlayers.accept_bot((DBBot) bot);
+//        }
+//
+//    }
 
     public void send_bot_coordinates() {
         gs.getLp().send_bot_coordinates();
@@ -85,15 +82,45 @@ public class IndexBot extends Thread {
 
     public void updaeteBot(float deltaTime) {
 
-
+        movetBot(deltaTime);
         send_bot_coordinates();
     }
+//////////////////////////////
+    public void movetBot(float deltaTime) { // перемещения поля
+        for (Map.Entry<Integer, DBBot> tank : dbBots.entrySet()) {
+            Player p = gs.getLp().getPlayerForId(tank.getValue().getId());
+            p.getBody_rotation().setLength(90);
+            p.getPosi().add(p.getBody_rotation().scl(deltaTime * .001f));
+
+            rotation_body(deltaTime, tank.getValue(),p);
+
+
+           // if(MathUtils.randomBoolean(.005f))tank.getValue().getTarget_body_rotation_angle().setAngleDeg(MathUtils.random(-180,180));
+        }
+    }
+
+
+    private static void rotation_body(float dt, DBBot db_bot, Player p) { // поворот тела
+        if (MathUtils.isEqual(p.getBody_rotation().angleDeg(), db_bot.getTarget_body_rotation_angle().angleDeg(), .5f))
+            System.out.println("isEqual");
+            return;
+//        if ((p.getBody_rotation().angleDeg(db_bot.getTarget_body_rotation_angle()) > 180)) {
+//            p.getBody_rotation().setAngleDeg(p.getBody_rotation().angleDeg() - dt * BehaviourBot.SPEED_ROTATION);
+//        } else
+//            p.getBody_rotation().setAngleDeg(p.getBody_rotation().angleDeg() + dt * BehaviourBot.SPEED_ROTATION);
+    }
+
+
+
+
+
+    /////////////////////////////////////////////////
 
 
     public void updateCountBot(int lPlayers, int target_plaers) {
         if ((dbBots.size() + lPlayers) < target_plaers) addBot();
         if ((dbBots.size() + lPlayers) > target_plaers) delBot();
-    //    System.out.println(lPlayers + "  " + dbBots.size());
+        //    System.out.println(lPlayers + "  " + dbBots.size());
     }
 
     private void delBot() {

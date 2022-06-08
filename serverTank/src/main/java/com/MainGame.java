@@ -14,8 +14,8 @@ public class MainGame {
     private static float realTimeMath; // время матча
     private final static float MATH_LENGHT = 1000 * 60 * 2; // время матча
 
-    public final long timer_tread_50 = 55; //ms поток таймер циклов , рассылвает координаты ботов ))
-    public final long timer_tread_25 = 20; // таймер поведения ботов - 25
+    public final long timer_tread_50 = 35; //ms поток таймер циклов , рассылвает координаты ботов ))
+    public final long timer_tread_25 = 15; // таймер поведения ботов - 25
 
     public static int targetPlayer = 10;
 

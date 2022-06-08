@@ -9,14 +9,18 @@ public class Player {
     public static final int STATUS_MENU = 1;
     public static final int STATUS_IN_GAME = 2;
 
-
     private static int RED_COMMAND = 1;
     private static int BLUE_COMMAND = 2;
 
     // общие
     int status = STATUS_MENU;
-    // игровые
-    float xp, yp, r, rotTower; // коодинаты
+
+    Vector2 pos;
+    Vector2 body_rotation;
+
+
+
+    float  rotTower; // коодинаты
     int hp, frags, death, command, id; //ХП
 
     String tokken, nikName;
@@ -27,13 +31,29 @@ public class Player {
         death = 1;
         command = MathUtils.random(1, 2);
         nikName = "Player no." + this.id;
+        pos = new Vector2();
+        body_rotation = new Vector2(1,1);
 
-        // this.behaviourBot = new BehaviourBot();
     }
 
-    public void settPosition(Vector2 p) {
-        this.setXp(p.x);
-        this.setYp(p.y);
+    public void setPosition(Vector2 p) {
+        this.pos.set(p);
+    }
+
+    public void setPosition(float x, float y) {
+        this.pos.set(x,y);
+    }
+
+    public Vector2 getPosi() {
+        return pos;
+    }
+
+    public Vector2 getBody_rotation() {
+        return body_rotation;
+    }
+
+    public void setBody_rotation(Vector2 body_rotation) {
+        this.body_rotation = body_rotation;
     }
 
     public int getStatus() {
@@ -44,32 +64,16 @@ public class Player {
         this.status = status;
     }
 
-    public float getXp() {
-        return xp;
-    }
 
-    public void setXp(float xp) {
-        this.xp = xp;
-    }
 
     public static int getStatusInGame() {
         return STATUS_IN_GAME;
     }
 
-    public float getYp() {
-        return yp;
-    }
 
-    public void setYp(float yp) {
-        this.yp = yp;
-    }
-
-    public float getR() {
-        return r;
-    }
 
     public void setR(float r) {
-        this.r = r;
+        this.body_rotation.setAngleDeg(r);
 //        if (this.r > 360) this.r = 0;
 //        if (this.r < 0) this.r = 360;
     }
@@ -150,9 +154,8 @@ public class Player {
     public String toString() {
         return "Player{" +
                 "status=" + status +
-                ", xp=" + xp +
-                ", yp=" + yp +
-                ", r=" + r +
+
+
                 ", rotTower=" + rotTower +
                 ", hp=" + hp +
                 ", frags=" + frags +

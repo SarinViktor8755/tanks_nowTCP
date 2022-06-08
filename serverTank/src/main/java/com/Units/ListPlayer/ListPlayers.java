@@ -73,11 +73,9 @@ public class ListPlayers {
     public void updatePosition(int id, Network.PleyerPosition pp) { // записать парметры Игрока
         Player p = players.get(id);
         if (p == null) players.put(id, new Player(id));
-        p.setXp(pp.xp);
-        p.setYp(pp.yp);
+
+        p.setPosition(pp.xp,pp.yp);
         p.setRotTower(pp.roy_tower);
-//        System.out.println(pp.xp + "  "+ pp.yp);
-//        if(MathUtils.randomBoolean()) System.out.println("___");  System.out.println("_");
     }
 
     public void sendToAllPlayerPosition(int id, Network.PleyerPosition pp) {
@@ -88,12 +86,12 @@ public class ListPlayers {
         gameServer.getServer().sendToAllExceptTCP(id, pn);
     }
 
-    public void accept_bot(DBBot dbBot) {
-        Player p_bot = getPlayerForId(dbBot.getId());
-        p_bot.xp = dbBot.getPosition().x;
-        p_bot.yp = dbBot.getPosition().y;
-        p_bot.rotTower = dbBot.getAngle_rotation_tower().angleDeg();
-    }
+//    public void accept_bot(DBBot dbBot) {
+//        Player p_bot = getPlayerForId(dbBot.getId());
+//        p_bot.getPosi().x = dbBot.getPosition().x;
+//        p_bot.getPosi().y = dbBot.getPosition().y;
+//        p_bot.rotTower = dbBot.getAngle_rotation_tower().angleDeg();
+//    }
 
     public void sendParametersPlayers(int aboutPlayerID) { // рассылка о характеристиках игрока по id
         Network.StockMessOut sm = new Network.StockMessOut();
@@ -118,7 +116,7 @@ public class ListPlayers {
         while (entries.hasNext()) {
             Map.Entry<Integer, Player> entry = entries.next();
             if (entry.getValue().hp < 0) continue;
-            temp2.set(entry.getValue().xp, entry.getValue().yp);
+            temp2.set(entry.getValue().getPosi().x, entry.getValue().getPosi().y);
             if (((temp1.dst2(temp2) < 500) && author_id != entry.getValue().getId()))
                 res = entry.getKey();
 
@@ -134,8 +132,8 @@ public class ListPlayers {
             if (entry.getKey() > -99) continue;
             Player p = entry.getValue();
             pn.nom = entry.getKey();
-            pn.xp = p.xp;
-            pn.yp = p.yp;
+            pn.xp = p.getPosi().x;
+            pn.yp = p.getPosi().y;
             pn.roy_tower = p.getRotTower();
             gameServer.getServer().sendToAllUDP(pn);
         }
