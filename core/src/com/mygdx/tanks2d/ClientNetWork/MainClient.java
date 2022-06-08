@@ -7,6 +7,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.mygdx.tanks2d.ClientNetWork.VoiceChat.VoiceChatClient;
 import com.mygdx.tanks2d.MainGame;
+import com.mygdx.tanks2d.Units.Tanks.OpponentsTanks;
 import com.mygdx.tanks2d.Utils.VectorUtils;
 
 import java.io.IOException;
@@ -111,8 +112,11 @@ public class MainClient {
             if (pp.nom == client.getID()) return;
 
             try {
+                OpponentsTanks t = mg.getGamePlayScreen().getTanksOther().getTankForID(pp.nom);
+
+
                 mg.getGamePlayScreen().getTanksOther().setTankPosition(pp, mg.getMainClient().frameUpdates.get(pp.nom));
-                mg.getMainClient().frameUpdates.put(pp.nom, false); /// закрывает флаг о рендере __
+                //mg.getMainClient().frameUpdates.put(pp.nom, false); /// закрывает флаг о рендере __
             } catch (NullPointerException e) {
                  e.printStackTrace();
             }

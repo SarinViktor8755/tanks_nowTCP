@@ -173,8 +173,9 @@ public class TanksOther { /// много танков )))
             t = tank.getValue();
             if (t.hp < 0) continue;
             // System.out.println(t);
-            if (!tank.getValue().live) return;
+            if (!tank.getValue().live) continue;
             updateColor(t, Gdx.graphics.getDeltaTime());
+
             if (t.getNikPlayer() != null) {
                 textFont.draw(sb, t.getNikPlayer(), t.getPosition().x - t.getNikPlayer().length() * 4, t.getPosition().y + 50);
             } else
@@ -217,7 +218,6 @@ public class TanksOther { /// много танков )))
                     img.getWidth(), img.getHeight(),
                     false, false);
 
-
             addSled(t);
 
         }
@@ -249,36 +249,7 @@ public class TanksOther { /// много танков )))
     }
 
     public void updateClienOtherTank() {
-        boolean flag_mess = false; /// флаг типа делать запрос по никам или нет
-        // System.out.println("getMainClient.otherPlayer " + gsp.getMainGame().getMainClient().otherPlayer.size());
 
-        try {
-            Iterator key = gsp.getMainGame().getMainClient().otherPlayer.keySet().iterator();
-            while (key.hasNext()) {
-                int n = (int) key.next();
-                Network.PleyerPositionNom p = gsp.getMainGame().getMainClient().otherPlayer.get(n);
-///////////////Аопросить имя игрока
-//                try {
-//                    if (this.listOpponents.get(n).getNikPlayer().length() < 1) flag_mess = true;
-//                } catch (NullPointerException e) {
-//                    if (((VectorUtils.getLen2(gsp.getTank().getPosition(), p.xp, p.yp) < 110_000))) {
-//                        gsp.getMainGame().getMainClient().getNetworkPacketStock().toSendParametersOfPlayer(n);// nikname отображение
-//                    }
-//                }
-                //////////////////
-                setTankPosition(p, gsp.getMainGame().getMainClient().frameUpdates.get(p.nom));
-                gsp.getMainGame().getMainClient().frameUpdates.put(p.nom, false); /// закрывает флаг о рендере __
-            }
-            /// обработка входящих сообщенийв
-//            ArrayDeque<PacketModel> in = gsp.getMainGame().getMainClient().inDequePacket;
-//            //System.out.println("size IN :: "+in.size());
-//            if (in.size() > 0) routingInMassage(in.pollFirst()); /// тут что то не так )))
-
-            //if (flag_mess) if (MathUtils.randomBoolean(.01f))
-            //gsp.getMainGame().getMainClient().getNetworkPacketStock().toSendParametersOfPlayer();// nikname отображение
-
-        } catch (ConcurrentModificationException e) {
-        }
     }
 
     public void updateLocalTank() {

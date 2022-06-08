@@ -48,7 +48,7 @@ public class GamePlayScreen implements Screen {
 
         this.batch = new SpriteBatch();
         this.timeInGame = 0;
-        this.gameSpace = new GameSpace(this,mainGame);
+        this.gameSpace = new GameSpace(this, mainGame);
         this.audioEngine = new AudioEngine(this);
 
         this.tanksOther = new TanksOther(this);
@@ -65,7 +65,7 @@ public class GamePlayScreen implements Screen {
         tank = new Tank(this);
 
         bullets = new Bullets(this);
-        pc = new ParticleCustum(this, mainGame.getAssetManager().get("particle1.png", Texture.class), mainGame.getAssetManager().get("fire.png", Texture.class), mainGame.getAssetManager().get("iron.png", Texture.class),mainGame.getAssetManager().get("de.pack", TextureAtlas.class),mainGame.getAssetManager().get("garnd.png", Texture.class));
+        pc = new ParticleCustum(this, mainGame.getAssetManager().get("particle1.png", Texture.class), mainGame.getAssetManager().get("fire.png", Texture.class), mainGame.getAssetManager().get("iron.png", Texture.class), mainGame.getAssetManager().get("de.pack", TextureAtlas.class), mainGame.getAssetManager().get("garnd.png", Texture.class));
 
 
 //        if(!MainGame.ANDROID){
@@ -97,9 +97,10 @@ public class GamePlayScreen implements Screen {
         getMainGame().updateClien();
 
         // кинуть на сервер мои координаты
-        if(!getTank().isLive()) ServiceClient.sendMuCoordinat(tank.getPosition().x, tank.getPosition().y, tank.getTr().getAnTower(),mainGame.getMainClient().getClient());
+        if (!getTank().isLive())
+            ServiceClient.sendMuCoordinat(tank.getPosition().x, tank.getPosition().y, tank.getTr().getAnTower(), mainGame.getMainClient().getClient());
 
-    //////////    mainGame.getMainClient().getNetworkPacketStock();
+        //////////    mainGame.getMainClient().getNetworkPacketStock();
 
         //if(MathUtils.randomBoolean(.0005f)) pc.addPasricalExplosionDeath(getTank().getPosition().x,getTank().getPosition().y);
 
@@ -121,17 +122,17 @@ public class GamePlayScreen implements Screen {
         return timeInGame;
     }
 
-    public void playAnimation(Vector2 pos,Vector2 vel,int nom){ // добавляет анимацию выстрела
+    public void playAnimation(Vector2 pos, Vector2 vel, int nom) { // добавляет анимацию выстрела
         mainGame.getGamePlayScreen().pc.addPasricalDeath_little(pos.x, pos.y, 4.7f);
-        this.getBullets().addBullet(pos,vel,nom);
+        this.getBullets().addBullet(pos, vel, nom);
         //System.out.println("playAnimation");
 
-        mainGame.getGamePlayScreen().getAudioEngine().pleySoundKickStick(cameraGame.getCamera().position.x,cameraGame.getCamera().position.y, pos.x, pos.y);
+        mainGame.getGamePlayScreen().getAudioEngine().pleySoundKickStick(cameraGame.getCamera().position.x, cameraGame.getCamera().position.y, pos.x, pos.y);
     }
 
-    public void playExplosion(Vector2 pos,Vector2 vel){ // добавляет анимацию взрыва
+    public void playExplosion(Vector2 pos, Vector2 vel) { // добавляет анимацию взрыва
         mainGame.getGamePlayScreen().pc.addPasricalDeath_little(pos.x, pos.y, 2.7f);
-        mainGame.getGamePlayScreen().getAudioEngine().pleySoundKickStick(cameraGame.getCamera().position.x,cameraGame.getCamera().position.y, pos.x, pos.y);
+        mainGame.getGamePlayScreen().getAudioEngine().pleySoundKickStick(cameraGame.getCamera().position.x, cameraGame.getCamera().position.y, pos.x, pos.y);
     }
 
     @Override
@@ -148,44 +149,44 @@ public class GamePlayScreen implements Screen {
         this.batch.begin();
         try {
 
-        this.gameSpace.renderSpace((OrthographicCamera) cameraGame.getCamera());                //рендер пространство
-        this.cameraGame.getCamera().update();
+            this.gameSpace.renderSpace((OrthographicCamera) cameraGame.getCamera());                //рендер пространство
+            this.cameraGame.getCamera().update();
 
             this.getGameSpace().getRadspurens().randerCrater(batch);// следы от Crater
-        this.getGameSpace().getRadspurens().randerRadspurens(batch);// следы от танка
+            this.getGameSpace().getRadspurens().randerRadspurens(batch);// следы от танка
 
 
             this.pc.randerGarbage(batch);
 
 
+            if (MathUtils.randomBoolean(.5f))
+                //mainGame.getMainClient().getNetworkPacketStock().toSendMyNik();
 
-
-        if(MathUtils.randomBoolean(.5f))
-        //mainGame.getMainClient().getNetworkPacketStock().toSendMyNik();
-
-        this.tanksOther.updateOtherTank(mainGame.getMainClient().isOnLine()); /// обновление других танков с сервреа (позиция) или локальной зоны
-        this.tanksOther.randerOtherTanks(getBatch());      // визуализация других танков
-        this.tank.renderTank(controller.getDirectionMovement(), controller.isInTuchMove());     //рендер основного танка
+                //this.tanksOther.updateOtherTank(mainGame.getMainClient().isOnLine()); /// обновление других танков с сервреа (позиция) или локальной зоны
+                this.tanksOther.randerOtherTanks(getBatch());      // визуализация других танков
+            this.tank.renderTank(controller.getDirectionMovement(), controller.isInTuchMove());     //рендер основного танка
 
 /////////////стрельба
 
-        this.bullets.randerBullets(delta);
-        this.pc.render(getBatch());
-        this.startFlashForMainTank();                                                  // вспышка из дула и вспышка вокруг танка
+            this.bullets.randerBullets(delta);
+            this.pc.render(getBatch());
+            this.startFlashForMainTank();                                                  // вспышка из дула и вспышка вокруг танка
 
 /////////////
 //        Vector2 smooke = tank.getPosition().cpy().sub(tank.getDirection_tower().cpy().nor().scl(-20 ));
 //        batch.setColor(1,1,1,.3f);
 //        getBatch().draw(mainGame.getAssetManager().get("badlogic1B.png",Texture.class),smooke.x,smooke.y,45,45);
 //        batch.setColor(1,1,1,1);
-        //////////////////////////////////////
+            //////////////////////////////////////
 
             this.batch.end();
-      //  this.getGameSpace().getLighting().renderLights(cameraGame.getCamera()); временно
-        this.controller.draw();
-        this.getBatch().setColor(1, 1, 1, 1);
+            //  this.getGameSpace().getLighting().renderLights(cameraGame.getCamera()); временно
+            this.controller.draw();
+            this.getBatch().setColor(1, 1, 1, 1);
 
-        }catch (ConcurrentModificationException e){this.batch.end();}
+        } catch (ConcurrentModificationException e) {
+            this.batch.end();
+        }
 
 
     }
@@ -270,8 +271,6 @@ public class GamePlayScreen implements Screen {
             this.getMainGame().getMainClient().getNetworkPacketStock().toSendMyShot(smooke.x, smooke.y, tank.getDirection_tower().angleDeg());
         }
     }
-
-
 
 
     public AssetManager getAssetsManagerGame() {
