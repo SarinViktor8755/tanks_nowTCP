@@ -34,7 +34,7 @@ public class Ellipse implements Figure {
     }
 
     public Vector2 get_vector2_from_center(Vector2 pos) { // дает вектор от центра кализии
-        if (pos.dst(positionCenter) > radius) {
+        if (pos.dst(positionCenter) < radius) {
             Vector2 result = new Vector2(0, 0);
             result.set(pos.cpy().sub(positionCenter).nor());
             return result;
