@@ -51,7 +51,6 @@ public class MainCollision {
     public Vector2 isCircleCircle(Vector2 pos) {
         for (CircleCollision c : circle) {
             if (!c.isCollisionCircle(pos)) {
-
                 return tempVector.set(pos.cpy().sub(c.circule).nor());
             }
         }

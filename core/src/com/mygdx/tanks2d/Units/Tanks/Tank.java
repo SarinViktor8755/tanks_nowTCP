@@ -37,6 +37,7 @@ public class Tank {
     float deltaSled;
     Vector2 deltaSledVec;
     Integer command = Heading_type.RED_COMMAND; // по умолчанию 1 синяя команда временно
+
     final float SPEED = 90f;
     final float SPEED_ROTATION = 180f;
 
@@ -68,7 +69,7 @@ public class Tank {
 
         //target = new Texture(Gdx.files.internal("target.png"));
         target = gsp.getMainGame().assetManager.get("target.png", Texture.class);
-        hp = 100;
+        hp = 20;
 
 
         img.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Linear);
@@ -141,12 +142,7 @@ public class Tank {
         collisinOtherTanksTrue();
     }
 
-    private void collisinOtherTanksTrue() {
-        Vector2 ct = gsp.getTanksOther().isCollisionsTanks(position);
-        if (ct != null) {  // танки другие
-            position.add(ct.scl(2 * SPEED * Gdx.graphics.getDeltaTime()));
-        }
-    }
+
 
     private void generatorSled() {
         if (MathUtils.randomBoolean(.4f))
@@ -177,7 +173,7 @@ public class Tank {
             }
     }
 
-
+/////////////////////////////////////////collisin
     public void collisinRectangleTrue() {
         Vector2 c = gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition());
         if (c != null) position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
@@ -188,6 +184,13 @@ public class Tank {
         if (c != null) position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
     }
 
+    private void collisinOtherTanksTrue() {
+        Vector2 ct = gsp.getTanksOther().isCollisionsTanks(position);
+        if (ct != null) {  // танки другие
+            position.add(ct.scl(2 * SPEED * Gdx.graphics.getDeltaTime()));
+        }
+    }
+/////////////////////////////////////////////////
     private void generatorSmoke() { // генератор Дыма для танка
         if (hp < 70) {
             //  System.out.println(hp);

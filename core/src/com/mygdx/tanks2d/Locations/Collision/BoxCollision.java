@@ -12,7 +12,7 @@ public class BoxCollision {
         this.ru = ru;
         this.center = new Vector2();
         getCenter();
-        System.out.println(" Rectangle: position" + lb + "  WH" + ru + " center _ " + center);
+       // System.out.println(" Rectangle: position" + lb + "  WH" + ru + " center _ " + center);
     }
 
     public boolean isCollisionTank(Vector2 p) {

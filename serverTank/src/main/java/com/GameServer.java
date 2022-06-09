@@ -5,6 +5,7 @@ import static com.mygdx.tanks2d.ClientNetWork.Network.register;
 import static java.lang.Integer.parseInt;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -198,5 +199,6 @@ public class GameServer {
         }
         return res;
     }
+
 }
 
