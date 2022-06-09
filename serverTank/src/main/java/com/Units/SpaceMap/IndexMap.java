@@ -135,33 +135,34 @@ public class IndexMap {
     }
 
 
-    public void resolving_conflict_with_objects(Vector2 pos, float dt) { /// решение коллизии с обьектами
+    public Vector2 resolving_conflict_with_objects(Vector2 pos, float dt) { /// решение коллизии с обьектами
         for (int i = 0; i < allfigure.size(); i++) {
             if (allfigure.get(i) instanceof Rectangle) {
                 Rectangle rectangle = (Rectangle) allfigure.get(i);
                 Vector2 resolving = rectangle.get_vector2_from_center(pos);
                 if (resolving != null) {
-                    // pos.add(resolving.scl(dt));
-                    System.out.println("Rectangle");
-                    pos.add(resolving.scl(222));
-                    return;
+                    resolving.nor().scl(SPEED * dt * .004f);
+                    return resolving;
                 }
-                System.out.println("-----------------");
-//                /// true если касается
-//                if (r.isPointCollision((int) x, (int) y)) return true;
+
             }
             if (allfigure.get(i) instanceof Ellipse) {
-                Ellipse ellipse = (Ellipse) allfigure.get(i);
-                Vector2 resolving = ellipse.get_vector2_from_center(pos);
+                Ellipse e = (Ellipse) allfigure.get(i);
+                Vector2 resolving = e.get_vector2_from_center(pos);
                 if (resolving != null) {
-                    //  pos.add(resolving.scl(dt));
+                    resolving.set(50,1);
                     System.out.println("Ellipse");
-                    pos.add(resolving.scl(44));
-                    return;
+                    return resolving;
+
                 }
-                //              System.out.println("-----------------");
+
             }
+
+
         }
+
+
+        return null;
     }
 
 

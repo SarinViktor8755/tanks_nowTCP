@@ -1,5 +1,6 @@
 package main.java.com.Bots;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.ClientNetWork.Heading_type;
@@ -88,41 +89,52 @@ public class IndexBot extends Thread {
     public void movetBot(float deltaTime) { // перемещения поля
         for (Map.Entry<Integer, DBBot> tank : dbBots.entrySet()) {
 
-
             Player p = gs.getLp().getPlayerForId(tank.getValue().getId());
+            rotation_body(deltaTime, tank.getValue(), p.getBody_rotation()); // поворот туловеща
 
-            if (gs.getMainGame().getMapSpace().in_dimensions_terrain(p.getPosi().x, p.getPosi().y)) {
-                p.getPosi().add(p.getBody_rotation().scl(deltaTime * .001f));
-               // System.out.println("move");
+            if (gs.getMainGame().getMapSpace().in_dimensions_terrain(p.getPosi().x, p.getPosi().y)) { // перемещеени вперед
+                p.getBody_rotation().setLength(90);
+                p.getPosi().add(p.getBody_rotation().cpy().scl(deltaTime * .001f));
             }
+
+            ///////
+            Vector2 r = gs.getMainGame().getMapSpace().resolving_conflict_with_objects(p.getPosi(), deltaTime);
+            if (r != null) p.getPosi().add(r);
+            ///////
+
+            collisinOtherTanksTrue(p.getPosi(), deltaTime); /// calisiion tanks
+
+
             ///////////
-            collisinOtherTanksTrue(p.getPosi(),deltaTime); /// calisiion tanks
+
             ////////////
 
-            p.getBody_rotation().setLength(90);
-            rotation_body(deltaTime, tank.getValue(), p);
 
-            gs.getMainGame().getMapSpace().resolving_conflict_with_objects(p.getPosi(),deltaTime);
             // if(MathUtils.randomBoolean(.005f))tank.getValue().getTarget_body_rotation_angle().setAngleDeg(MathUtils.random(-180,180));
         }
     }
 
-    private void collisinOtherTanksTrue(Vector2 position,float dt) {
+    private void collisinOtherTanksTrue(Vector2 position, float dt) {
         Vector2 ct = gs.getLp().isCollisionsTanks(position);
         if (ct != null) {  // танки другие
-            position.add(ct.scl(360 * dt * .001f));
+            position.add(ct.scl(90 * dt * .001f));
         }
     }
 
 
-    private static void rotation_body(float dt, DBBot db_bot, Player p) { // поворот тела
-        if (MathUtils.isEqual(p.getBody_rotation().angleDeg(), db_bot.getTarget_body_rotation_angle().angleDeg(), .5f))
-         //   System.out.println("isEqual");
-        return;
-//        if ((p.getBody_rotation().angleDeg(db_bot.getTarget_body_rotation_angle()) > 180)) {
-//            p.getBody_rotation().setAngleDeg(p.getBody_rotation().angleDeg() - dt * BehaviourBot.SPEED_ROTATION);
-//        } else
-//            p.getBody_rotation().setAngleDeg(p.getBody_rotation().angleDeg() + dt * BehaviourBot.SPEED_ROTATION);
+    private static void rotation_body(float dt, DBBot db_bot, Vector2 rotaton) { // поворот тела
+        boolean a = MathUtils.isEqual(rotaton.angleDeg(), db_bot.getTarget_body_rotation_angle().angleDeg(), 4);
+        if (MathUtils.randomBoolean(.05f))
+            db_bot.getTarget_body_rotation_angle().rotateDeg(MathUtils.random(50));
+
+     //   System.out.println(rotaton.angleDeg() + "  " + db_bot.getTarget_body_rotation_angle().angleDeg() + "  " + MathUtils.isEqual(db_bot.getTarget_body_rotation_angle().angleDeg(), rotaton.angleDeg()));
+        if (!a) {
+            if ((rotaton.angleDeg(db_bot.getTarget_body_rotation_angle()) > 180)) {
+                rotaton.rotateDeg(3);
+            } else rotaton.rotateDeg(-3);
+
+        }
+
     }
 
 

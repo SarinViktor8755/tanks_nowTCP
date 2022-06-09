@@ -14,7 +14,7 @@ public class MainGame {
     private static float realTimeMath; // время матча
     private final static float MATH_LENGHT = 1000 * 60 * 2; // время матча
 
-    public final long timer_tread_50 = 20; //ms поток таймер циклов , рассылвает координаты ботов ))
+    public final long timer_tread_50 = 50; //ms поток таймер циклов , рассылвает координаты ботов ))
     public final long timer_tread_25 = 15; // таймер поведения ботов - 25
 
     public static int targetPlayer = 10;
@@ -41,24 +41,21 @@ public class MainGame {
             @Override
             public void run() {
                 try {
-                    float time_tackt = System.nanoTime();
                     while (true) {
-                        Thread.sleep(timer_tread_50);
+                        if (gameServer.isServerLivePlayer()) Thread.sleep(timer_tread_50);
+                        else Thread.sleep(450);
 
 
-                        float real_delta_time_50 = System.nanoTime() - time_tackt;
-                        time_tackt = System.nanoTime();
 
-                        gameServer.indexBot.updateCountBot(gameServer.countLivePlayer(), targetPlayer); // контроль количество ботов
-                        gameServer.indexBot.updaeteBot(timer_tread_50);
+                        gameServer.indexBot.updaeteBot(50);
 
 
 //                        поток 50 можно остоновить при отсутвии игрков
 //                                нужно будет обнулить игру результаты
 
+                        gameServer.indexBot.updateCountBot(gameServer.countLivePlayer(), targetPlayer); // контроль количество ботов
+             //           System.out.println("is_end_math : " + is_end_math());
 
-                        //           System.out.println("is_end_math : " + is_end_math());
-                        System.out.println(timer_tread_50 + "::  "+real_delta_time_50);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -77,11 +74,7 @@ public class MainGame {
             @Override
             public void run() {
                 try {
-
                     while (true) {
-
-
-
                         if (gameServer.isServerLivePlayer()) Thread.sleep(timer_tread_25);
                         else Thread.sleep(timer_tread_50);
 
@@ -95,11 +88,8 @@ public class MainGame {
                         }
 
 
-
                         float time = (float) (deltaTime * .001);
                         bullets.updateBulets(deltaTime);
-
-
 
 
                         // System.out.println("---");
