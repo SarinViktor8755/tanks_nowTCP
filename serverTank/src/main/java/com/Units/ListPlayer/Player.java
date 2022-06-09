@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.ClientNetWork.Network;
 import com.mygdx.tanks2d.MainGame;
+import com.mygdx.tanks2d.Utils.VectorUtils;
 
 public class Player {
     public static final int STATUS_MENU = 1;
@@ -165,6 +166,12 @@ public class Player {
                 ", tokken='" + tokken + '\'' +
                 ", nikName='" + nikName + '\'' +
                 '}';
+    }
+
+    public boolean isCollisionsTanks(Vector2 posTank) {
+        float len = VectorUtils.getLen2(posTank, this.pos);
+        if (len > 5 && len < 1300) return true;
+        return false;
     }
 
 

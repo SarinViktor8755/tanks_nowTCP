@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.ClientNetWork.Network;
+import com.mygdx.tanks2d.Units.Tanks.OpponentsTanks;
+import com.mygdx.tanks2d.Utils.VectorUtils;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -74,7 +76,7 @@ public class ListPlayers {
         Player p = players.get(id);
         if (p == null) players.put(id, new Player(id));
 
-        p.setPosition(pp.xp,pp.yp);
+        p.setPosition(pp.xp, pp.yp);
         p.setRotTower(pp.roy_tower);
     }
 
@@ -138,6 +140,20 @@ public class ListPlayers {
             gameServer.getServer().sendToAllUDP(pn);
         }
     }
+//////////////collisin
+
+
+    public Vector2 isCollisionsTanks(Vector2 pos) {
+        for (Map.Entry<Integer, Player> tank : this.players.entrySet()) {
+            if (MathUtils.randomBoolean()) continue;
+            if (tank.getValue().hp < 0) continue;
+            if (tank.getValue().isCollisionsTanks(pos))
+                return new Vector2().set(pos.cpy().sub(tank.getValue().pos).nor());
+        }
+        return null;
+    }
+///////////////////
+
 
 
 }

@@ -8,6 +8,7 @@ public class Ellipse implements Figure {
     private float radius;
     private float radius2;
 
+
     public Ellipse(Vector2 position, float width, float height) {
         positionCenter = new Vector2();
         this.positionCenter.set(position.x + width / 2, position.y + height / 2);
@@ -16,14 +17,28 @@ public class Ellipse implements Figure {
     }
 
     @Override
-    public boolean isPointCollision(int x, int y) {
+    public boolean isPointCollision(float x, float y) {
         if (VectorUtils.getLen2(positionCenter, x, y) < radius2 + 230) return true;
         // System.out.println(positionCenter + "   " + radius2);
         return false;
     }
 
     @Override
-    public Vector2 get_vector2_from_center(int x, int y) {
+    public Vector2 get_vector2_from_center(float x, float y) { // дает вектор от центра кализии
+        if (VectorUtils.getLen2(x, y, positionCenter.x, positionCenter.y) > radius) {
+            Vector2 pos = new Vector2(x, y);
+            Vector2 result = new Vector2(0, 0);
+            result.set(pos.cpy().sub(positionCenter).nor());
+        }
+        return null;
+    }
+
+    public Vector2 get_vector2_from_center(Vector2 pos) { // дает вектор от центра кализии
+        if (pos.dst(positionCenter) > radius) {
+            Vector2 result = new Vector2(0, 0);
+            result.set(pos.cpy().sub(positionCenter).nor());
+            return result;
+        }
         return null;
     }
 
