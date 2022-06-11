@@ -1,10 +1,12 @@
 package com.mygdx.tanks2d.ParticleEffect;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
 import com.mygdx.tanks2d.Utils.VectorUtils;
 
@@ -21,7 +23,8 @@ public class ParticleCustum {
     ArrayDeque<Shard> shardsArr;
     ArrayDeque<Explosion_Death> explosion_Death; // взрыв из тотал анигилейшен
     ArrayDeque<Explosion_Death> explosion_Death_little; // взрыв из тотал анигилейшен
-
+    ArrayDeque<Falling_element> falling_elements; //падаюшие элементы
+    ArrayDeque<Smoke_element> smoke_elements; // Дым в лбьемк
     Vector2 temp_V;
 
     private Texture t;
@@ -48,11 +51,27 @@ public class ParticleCustum {
         this.pasricalGarbage = new ArrayDeque<>();
         this.explosion_Death = new ArrayDeque<>(); ///  текстур взрыва тотала
         this.explosion_Death_little = new ArrayDeque<>(); ///  текстур взрыва тотала__little
-
+        this.falling_elements = new ArrayDeque<>();
+        this.smoke_elements = new ArrayDeque<>();
 
         for (int i = 0; i < 2000; i++) {
             Shard ed = new Shard();
             this.shardsArr.add(ed);
+        }
+
+        for (int i = 0; i < 120; i++) {
+            Falling_element falling_element = new Falling_element();
+            this.falling_elements.add(falling_element);
+        }
+
+        for (int i = 0; i < 120; i++) {
+            Smoke_element smoke_element = new Smoke_element();
+            this.smoke_elements.add(smoke_element);
+        }
+
+        for (int i = 0; i < 120; i++) {
+            Falling_element falling_element = new Falling_element();
+            this.falling_elements.add(falling_element);
         }
 
         for (int i = 0; i < 4; i++) {
@@ -135,6 +154,7 @@ public class ParticleCustum {
 
 
     }
+
 
 
     public void render(SpriteBatch sb) {
@@ -224,6 +244,19 @@ public class ParticleCustum {
             );
         }
 
+//        if(MathUtils.randomBoolean(.04f)){
+//            Falling_element falling_element = this.falling_elements.pollLast();
+//            falling_element.add(gps.getTank().getPosition().x, gps.getTank().getPosition().y,99,MathUtils.random(40,110),f);
+//            falling_elements.offerFirst(falling_element);
+//        }
+
+        if(MathUtils.randomBoolean(.04f)){
+            Smoke_element smoke_element = this.smoke_elements.pollLast();
+            smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16,16), gps.getTank().getPosition().y + 16+ MathUtils.random(-16,16),MathUtils.random(2,8),MathUtils.random(70,80),t);
+            smoke_elements.offerFirst(smoke_element);
+        }
+        rander_Falling_element(sb, Gdx.graphics.getDeltaTime());
+        rander_smoke_element(sb,Gdx.graphics.getDeltaTime());
     }
 
     public void addParticalsSmoke(int quantity, float x, float y, int hp) {
@@ -348,6 +381,21 @@ public class ParticleCustum {
 
 
     public void addParticalsSmoke(int random, float v, float v1) {
+    }
+
+
+
+    public void rander_Falling_element(SpriteBatch spriteBatch, float deltaTimme){
+        for (Falling_element falling_element : falling_elements) {
+            falling_element.rander(deltaTimme,gps.getCameraGame().getCamera(),spriteBatch);
+
+        }
+    }
+    public void rander_smoke_element(SpriteBatch spriteBatch, float deltaTimme){
+        for (Smoke_element smoke_element : smoke_elements) {
+            smoke_element.rander(deltaTimme,gps.getCameraGame().getCamera(),spriteBatch);
+
+        }
     }
 
 
