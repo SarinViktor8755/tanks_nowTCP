@@ -14,17 +14,16 @@ public class Falling_element {
     Texture texture;
     SpriteBatch spriteBatch;
     float speed;
-    static final float MIN_H =0;
-    static final float MAX_H =100;
+    static final float MIN_H = 0;
+    static final float MAX_H = 2;
     float align;
     Color color;
-    float  dx , dy, wi , hi;
-
+    float dx, dy, wi, hi;
 
 
     public Falling_element() {
         this.position = new Vector3(-1000, -1000, -1);
-        this.align = MathUtils.random(-360,360);
+        this.align = MathUtils.random(-360, 360);
         color = Color.WHITE;
 
     }
@@ -36,11 +35,11 @@ public class Falling_element {
         this.color.a = .7f;
     }
 
-    public void add(float x, float y, float h, float speed, Texture tex,float r, float g , float b, float a) {
+    public void add(float x, float y, float h, float speed, Texture tex, float r, float g, float b, float a) {
         this.position.set(x, y, h);
         this.speed = speed;
         this.texture = tex;
-        this.color = new Color(r,g,b,a);
+        this.color = new Color(r, g, b, a);
     }
 
     protected void update(float dt, Camera camera) {
@@ -51,15 +50,27 @@ public class Falling_element {
         hi = position.z + texture.getHeight();
     }
 
+    protected boolean checkLimet(){
+        if (position.z > Falling_element.MAX_H) return false;
+        if (position.z < Falling_element.MIN_H) return false;
+        return true;
+    }
+
     public void rander(float dt, Camera camera, SpriteBatch spriteBatch) {
-
-        if (position.z > MAX_H) return; if(MIN_H > position.z) return;
+        if(!checkLimet()) return;
         update(dt, camera);
-
         spriteBatch.setColor(this.color);
-        spriteBatch.draw(texture, (position.x + this.position.z * dx) -(wi/2) , (position.y + position.z * dy) -(hi/2), position.z, position.z);
-        spriteBatch.setColor(1, 1, 1, 1);
+        spriteBatch.draw(
+                texture, position.x + dx, position.y + dy,
+                wi / 2,
+                hi / 2,
+                texture.getWidth(), texture.getHeight(),
+                position.z+.4f, position.z +.4f, align, 0, 0
+                , texture.getWidth(), texture.getHeight(), false, false
 
+
+        );
+        spriteBatch.setColor(1, 1, 1, 1);
 
 
     }

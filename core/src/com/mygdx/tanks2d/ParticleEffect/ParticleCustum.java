@@ -264,8 +264,8 @@ public class ParticleCustum {
 
         Smoke_element smoke_element = this.smoke_elements.pollLast();
 
-        smoke_element.add(gps.getTank().getPosition().x  + MathUtils.random(-16, 16), gps.getTank().getPosition().y  + MathUtils.random(-16, 16),
-                MathUtils.random(2, 8), MathUtils.random(40, 110), t,
+        smoke_element.add(gps.getTank().getPosition().x  + MathUtils.random(-5, 5), gps.getTank().getPosition().y  + MathUtils.random(-5, 5),
+                0f, MathUtils.random(.5f, 1f), t,
                 1 - black, 1 - black, 1 - black, 1
                 );
 
