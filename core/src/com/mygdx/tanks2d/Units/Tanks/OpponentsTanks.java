@@ -85,10 +85,10 @@ public class OpponentsTanks { // ОДИН ТАНК
         if (hp < 70) {
             //  System.out.println(hp);
             if (MathUtils.randomBoolean((100 - hp) / 380f))
-                gsp.pc.addParticalsSmoke(1, position.x + MathUtils.random(-25,25), position.y, hp + MathUtils.random(-25,25));
+                gsp.pc.addParticalsSmokeStereo(1, position.x + MathUtils.random(-25,25), position.y, hp + MathUtils.random(-25,25));
         } else if (hp < 50) {
             if (MathUtils.randomBoolean(.05f))
-                gsp.pc.addParticalsSmoke(1, position.x + MathUtils.random(-25,25), position.y + MathUtils.random(-25,25), hp);
+                gsp.pc.addParticalsSmokeStereo(1, position.x + MathUtils.random(-25,25), position.y + MathUtils.random(-25,25), hp);
 //            if (hp < 15) if (MathUtils.randomBoolean(.05f))
 //                gsp.pc.addPasricalExplosionDeath(position.x, position.y);
         }

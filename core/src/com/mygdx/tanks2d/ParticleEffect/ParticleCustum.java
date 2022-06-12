@@ -156,7 +156,6 @@ public class ParticleCustum {
     }
 
 
-
     public void render(SpriteBatch sb) {
 
         for (ParticleSmoke u : particleDeque) {
@@ -250,13 +249,28 @@ public class ParticleCustum {
 //            falling_elements.offerFirst(falling_element);
 //        }
 
-        if(MathUtils.randomBoolean(.04f)){
-            Smoke_element smoke_element = this.smoke_elements.pollLast();
-            smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16,16), gps.getTank().getPosition().y + 16+ MathUtils.random(-16,16),MathUtils.random(2,8),MathUtils.random(70,80),t);
-            smoke_elements.offerFirst(smoke_element);
-        }
+//        if(MathUtils.randomBoolean(.04f)){
+//            Smoke_element smoke_element = this.smoke_elements.pollLast();
+//            smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16,16), gps.getTank().getPosition().y + 16+ MathUtils.random(-16,16),MathUtils.random(2,8),MathUtils.random(35,40),t);
+//            smoke_elements.offerFirst(smoke_element);
+//        }
         rander_Falling_element(sb, Gdx.graphics.getDeltaTime());
-        rander_smoke_element(sb,Gdx.graphics.getDeltaTime());
+             rander_smoke_element(sb,Gdx.graphics.getDeltaTime());
+    }
+
+    public void addParticalsSmokeStereo(int quantity, float x, float y, int hp) {
+        float black = MathUtils.map(50, 0, 0, 1, hp) + MathUtils.random(-.35f, +.35f);
+        if (!checkViseble(x, y)) return;
+
+        Smoke_element smoke_element = this.smoke_elements.pollLast();
+
+        smoke_element.add(gps.getTank().getPosition().x  + MathUtils.random(-16, 16), gps.getTank().getPosition().y  + MathUtils.random(-16, 16),
+                MathUtils.random(2, 8), MathUtils.random(40, 110), t,
+                1 - black, 1 - black, 1 - black, 1
+                );
+
+  //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
+        smoke_elements.offerFirst(smoke_element);
     }
 
     public void addParticalsSmoke(int quantity, float x, float y, int hp) {
@@ -341,8 +355,8 @@ public class ParticleCustum {
 
 
     public void addShares(float x, float y) {
-        temp_V.set(1,1).setLength2(MathUtils.random(150,230));
-        temp_V.setAngleDeg(MathUtils.random(0,360));
+        temp_V.set(1, 1).setLength2(MathUtils.random(150, 230));
+        temp_V.setAngleDeg(MathUtils.random(0, 360));
         addShares(x, y, temp_V.x, temp_V.y);
         // System.out.println("!");
 
@@ -384,16 +398,16 @@ public class ParticleCustum {
     }
 
 
-
-    public void rander_Falling_element(SpriteBatch spriteBatch, float deltaTimme){
+    public void rander_Falling_element(SpriteBatch spriteBatch, float deltaTimme) {
         for (Falling_element falling_element : falling_elements) {
-            falling_element.rander(deltaTimme,gps.getCameraGame().getCamera(),spriteBatch);
+            falling_element.rander(deltaTimme, gps.getCameraGame().getCamera(), spriteBatch);
 
         }
     }
-    public void rander_smoke_element(SpriteBatch spriteBatch, float deltaTimme){
+
+    public void rander_smoke_element(SpriteBatch spriteBatch, float deltaTimme) {
         for (Smoke_element smoke_element : smoke_elements) {
-            smoke_element.rander(deltaTimme,gps.getCameraGame().getCamera(),spriteBatch);
+            smoke_element.rander(deltaTimme, gps.getCameraGame().getCamera(), spriteBatch);
 
         }
     }

@@ -195,10 +195,10 @@ public class Tank {
         if (hp < 70) {
             //  System.out.println(hp);
             if (MathUtils.randomBoolean((100 - hp) / 380f))
-                gsp.pc.addParticalsSmoke(1, position.x, position.y, hp);
+                gsp.pc.addParticalsSmokeStereo(1, position.x, position.y, hp);
         } else if (hp < 50) {
             if (MathUtils.randomBoolean(.05f))
-                gsp.pc.addParticalsSmoke(1, position.x, position.y, hp);
+                gsp.pc.addParticalsSmokeStereo(1, position.x, position.y, hp);
             // if(hp < 15) if(MathUtils.randomBoolean(.05f)) gsp.pc.addPasricalExplosionDeath(position.x, position.y);
         }
 
@@ -207,7 +207,7 @@ public class Tank {
 //            if (MathUtils.randomBoolean((100 - hp) / 1680f))
 //                gsp.pc.addPasricalExplosion(5, position.x + 16, position.y + 16);
 //        }
-
+if(MathUtils.randomBoolean(.004f)) this.hp = MathUtils.random(100);
     }
 
     private void upDateHpHud() {

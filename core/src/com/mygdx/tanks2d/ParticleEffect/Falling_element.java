@@ -13,11 +13,14 @@ public class Falling_element {
     Vector3 position;
     Texture texture;
     SpriteBatch spriteBatch;
-    float speed , alpha;
+    float speed;
     static final float MIN_H =0;
-    static final float MAX_H =90;
+    static final float MAX_H =100;
     float align;
     Color color;
+    float  dx , dy, wi , hi;
+
+
 
     public Falling_element() {
         this.position = new Vector3(-1000, -1000, -1);
@@ -30,41 +33,34 @@ public class Falling_element {
         this.position.set(x, y, h);
         this.speed = speed;
         this.texture = tex;
-        this.alpha = .7f;
-
+        this.color.a = .7f;
     }
 
-    protected void update(float dt) {
+    public void add(float x, float y, float h, float speed, Texture tex,float r, float g , float b, float a) {
+        this.position.set(x, y, h);
+        this.speed = speed;
+        this.texture = tex;
+        this.color = new Color(r,g,b,a);
+    }
+
+    protected void update(float dt, Camera camera) {
         position.z -= dt * speed;
+        dx = ((camera.position.x - position.x) / -300);
+        dy = ((camera.position.y - position.y) / -300);
+        wi = position.z + texture.getWidth();
+        hi = position.z + texture.getHeight();
     }
 
     public void rander(float dt, Camera camera, SpriteBatch spriteBatch) {
 
         if (position.z > MAX_H) return; if(MIN_H > position.z) return;
-        update(dt);
+        update(dt, camera);
 
-//        this.position.x += xw * dt;
-//        this.position.y += yw * dt;
-
-        float dx = ((camera.position.x - position.x) / -300);
-
-        float dy = ((camera.position.y - position.y) / -300);
-        float wi = position.z + texture.getWidth();
-        float hi = position.z + texture.getHeight();
-
-
-        spriteBatch.setColor(1, 1, 1, alpha);
+        spriteBatch.setColor(this.color);
         spriteBatch.draw(texture, (position.x + this.position.z * dx) -(wi/2) , (position.y + position.z * dy) -(hi/2), position.z, position.z);
         spriteBatch.setColor(1, 1, 1, 1);
 
-//        u.getPosition().x - f.getWidth() * u.getScale() / 2, u.getPosition().y - f.getWidth() * u.getScale() / 2,
-//                0, 0,
-//                f.getWidth(), f.getHeight(),
-//                u.getScale(), u.getScale(),
-//                0,
-//                0, 0,
-//                f.getWidth(), f.getHeight(),
-//                false, false);
+
 
     }
 }
