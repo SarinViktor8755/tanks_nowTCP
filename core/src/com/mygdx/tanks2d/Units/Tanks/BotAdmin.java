@@ -16,7 +16,7 @@ public class BotAdmin {/// локальные боты
     }
 
     public void upDateBotBehaviour() { // поведение бота
-        System.out.println(gsp.getTanksOther().listOpponents.size());
+      //  System.out.println(gsp.getTanksOther().listOpponents.size());
         // создание локальных ботов
         if (gsp.getTanksOther().listOpponents.size() < 50) {
             int nomPayer = gsp.getTanksOther().createOponent(50, 50, MathUtils.random(45), MathUtils.random(45));

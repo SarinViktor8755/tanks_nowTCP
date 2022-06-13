@@ -100,7 +100,7 @@ public class GamePlayScreen implements Screen {
                 try {
                     mainGame.getMainClient().getClient().reconnect(5000);
                 } catch (IOException e) {
-                    e.printStackTrace();
+               //     e.printStackTrace();
                 }
             }
             //mainGame.transitionScreenGameToMenu();
@@ -287,5 +287,7 @@ public class GamePlayScreen implements Screen {
     public AssetManager getAssetsManagerGame() {
         return this.mainGame.getAssetManager();
     }
+
+
 
 }

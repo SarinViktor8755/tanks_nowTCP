@@ -24,7 +24,7 @@ public class Smoke_element extends Falling_element {
 
         position.z += dt * speed;
         color.a = MathUtils.map(MIN_H, MAX_H, .7f, 0.03f, position.z);
-        color.a = Interpolation.fade.apply(color.a);
+        color.a = Interpolation.pow3OutInverse.apply(color.a);
     }
 
 

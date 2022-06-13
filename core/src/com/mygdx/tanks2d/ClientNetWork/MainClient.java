@@ -57,7 +57,7 @@ public class MainClient {
             client.connect(5000, Network.host, Network.tcpPort, Network.udpPort);
             // Server communication after connection can go here, or in Listener#connected().
         } catch (IOException ex) {
-            ex.printStackTrace();
+          //  ex.printStackTrace();
         }
 
 
@@ -84,7 +84,7 @@ public class MainClient {
     }
 
     private void startClient() {
-        System.out.println(client.isConnected());
+    //    System.out.println(client.isConnected());
         this.client = new Client();
         Network.register(client);
         this.client.start();
@@ -112,9 +112,13 @@ public class MainClient {
             if (pp.nom == client.getID()) return;
 
             try {
-                OpponentsTanks t = mg.getGamePlayScreen().getTanksOther().getTankForID(pp.nom);
+                try {
+                    OpponentsTanks t = mg.getGamePlayScreen().getTanksOther().getTankForID(pp.nom);
+                    mg.getGamePlayScreen().getTanksOther().setTankPosition(pp, mg.getMainClient().frameUpdates.get(pp.nom));
+                }catch (NullPointerException e){
 
-                mg.getGamePlayScreen().getTanksOther().setTankPosition(pp, mg.getMainClient().frameUpdates.get(pp.nom));
+                }
+
                 //mg.getMainClient().frameUpdates.put(pp.nom, false); /// закрывает флаг о рендере __
             } catch (NullPointerException e) {
                  e.printStackTrace();
@@ -124,7 +128,7 @@ public class MainClient {
         }
 
         if (object instanceof Network.StockMessOut) {
-            System.out.println((Network.StockMessOut) object);
+        //    System.out.println((Network.StockMessOut) object);
             routerSM.routeSM((Network.StockMessOut) object);
 //            Network.StockMessOut sm = (Network.StockMessOut) object;
 //            System.out.println(sm);
@@ -155,7 +159,7 @@ public class MainClient {
     }
 
     public void checkConnect() {
-        System.out.println(NetworkPacketStock.required_to_send_tooken);
+   //     System.out.println(NetworkPacketStock.required_to_send_tooken);
         getNetworkPacketStock().toSendMyNikAndTokken(); // отправка ника и токкена
         if (!getClient().isConnected()) NetworkPacketStock.required_to_send_tooken = true;
 

@@ -36,7 +36,7 @@ public class RouterSM {
             try {
                 mainGame.getGamePlayScreen().playAnimation(position, velocity, (int) sm.p4);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+             //   e.printStackTrace();
             }
             return;
         }
@@ -55,7 +55,7 @@ public class RouterSM {
                     mainGame.getGamePlayScreen().getPc().addShares(sm.p1, sm.p2, v.x, v.y);
                 }
             } catch (NullPointerException e) {
-                e.printStackTrace();
+              //  e.printStackTrace();
             }
             return;
         }
@@ -73,7 +73,7 @@ public class RouterSM {
                     saveParametrsMtTank(sm);
                 } else {
                     OpponentsTanks opponentsTanks = mainGame.getGamePlayScreen().getTanksOther().getTankForID((int) sm.p1);
-                    System.out.println(opponentsTanks);
+                //    System.out.println(opponentsTanks);
                    // opponentsTanks = new OpponentsTanks();
                     opponentsTanks.hp = (int) sm.p3;
                     opponentsTanks.command = (int) sm.p2;
@@ -101,7 +101,7 @@ public class RouterSM {
 //                Tank myTank = mainGame.getGamePlayScreen().getTank();
 //                myTank.setHp((int) sm.p3);
 //                myTank.setCommand((int) sm.p2);
-                System.out.println(sm.p1);
+               // System.out.println(sm.p1);
             }
             return;
         }

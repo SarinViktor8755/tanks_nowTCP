@@ -107,7 +107,7 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
             }
             nomTarget = selectTarget();
         } catch (NullPointerException e) {
-            e.printStackTrace();
+         //   e.printStackTrace();
         }
         if (temp_nom_t == nomTarget) {
             changeTarget(a);
