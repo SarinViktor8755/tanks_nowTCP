@@ -177,7 +177,7 @@ public class TanksOther { /// много танков )))
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
             t = tank.getValue();
            // System.out.print(t.nomder + " : ");
-            if (t.hp < 1) continue;
+
             if (!tank.getValue().isLive()) continue;
             updateColor(t, Gdx.graphics.getDeltaTime());
 

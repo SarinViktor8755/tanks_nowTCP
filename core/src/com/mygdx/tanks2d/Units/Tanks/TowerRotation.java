@@ -53,7 +53,7 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
             if (MathUtils.randomBoolean(.3f)) targetDetectionTower(this.myPosition); // ищем цели
             nomTarget = selectTarget();
         } else {    // если  цели есть
-            if(listOpponents.get(nomTarget).hp< 0 ) {target_tank = 0; nomTarget=null; return;}
+            if(!listOpponents.get(nomTarget).isLive() ) {target_tank = 0; nomTarget=null; return;}
             turningTower(returnAngle(listOpponents.get(nomTarget).getPosition(), myPosition), delta);
             if (MathUtils.randomBoolean(.05f)) targetDetectionTower(this.myPosition); // ищем цели
             if (checkLen()) nomTarget = null;
@@ -78,7 +78,8 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
     private void targetDetectionTower(Vector2 positionMy) { // обноружение цели для башни - добавляем в очередь
         targetTreet.clear();
         for (Map.Entry<Integer, OpponentsTanks> tank : listOpponents.entrySet()) {
-            if (tank.getValue().hp < 0) continue;
+            if (!tank.getValue().isLive()) continue;
+
             float l = tank.getValue().getPosition().cpy().sub(positionMy).len2();
             if (l < 2) continue; // иключение себя
             if (l < rast_to_target) {

@@ -6,13 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.Falling_element;
+import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.PasricalDeathSmoke;
+import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.Smoke_element;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
 import com.mygdx.tanks2d.Utils.VectorUtils;
 
 
 import java.util.ArrayDeque;
-import java.util.ConcurrentModificationException;
 
 
 public class ParticleCustum {
@@ -25,6 +26,7 @@ public class ParticleCustum {
     ArrayDeque<Explosion_Death> explosion_Death_little; // взрыв из тотал анигилейшен
     ArrayDeque<Falling_element> falling_elements; //падаюшие элементы
     ArrayDeque<Smoke_element> smoke_elements; // Дым в лбьемк
+    ArrayDeque<PasricalDeathSmoke> pasricalDeathSmokes;
     Vector2 temp_V;
 
     private Texture t;
@@ -53,6 +55,7 @@ public class ParticleCustum {
         this.explosion_Death_little = new ArrayDeque<>(); ///  текстур взрыва тотала__little
         this.falling_elements = new ArrayDeque<>();
         this.smoke_elements = new ArrayDeque<>();
+        this.pasricalDeathSmokes = new ArrayDeque<>();
 
         for (int i = 0; i < 2000; i++) {
             Shard ed = new Shard();
@@ -98,6 +101,10 @@ public class ParticleCustum {
 
         for (int i = 0; i < 800; i++) {
             this.pasricalGarbage.add(new Garbage());
+        }
+
+        for (int i = 0; i < 18; i++) {
+            this.pasricalDeathSmokes.add(new PasricalDeathSmoke());
         }
 
 
@@ -228,6 +235,8 @@ public class ParticleCustum {
 
         }
 
+        this.rander_smoke_death(sb, Gdx.graphics.getDeltaTime());
+
         for (Explosion_Death ed : explosion_Death) {
             if (!ed.isLife()) continue;
             ed.update();
@@ -261,16 +270,20 @@ public class ParticleCustum {
     public void addParticalsSmokeStereo(int quantity, float x, float y, int hp) {
         float black = MathUtils.map(50, 0, 0, 1, hp) + MathUtils.random(-.35f, +.35f);
         if (!checkViseble(x, y)) return;
-
         Smoke_element smoke_element = this.smoke_elements.pollLast();
-
         smoke_element.add(gps.getTank().getPosition().x  + MathUtils.random(-5, 5), gps.getTank().getPosition().y  + MathUtils.random(-5, 5),
                 0f, MathUtils.random(.5f, 1f), t,
                 1 - black, 1 - black, 1 - black, 1
                 );
-
   //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
         smoke_elements.offerFirst(smoke_element);
+    }
+
+    public void addDeathSmoke(float x, float y){
+        PasricalDeathSmoke pasricalDeathSmoke = this.pasricalDeathSmokes.pollLast();
+
+        pasricalDeathSmoke.add(x,y,0,2,t);
+        pasricalDeathSmokes.offerFirst(pasricalDeathSmoke);
     }
 
     public void addParticalsSmoke(int quantity, float x, float y, int hp) {
@@ -338,6 +351,7 @@ public class ParticleCustum {
         Explosion_Death a = this.explosion_Death.pollLast();
         a.setParameters(x, y);
         System.out.println("Vzriv smerti");
+        addDeathSmoke(x, y);
         this.explosion_Death.offerFirst(a);
     }
 
@@ -374,7 +388,6 @@ public class ParticleCustum {
     public void addPasricalExplosionDeath(float x, float y) {
         if (!checkViseble(x, y)) return;
         PasricalExplosionBigParameter f;
-
         f = this.pasricalExplosionsBigParam.pollLast();
         f.setParameters(x, y);
         this.pasricalExplosionsBigParam.offerFirst(f);
@@ -409,6 +422,13 @@ public class ParticleCustum {
     public void rander_smoke_element(SpriteBatch spriteBatch, float deltaTimme) {
         for (Smoke_element smoke_element : smoke_elements) {
             smoke_element.rander(deltaTimme, gps.getCameraGame().getCamera(), spriteBatch);
+
+        }
+    }
+
+    public void rander_smoke_death(SpriteBatch spriteBatch, float deltaTimme) {
+        for (PasricalDeathSmoke par : pasricalDeathSmokes) {
+            par.rander(deltaTimme, gps.getCameraGame().getCamera(), spriteBatch);
 
         }
     }

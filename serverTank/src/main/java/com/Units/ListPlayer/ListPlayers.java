@@ -117,7 +117,7 @@ public class ListPlayers {
         Iterator<Map.Entry<Integer, Player>> entries = players.entrySet().iterator();
         while (entries.hasNext()) {
             Map.Entry<Integer, Player> entry = entries.next();
-            if (entry.getValue().hp < 0) continue;
+            if (entry.getValue().hp < 1) continue;
             temp2.set(entry.getValue().getPosi().x, entry.getValue().getPosi().y);
             if (((temp1.dst2(temp2) < 500) && author_id != entry.getValue().getId()))
                 res = entry.getKey();

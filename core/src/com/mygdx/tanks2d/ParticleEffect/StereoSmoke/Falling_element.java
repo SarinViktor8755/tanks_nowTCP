@@ -1,13 +1,11 @@
-package com.mygdx.tanks2d.ParticleEffect;
+package com.mygdx.tanks2d.ParticleEffect.StereoSmoke;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.bullet.collision.btCollisionObject;
 
 public class Falling_element {
     Vector3 position;

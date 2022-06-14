@@ -79,7 +79,7 @@ public class RouterSM {
                     opponentsTanks.hp = (int) sm.p3;
                     opponentsTanks.command = (int) sm.p2;
                     opponentsTanks.setNikPlayer(sm.textM);
-                    if (opponentsTanks.hp < 0) {
+                    if (opponentsTanks.hp < 1) {
                         if(mainGame.getGamePlayScreen().getTimeInGame() < 1) return;
                         mainGame.getGamePlayScreen().pc.addPasricalDeath_little(opponentsTanks.getPosition().x, opponentsTanks.getPosition().y, 2.7f);
                         mainGame.getGamePlayScreen().getPc().addAnimationDeath(opponentsTanks.getPosition().x, opponentsTanks.getPosition().y);

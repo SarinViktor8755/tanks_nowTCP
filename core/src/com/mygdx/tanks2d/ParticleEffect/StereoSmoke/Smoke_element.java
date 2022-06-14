@@ -1,4 +1,4 @@
-package com.mygdx.tanks2d.ParticleEffect;
+package com.mygdx.tanks2d.ParticleEffect.StereoSmoke;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Interpolation;
