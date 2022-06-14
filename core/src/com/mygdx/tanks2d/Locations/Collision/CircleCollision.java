@@ -10,11 +10,11 @@ public class CircleCollision {
     float getRadiusKV;
 
     public CircleCollision(Vector2 circule, float radius) {
-        System.out.println("CircleCollision");
+      //  System.out.println("CircleCollision");
         this.circule = circule;
         this.radius = radius;
         this.getRadiusKV = radius * radius;
-        System.out.println("createEllipse position x " +circule.x + " y"+circule.y +"   "+ this.circule+"  redius " + this.radius);
+       // System.out.println("createEllipse position x " +circule.x + " y"+circule.y +"   "+ this.circule+"  redius " + this.radius);
 
     }
 

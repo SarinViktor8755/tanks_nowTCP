@@ -106,9 +106,9 @@ public class MainClient {
     public void router(Object object) {
         if (!onLine) return;
         if (object instanceof Network.PleyerPositionNom) { // полученеи позиции играков
-
             Network.PleyerPositionNom pp = (Network.PleyerPositionNom) object;
             frameUpdates.put(pp.nom, true);
+          //  System.out.println(pp.nom);
             if (pp.nom == client.getID()) return;
 
             try {

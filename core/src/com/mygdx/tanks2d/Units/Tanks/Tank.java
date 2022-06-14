@@ -103,7 +103,7 @@ public class Tank {
     }
 
     public void update(Vector2 directionMovementControll, boolean inTuch) {
-        if(!isLive()) this.position.set(-1111,-11111);
+        if(!isLive()) this.position.set(-1111,-1111);
         // if (MathUtils.randomBoolean(.005f)) hp = MathUtils.random(0, 80);
         // if(MathUtils.randomBoolean(.05f)) gsp.pc.addPasricalExplosionDeath(position.x, position.y);
         upDateHpHud();

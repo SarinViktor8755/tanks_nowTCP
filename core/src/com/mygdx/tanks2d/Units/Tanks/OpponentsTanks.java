@@ -24,7 +24,7 @@ public class OpponentsTanks { // ОДИН ТАНК
     private Vector2 directionMovementControll;// управление
     //Башня - Tower
     private Vector2 direction_tower;//направление корпуса башни
-    boolean live; // жизнь
+
     private TowerRotation towerRotation;
 
     int nomder;
@@ -37,7 +37,7 @@ public class OpponentsTanks { // ОДИН ТАНК
     // описание
     public int hp;
     //private String nikName;
-     public Integer command;// команда
+    public Integer command;// команда
     private String nikPlayer;
 
     public Vector2 getDirectionMovementControll() {
@@ -45,8 +45,8 @@ public class OpponentsTanks { // ОДИН ТАНК
     }
 
     public OpponentsTanks(Vector2 position, Vector2 direction, Integer command, boolean live, int nomder, HashMap<Integer, OpponentsTanks> listOpponents, GamePlayScreen gsp) {
-         //this.nikName = getNikNameGen();
-        this.live = live;
+        //this.nikName = getNikNameGen();
+
         this.command = command;
         this.position = position;
         this.direction = direction;
@@ -59,16 +59,16 @@ public class OpponentsTanks { // ОДИН ТАНК
         this.gsp = gsp;
         hp = 100;
         move = false;
-        temp_delta = new Vector2(0,0);
+        temp_delta = new Vector2(0, 0);
 
     }
 
     public OpponentsTanks() {
         //this.nikName = getNikNameGen();
-        this.live = true;
+
         this.command = 0;
-        this.position = new Vector2(MathUtils.random(500),MathUtils.random(500));
-        this.direction = new Vector2(-2000,-2000);
+        this.position = new Vector2(MathUtils.random(500), MathUtils.random(500));
+        this.direction = new Vector2(-2000, -2000);
         this.direction_tower = new Vector2(1, 0);
 
         this.nomder = nomder;
@@ -77,7 +77,7 @@ public class OpponentsTanks { // ОДИН ТАНК
         this.gsp = gsp;
         hp = 100;
         move = false;
-        temp_delta = new Vector2(0,0);
+        temp_delta = new Vector2(0, 0);
 
     }
 
@@ -85,10 +85,10 @@ public class OpponentsTanks { // ОДИН ТАНК
         if (hp < 70) {
             //  System.out.println(hp);
             if (MathUtils.randomBoolean((100 - hp) / 380f))
-                gsp.pc.addParticalsSmokeStereo(1, position.x + MathUtils.random(-25,25), position.y, hp + MathUtils.random(-25,25));
+                gsp.pc.addParticalsSmokeStereo(1, position.x + MathUtils.random(-25, 25), position.y, hp + MathUtils.random(-25, 25));
         } else if (hp < 50) {
             if (MathUtils.randomBoolean(.05f))
-                gsp.pc.addParticalsSmokeStereo(1, position.x + MathUtils.random(-25,25), position.y + MathUtils.random(-25,25), hp);
+                gsp.pc.addParticalsSmokeStereo(1, position.x + MathUtils.random(-25, 25), position.y + MathUtils.random(-25, 25), hp);
 //            if (hp < 15) if (MathUtils.randomBoolean(.05f))
 //                gsp.pc.addPasricalExplosionDeath(position.x, position.y);
         }
@@ -142,11 +142,11 @@ public class OpponentsTanks { // ОДИН ТАНК
     }
 
     public boolean isLive() {
-        return live;
+        return (hp > 0);
     }
 
-    public void setLive(boolean live) {
-        this.live = live;
+    public void setLive(float hp) {
+        this.hp = (int) hp;
     }
 
     public int getNomder() {
@@ -158,19 +158,15 @@ public class OpponentsTanks { // ОДИН ТАНК
     }
 
 
-
-
     public void update(float delta) {
         generatorSmoke();
 
-      // if(MathUtils.randomBoolean(.005f)) gsp.pc.addPasricalExplosionDeath(position.x,position.y); // взрыв танка
- //       towerRotation.update(delta);
+        // if(MathUtils.randomBoolean(.005f)) gsp.pc.addPasricalExplosionDeath(position.x,position.y); // взрыв танка
+        //       towerRotation.update(delta);
 //        attack();
 //        move(delta);
 //        generatorSmoke();
-     //   generatorSmoke();
-
-
+        //   generatorSmoke();
 
 
     }
@@ -181,15 +177,14 @@ public class OpponentsTanks { // ОДИН ТАНК
 //        if (!towerRotation.isRedyToAttac()) return;
         int speed = 700;
         Vector2 smooke = getPoSmoke();
-       /// gsp.getBullets().addBullet(smooke, getDirection_tower().cpy().nor().scl(speed));
+        /// gsp.getBullets().addBullet(smooke, getDirection_tower().cpy().nor().scl(speed));
         gsp.getAudioEngine().pleySoundKickStick((25000 - VectorUtils.getLen2(position, gsp.getTank().getPosition())) / 25000);
 //        gsp.getGameSpace().getLighting().getBuletFlash().newFlesh(position.x, position.y);
 
         gsp.pc.addPasricalExplosion(.3f, smooke.x, smooke.y);
         gsp.pc.addParticalsSmokeOne(smooke.x, smooke.y);
 
-       // gsp.pc.addPasricalDeath_little(smooke.x, smooke.y,3);
-
+        // gsp.pc.addPasricalDeath_little(smooke.x, smooke.y,3);
 
 
     }
@@ -207,7 +202,7 @@ public class OpponentsTanks { // ОДИН ТАНК
 //
 //        } else
 
-    //    ------------------------------------серверная часть
+        //    ------------------------------------серверная часть
 //        if (gsp.getGameSpace().checkMapBorders(
 //                this.position.cpy().add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime()))
 //        )) this.position.add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime()));
@@ -226,7 +221,6 @@ public class OpponentsTanks { // ОДИН ТАНК
 
 
     }
-
 
 
     public TowerRotation getTowerRotation() {

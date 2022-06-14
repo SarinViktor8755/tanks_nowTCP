@@ -23,7 +23,7 @@ public class InputProcessorDesktop implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        System.out.println(">>>>>");
+     //   System.out.println(">>>>>");
         System.out.println(keycode);
             return false;
     }

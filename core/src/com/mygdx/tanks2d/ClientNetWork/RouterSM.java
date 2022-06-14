@@ -29,6 +29,7 @@ public class RouterSM {
     }
 
     public void routeSM(Network.StockMessOut sm) {
+        System.out.println("-->>> in :: " + sm);
         if (Heading_type.MY_SHOT == sm.tip) {
             position.set(sm.p1, sm.p2);
             velocity.set(0, 400);

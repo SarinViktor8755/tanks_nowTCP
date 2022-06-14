@@ -337,6 +337,7 @@ public class ParticleCustum {
         if (!checkViseble(x, y)) return;
         Explosion_Death a = this.explosion_Death.pollLast();
         a.setParameters(x, y);
+        System.out.println("Vzriv smerti");
         this.explosion_Death.offerFirst(a);
     }
 

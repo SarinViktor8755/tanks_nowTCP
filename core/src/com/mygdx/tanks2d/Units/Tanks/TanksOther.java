@@ -91,7 +91,6 @@ public class TanksOther { /// много танков )))
             if (!newFrame) { // нет фрейма
                 if (ot.move) {
                     temp.set(ot.getDirection()).clamp(90, 90).scl(Gdx.graphics.getDeltaTime());
-
                     if (temp.len2() > 0.5929847) {
                         ot.move = false;
                         return;
@@ -109,7 +108,14 @@ public class TanksOther { /// много танков )))
 
                 temp.set(p.xp, p.yp);
 
-                ot.getDirection().setAngleRad(temp.angleDeg());
+                /// поворот
+                if (Math.abs(temp.angleDeg() - ot.getDirection().angleDeg()) > 2) {
+                    if (temp.angleDeg() - ot.getDirection().angleDeg() > 0)
+                        ot.getDirection().rotateDeg(.005f);
+                    else ot.getDirection().rotateDeg(-.005f);
+                } else ot.getDirection().setAngleRad(temp.angleDeg());
+
+             //   System.out.println(ot.getDirection().angleDeg() + "  angel " + temp.angleDeg() + "   - " + (Math.abs(temp.angleDeg() - ot.getDirection().angleDeg())));
                 ot.getPosition().add(temp.sub(ot.getPosition().cpy()).scl(Gdx.graphics.getDeltaTime() * 10));
                 //ot.getPosition().sub(temp.scl(Gdx.graphics.getDeltaTime()));
 //                System.out.println("frame TRUE");
@@ -141,9 +147,9 @@ public class TanksOther { /// много танков )))
         return nomer;
     }
 
-    public OpponentsTanks getRandomPlayer()  {
+    public OpponentsTanks getRandomPlayer() {
         try {
-            return getTankForID((int) listOpponents.keySet().toArray()[MathUtils.random(listOpponents.size() +1 )]);
+            return getTankForID((int) listOpponents.keySet().toArray()[MathUtils.random(listOpponents.size() + 1)]);
         } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
             return null;
         }
@@ -167,10 +173,12 @@ public class TanksOther { /// много танков )))
 
     public void randerOtherTanks(SpriteBatch sb) {
         OpponentsTanks t;
+     //   System.out.println("--------");
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
             t = tank.getValue();
+           // System.out.print(t.nomder + " : ");
             if (t.hp < 1) continue;
-            if (!tank.getValue().live) continue;
+            if (!tank.getValue().isLive()) continue;
             updateColor(t, Gdx.graphics.getDeltaTime());
 
             if (t.getNikPlayer() != null) {

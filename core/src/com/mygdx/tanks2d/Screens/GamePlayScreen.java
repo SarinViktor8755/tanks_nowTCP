@@ -108,7 +108,7 @@ public class GamePlayScreen implements Screen {
         getMainGame().updateClien();
 
         // кинуть на сервер мои координаты
-        if (!getTank().isLive())
+        //if (!getTank().isLive())
             ServiceClient.sendMuCoordinat(tank.getPosition().x, tank.getPosition().y, tank.getTr().getAnTower(), mainGame.getMainClient().getClient());
 
         //////////    mainGame.getMainClient().getNetworkPacketStock();
