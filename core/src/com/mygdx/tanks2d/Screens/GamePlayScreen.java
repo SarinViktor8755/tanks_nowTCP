@@ -159,6 +159,7 @@ public class GamePlayScreen implements Screen {
         this.cameraGame.getCamera().update();
         this.batch.begin();
         try {
+          //  System.out.println("rander");
 
             this.gameSpace.renderSpace((OrthographicCamera) cameraGame.getCamera());                //рендер пространство
             this.cameraGame.getCamera().update();
@@ -169,9 +170,6 @@ public class GamePlayScreen implements Screen {
 
             this.pc.randerGarbage(batch);
 
-
-            if (MathUtils.randomBoolean(.5f))
-                //mainGame.getMainClient().getNetworkPacketStock().toSendMyNik();
 
                 //this.tanksOther.updateOtherTank(mainGame.getMainClient().isOnLine()); /// обновление других танков с сервреа (позиция) или локальной зоны
                 this.tanksOther.randerOtherTanks(getBatch());      // визуализация других танков
