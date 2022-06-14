@@ -35,8 +35,6 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
         this.listOpponents = listOpponents;
         this.timerTackt = 0;
         this.rotation = false;
-
-
     }
 
     public void update(float delta) {

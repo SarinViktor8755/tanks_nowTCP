@@ -72,12 +72,9 @@ public class GameServer {
                                        lp.getPlayerForId(connection.getID()).setNikName(gpp.nik);
 
                                        Player p = mainGame.gameServer.getLp().getPlayerForId(gpp.nomerPlayer);
-//                                       System.out.println("!!! :::  "+p);
 //
-//                                       System.out.println(p.getNikName());
-//                                       System.out.println(gpp);
                                        if (p.getNikName() != null)
-                                           mainGame.gameServer.send_PARAMETERS_PLAYER(p, connection.getID(),gpp.nomerPlayer);
+                                           mainGame.gameServer.send_PARAMETERS_PLAYER(p, connection.getID(), gpp.nomerPlayer);
 
                                    }
 
@@ -85,7 +82,7 @@ public class GameServer {
                                }
                            }
         );
-        this.indexBot = new IndexBot(this,GameServer.getCountBot(args));
+        this.indexBot = new IndexBot(this, GameServer.getCountBot(args));
     }
 
     public Server getServer() {
@@ -104,7 +101,7 @@ public class GameServer {
 
     }
 
-    public void send_PARAMETERS_PLAYER(int HP, int comant, String nikName, int forIdPlayer,int aboutPlayer) {
+    public void send_PARAMETERS_PLAYER(int HP, int comant, String nikName, int forIdPlayer, int aboutPlayer) {
         Network.StockMessOut stockMessOut = new Network.StockMessOut();
         stockMessOut.tip = Heading_type.PARAMETERS_PLAYER;
         System.out.println(nikName);
@@ -119,7 +116,7 @@ public class GameServer {
     }
 
     public void send_PARAMETERS_PLAYER(Player p, int forIdPlayer, int abautPlayer) {
-        send_PARAMETERS_PLAYER(p.getHp(), p.getCommand(), p.getNikName(), forIdPlayer,abautPlayer);
+        send_PARAMETERS_PLAYER(p.getHp(), p.getCommand(), p.getNikName(), forIdPlayer, abautPlayer);
     }
 
     public void send_PARAMETERS_PLAYER(Player p) { // для всех рассылк апараметров
@@ -134,8 +131,6 @@ public class GameServer {
 
         this.server.sendToAllTCP(stockMessOut);
     }
-
-
 
 
     public void send_DISCONECT_PLAYER(int idPlayer) {
@@ -172,8 +167,8 @@ public class GameServer {
         else return false;
     }
 
-    public int countLivePlayer(){
-        return  server.getConnections().length;
+    public int countLivePlayer() {
+        return server.getConnections().length;
     }
 
     public IndexBot getIndexBot() {
@@ -184,14 +179,14 @@ public class GameServer {
         return lp;
     }
 
-    public static String getDate(){
+    public static String getDate() {
         // Инициализация объекта date
         Date date = new Date();
         // Вывод текущей даты и времени с использованием toString()
         return String.valueOf(date);
     }
 
-    private static int getCountBot(String[] par){
+    private static int getCountBot(String[] par) {
         int res = 10;
         try {
             res = Integer.parseInt(par[0]);
