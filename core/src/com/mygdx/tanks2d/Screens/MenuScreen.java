@@ -128,6 +128,10 @@ public class MenuScreen implements Screen {
 //                }
 
                 if(!button_start_click) {
+                    NikName.setNikName(textField.getText());
+                    MainGame.nik_name = textField.getText();
+
+
                  //   mainClient.getNetworkPacketStock().toSendButtonStartClick();
                     button_start_click = true;
                     //mainGame.getMainClient().getNetworkPacketStock().toSendMyNik();
@@ -144,7 +148,7 @@ public class MenuScreen implements Screen {
                     }
                     return false;}
                 mainGame.assetsManagerGame.loadAllAsseGame();
-                NikName.setNikName(textField.getText());
+
 
                 return true;
             }

@@ -126,8 +126,8 @@ public class GameServer {
         stockMessOut.p2 = Heading_type.RED_COMMAND;// КОМАНДА
         stockMessOut.p3 = p.getHp(); // ХП
         stockMessOut.p4 = p.getHp(); // номер игрока
-        stockMessOut.textM = p.getTokken(); // ник нейм
-        System.out.println(">" + p.getTokken());
+        stockMessOut.textM = p.getNikName(); // ник нейм
+        System.out.println(p.getNikName());
 
         this.server.sendToAllTCP(stockMessOut);
     }
