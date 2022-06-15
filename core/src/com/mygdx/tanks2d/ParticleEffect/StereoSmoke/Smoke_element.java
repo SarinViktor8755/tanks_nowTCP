@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 
-public class Smoke_element extends Falling_element {
+public class Smoke_element extends Falling_element { /// это горит танк
     static final float MIN_H = 0;
     static final float MAX_H = 3;
 

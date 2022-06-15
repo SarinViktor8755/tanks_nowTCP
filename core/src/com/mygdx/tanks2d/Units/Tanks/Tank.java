@@ -195,10 +195,10 @@ public class Tank {
         if (hp < 70) {
             //  System.out.println(hp);
             if (MathUtils.randomBoolean((100 - hp) / 1500f))
-                gsp.pc.addParticalsSmokeStereo(1, position.x, position.y, hp);
+                gsp.pc.addParticalsSmokeStereo(position.x, position.y, hp);
         } else if (hp < 50) {
             if (MathUtils.randomBoolean(.0005f))
-                gsp.pc.addParticalsSmokeStereo(1, position.x, position.y, hp);
+                gsp.pc.addParticalsSmokeStereo(position.x, position.y, hp);
             // if(hp < 15) if(MathUtils.randomBoolean(.05f)) gsp.pc.addPasricalExplosionDeath(position.x, position.y);
         }
 

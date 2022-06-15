@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.Falling_element;
 import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.PasricalDeathSmoke;
+import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.Point_of_fire;
 import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.Smoke_element;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
 import com.mygdx.tanks2d.Utils.VectorUtils;
@@ -34,7 +35,7 @@ public class ParticleCustum {
     private Texture iron;
     private Texture shardsTex;// осколки
     private TextureAtlas textureAtlasDeathExplosion; /// атлес текстур взрыва тотала
-
+    Point_of_fire point_of_fire;
 
     GamePlayScreen gps;
 
@@ -106,6 +107,8 @@ public class ParticleCustum {
         for (int i = 0; i < 18; i++) {
             this.pasricalDeathSmokes.add(new PasricalDeathSmoke());
         }
+
+        point_of_fire= new Point_of_fire(5,50,50,this);
 
 
         this.gps = gps;
@@ -237,6 +240,7 @@ public class ParticleCustum {
 
         this.rander_smoke_death(sb, Gdx.graphics.getDeltaTime());
 
+
         for (Explosion_Death ed : explosion_Death) {
             if (!ed.isLife()) continue;
             ed.update();
@@ -265,9 +269,10 @@ public class ParticleCustum {
 //        }
         rander_Falling_element(sb, Gdx.graphics.getDeltaTime());
              rander_smoke_element(sb,Gdx.graphics.getDeltaTime());
+             point_of_fire.update(Gdx.graphics.getDeltaTime());
     }
 
-    public void addParticalsSmokeStereo(int quantity, float x, float y, int hp) {
+    public void addParticalsSmokeStereo(float x, float y, int hp) {/// дым горения
         float black = MathUtils.map(50, 0, 0, 1, hp) + MathUtils.random(-.35f, +.35f);
         if (!checkViseble(x, y)) return;
         Smoke_element smoke_element = this.smoke_elements.pollLast();
@@ -278,6 +283,18 @@ public class ParticleCustum {
   //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
         smoke_elements.offerFirst(smoke_element);
     }
+
+    public void addParticalsSmokeStereo(float x, float y, float random, boolean a) {/// дым умершего
+        Smoke_element smoke_element = this.smoke_elements.pollLast();
+        smoke_element.add(gps.getTank().getPosition().x  + MathUtils.random(-random, random), gps.getTank().getPosition().y  + MathUtils.random(-random, random),
+                0f, MathUtils.random(.5f, 3f), t,
+                1, 0, 1, 1
+        );
+        //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
+        smoke_elements.offerFirst(smoke_element);
+    }
+
+
 
     public void addDeathSmoke(float x, float y){
         PasricalDeathSmoke pasricalDeathSmoke = this.pasricalDeathSmokes.pollLast();

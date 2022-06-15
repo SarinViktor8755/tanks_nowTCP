@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 
-public class Falling_element {
+public class Falling_element { // базовый класс
     Vector3 position;
     Texture texture;
     SpriteBatch spriteBatch;
