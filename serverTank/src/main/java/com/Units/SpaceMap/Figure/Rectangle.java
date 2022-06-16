@@ -82,13 +82,15 @@ public class Rectangle implements Figure {
         if (isPointCollision(pos.x, pos.y)) {
             Vector2 tempVector = new Vector2();
             tempVector.set(pos.cpy().sub(center));
-            if (Math.abs(tempVector.x) >= Math.abs(tempVector.y)) {
-                if (tempVector.x > 0) return new Vector2(1, 0);
-                else return new Vector2(-1, 0);
-            } else {
-                if (tempVector.y > 0) return new Vector2(0, 1);
-                else return new Vector2(0, -1);
-            }
+//            if (Math.abs(tempVector.x) >= Math.abs(tempVector.y)) {
+//                if (tempVector.x > 0) return new Vector2(1, 0);
+//                else return new Vector2(-1, 0);
+//            } else {
+//                if (tempVector.y > 0) return new Vector2(0, 1);
+//                else return new Vector2(0, -1);
+//            }
+
+
         }
         return null;
     }

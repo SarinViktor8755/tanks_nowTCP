@@ -92,10 +92,10 @@ public class IndexBot extends Thread {
             Player p = gs.getLp().getPlayerForId(tank.getValue().getId());
             rotation_body(deltaTime, tank.getValue(), p.getBody_rotation()); // поворот туловеща
 
-            if (gs.getMainGame().getMapSpace().in_dimensions_terrain(p.getPosi().x, p.getPosi().y)) { // перемещеени вперед
-                p.getPosi().add(p.getBody_rotation().cpy().scl(deltaTime * 90));
-            } else
-                p.getPosi().sub(p.getBody_rotation().cpy().scl(deltaTime * 180)); // переделать вернуть до ближайшей точке в квадрате ))
+            if (!gs.getMainGame().getMapSpace().in_dimensions_terrain(p.getPosi().x, p.getPosi().y)) { // перемещеени вперед
+                 gs.getMainGame().getMapSpace().returnToSpace(p.getPosi());
+            } //else //
+
 
             ///////
             Vector2 r = gs.getMainGame().getMapSpace().resolving_conflict_with_objects(p.getPosi(), deltaTime);
@@ -103,7 +103,7 @@ public class IndexBot extends Thread {
             ///////
             collisinOtherTanksTrue(p.getPosi(), deltaTime, p.getBody_rotation()); /// calisiion tanks
 
-
+            p.getPosi().sub(p.getBody_rotation().cpy().scl(deltaTime * 90));
             // if(MathUtils.randomBoolean(.005f))tank.getValue().getTarget_body_rotation_angle().setAngleDeg(MathUtils.random(-180,180));
         }
     }
@@ -141,6 +141,8 @@ public class IndexBot extends Thread {
         if ((dbBots.size() + lPlayers) > target_plaers) delBot();
         //    System.out.println(lPlayers + "  " + dbBots.size());
     }
+
+
 
     private void delBot() {
 
