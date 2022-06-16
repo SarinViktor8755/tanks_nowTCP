@@ -108,7 +108,7 @@ public class ParticleCustum {
             this.pasricalDeathSmokes.add(new PasricalDeathSmoke());
         }
 
-        point_of_fire= new Point_of_fire(5,50,50,this);
+        point_of_fire= new Point_of_fire(15,300,300,this);
 
 
         this.gps = gps;
@@ -286,7 +286,7 @@ public class ParticleCustum {
 
     public void addParticalsSmokeStereo(float x, float y, float random, boolean a) {/// дым умершего
         Smoke_element smoke_element = this.smoke_elements.pollLast();
-        smoke_element.add(gps.getTank().getPosition().x  + MathUtils.random(-random, random), gps.getTank().getPosition().y  + MathUtils.random(-random, random),
+        smoke_element.add(x  + MathUtils.random(-random, random), y  + MathUtils.random(-random, random),
                 0f, MathUtils.random(.5f, 3f), t,
                 1, 0, 1, 1
         );

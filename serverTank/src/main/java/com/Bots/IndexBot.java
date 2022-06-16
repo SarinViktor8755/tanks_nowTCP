@@ -93,31 +93,26 @@ public class IndexBot extends Thread {
             rotation_body(deltaTime, tank.getValue(), p.getBody_rotation()); // поворот туловеща
 
             if (gs.getMainGame().getMapSpace().in_dimensions_terrain(p.getPosi().x, p.getPosi().y)) { // перемещеени вперед
-                p.getBody_rotation().setLength(90);
-                p.getPosi().add(p.getBody_rotation().cpy().scl(deltaTime * .001f));
-            }
+                p.getPosi().add(p.getBody_rotation().cpy().scl(deltaTime * 90));
+            } else
+                p.getPosi().sub(p.getBody_rotation().cpy().scl(deltaTime * 180)); // переделать вернуть до ближайшей точке в квадрате ))
 
             ///////
             Vector2 r = gs.getMainGame().getMapSpace().resolving_conflict_with_objects(p.getPosi(), deltaTime);
             if (r != null) p.getPosi().add(r);
             ///////
-
-            collisinOtherTanksTrue(p.getPosi(), deltaTime); /// calisiion tanks
-
-
-            ///////////
-
-            ////////////
+            collisinOtherTanksTrue(p.getPosi(), deltaTime, p.getBody_rotation()); /// calisiion tanks
 
 
             // if(MathUtils.randomBoolean(.005f))tank.getValue().getTarget_body_rotation_angle().setAngleDeg(MathUtils.random(-180,180));
         }
     }
 
-    private void collisinOtherTanksTrue(Vector2 position, float dt) {
+    private void collisinOtherTanksTrue(Vector2 position, float dt, Vector2 rotation) {
         Vector2 ct = gs.getLp().isCollisionsTanks(position);
         if (ct != null) {  // танки другие
-            position.add(ct.scl(90 * dt * .001f));
+            //position.add(ct.scl(90 * dt ));
+            position.sub(rotation.cpy().scl(dt * 90 * 1.5f)); // тут вроде норм
         }
     }
 
@@ -127,7 +122,7 @@ public class IndexBot extends Thread {
         if (MathUtils.randomBoolean(.05f))
             db_bot.getTarget_body_rotation_angle().rotateDeg(MathUtils.random(50));
 
-     //   System.out.println(rotaton.angleDeg() + "  " + db_bot.getTarget_body_rotation_angle().angleDeg() + "  " + MathUtils.isEqual(db_bot.getTarget_body_rotation_angle().angleDeg(), rotaton.angleDeg()));
+        //   System.out.println(rotaton.angleDeg() + "  " + db_bot.getTarget_body_rotation_angle().angleDeg() + "  " + MathUtils.isEqual(db_bot.getTarget_body_rotation_angle().angleDeg(), rotaton.angleDeg()));
         if (!a) {
             if ((rotaton.angleDeg(db_bot.getTarget_body_rotation_angle()) > 180)) {
                 rotaton.rotateDeg(3);

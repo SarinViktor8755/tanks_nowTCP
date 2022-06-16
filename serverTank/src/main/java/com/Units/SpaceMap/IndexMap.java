@@ -148,10 +148,10 @@ public class IndexMap {
             }
             if (allfigure.get(i) instanceof Ellipse) {
                 Ellipse e = (Ellipse) allfigure.get(i);
-                Vector2 resolving = e.get_vector2_from_center(pos);
+                Vector2 resolving = e.get_vector2_from_center(pos,dt);
                 if (resolving != null) {
-                    resolving.set(50,1);
-                    System.out.println("Ellipse");
+                    resolving.set(resolving);
+                ///   System.out.println("Ellipse");
                     return resolving;
 
                 }

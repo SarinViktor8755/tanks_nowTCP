@@ -49,8 +49,8 @@ public class Falling_element { // базовый класс
     }
 
     protected boolean checkLimet(){
-        if (position.z > Falling_element.MAX_H) return false;
-        if (position.z < Falling_element.MIN_H) return false;
+        if (position.z > this.MAX_H) return false;
+        if (position.z < this.MIN_H) return false;
         return true;
     }
 

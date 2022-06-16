@@ -14,7 +14,7 @@ public class MainGame {
     private static float realTimeMath; // время матча
     private final static float MATH_LENGHT = 1000 * 60 * 2; // время матча
 
-    public final long timer_tread_50 = 50; //ms поток таймер циклов , рассылвает координаты ботов ))
+    public final long timer_tread_50 = 25; //ms поток таймер циклов , рассылвает координаты ботов ))
     public final long timer_tread_25 = 15; // таймер поведения ботов - 25
 
     public static int targetPlayer = 10;
@@ -47,7 +47,7 @@ public class MainGame {
 
 
 
-                        gameServer.indexBot.updaeteBot(50);
+
 
 
 //                        поток 50 можно остоновить при отсутвии игрков
@@ -90,6 +90,8 @@ public class MainGame {
 
                         float time = (float) (deltaTime * .001);
                         bullets.updateBulets(deltaTime);
+
+                        gameServer.indexBot.updaeteBot(time);
 
 
                         // System.out.println("---");

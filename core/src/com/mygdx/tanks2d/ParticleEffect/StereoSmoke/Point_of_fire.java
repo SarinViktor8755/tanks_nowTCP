@@ -36,6 +36,8 @@ public class Point_of_fire {// точка генерация поэара
     }
 
     private void generateSmoke() {
+        x = 300 + (time_life * 100);
+        y = 300 + (MathUtils.sin(time_life)*   100);
         float s = MathUtils.map(lifetime_initial, 0, 0.85f, .001f, time_life);
         if (MathUtils.randomBoolean(s))
             pc.addParticalsSmokeStereo(x, y, 15,true);
