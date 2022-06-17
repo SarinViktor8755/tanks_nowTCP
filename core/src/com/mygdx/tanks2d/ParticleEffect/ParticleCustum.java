@@ -168,9 +168,6 @@ public class ParticleCustum {
             addShares(x, y);
         }
 
-//        for (int i = 0; i < MathUtils.random(200, 260); i++) {
-//            this.addGarbage(x, y);
-//        }
 
 
     }
@@ -230,6 +227,7 @@ public class ParticleCustum {
                     false, false);
         }
 
+        updatePoinsFire(Gdx.graphics.getDeltaTime());
 
         for (Explosion_Death ed : explosion_Death_little) {
             if (!ed.isLife()) continue;
@@ -292,6 +290,7 @@ public class ParticleCustum {
         );
         //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
         smoke_elements.offerFirst(smoke_element);
+        add_Point_of_fire(x,y);
     }
 
     public void addParticalsSmokeStereo(float x, float y, float random, boolean a) {/// дым умершего
@@ -334,13 +333,13 @@ public class ParticleCustum {
 
     private void updatePoinsFire(float dt) {
         for (Point_of_fire pf : point_of_fires) {  // дым после смерти
-            point_of_fire.update(dt);
+            pf.update(dt);
+
         }
     }
-    public void addPoint_of_fire(float x, float y){
+    public void add_Point_of_fire(float x, float y){
         Point_of_fire pf = this.point_of_fires.pollLast();
-
-
+        pf.setParametors(MathUtils.random(7,12),x,y);
         this.point_of_fires.offerFirst(pf);
     }
 

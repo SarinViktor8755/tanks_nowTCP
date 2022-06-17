@@ -31,25 +31,27 @@ public class Point_of_fire {// точка генерация поэара
     public void update(float dt) {
         if (!isLive()) return;
         this.time_life = time_life - dt;
-        System.out.println(time_life);
-        generateSmoke();
+       // System.out.println(time_life);
+         generateSmoke();
     }
 
     public boolean isLive() {
-        //////////
-//        if (time_life < 2) time_life = lifetime_initial;
-//        //////////
+
         if (time_life < -.5f) return false;
         return true;
     }
 
     private void generateSmoke() {
-        x = 300 + (time_life * 100);
-        y = 300 + (MathUtils.sin(time_life) * 100);
         float s = MathUtils.map(lifetime_initial, 0, 0.95f, .000f, time_life);
-        if (MathUtils.randomBoolean(s))
+        if (MathUtils.randomBoolean(s/100f))
             pc.addParticalsSmokeStereo(x, y, 15, true);
+    }
 
+    public void setParametors(float lifetime_initial, float x, float y){
+        time_life = lifetime_initial;
+        this.lifetime_initial = lifetime_initial;
+        this.x = x;
+        this.y = y;
     }
 
 }

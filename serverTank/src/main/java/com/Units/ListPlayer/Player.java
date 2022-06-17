@@ -20,8 +20,7 @@ public class Player {
     Vector2 body_rotation;
 
 
-
-    float  rotTower; // коодинаты
+    float rotTower; // коодинаты
     int hp, frags, death, command, id; //ХП
 
     String tokken, nikName;
@@ -33,7 +32,7 @@ public class Player {
         command = MathUtils.random(1, 2);
         nikName = "Player no." + this.id;
         pos = new Vector2();
-        body_rotation = new Vector2(1,1);
+        body_rotation = new Vector2(1, 1);
 
     }
 
@@ -42,7 +41,7 @@ public class Player {
     }
 
     public void setPosition(float x, float y) {
-        this.pos.set(x,y);
+        this.pos.set(x, y);
     }
 
     public Vector2 getPosi() {
@@ -66,11 +65,9 @@ public class Player {
     }
 
 
-
     public static int getStatusInGame() {
         return STATUS_IN_GAME;
     }
-
 
 
     public void setR(float r) {
@@ -133,7 +130,7 @@ public class Player {
     }
 
     public void setNikName(String nikName) {
-        System.out.println(nikName + "   " + this.id + "!!!!!!!!!!!!!!! setNikName" );
+        System.out.println(nikName + "   " + this.id + "!!!!!!!!!!!!!!! setNikName");
         this.nikName = nikName;
 
     }
@@ -172,6 +169,11 @@ public class Player {
         float len = VectorUtils.getLen2(posTank, this.pos);
         if (len > 5 && len < 1300) return true;
         return false;
+    }
+
+    public boolean isLive() {
+        if (getHp() < 1) return false;
+        return true;
     }
 
 
