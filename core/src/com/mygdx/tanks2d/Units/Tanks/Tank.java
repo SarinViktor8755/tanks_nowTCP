@@ -69,7 +69,7 @@ public class Tank {
 
         //target = new Texture(Gdx.files.internal("target.png"));
         target = gsp.getMainGame().assetManager.get("target.png", Texture.class);
-        hp = 20;
+        hp = 100;
 
 
         img.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Linear);
