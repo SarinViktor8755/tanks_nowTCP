@@ -6,7 +6,7 @@ import com.mygdx.tanks2d.ParticleEffect.ParticleCustum;
 
 public class Point_of_fire {// точка генерация поэара
 
-    private  float lifetime_initial = 0;
+    private float lifetime_initial = 0;
     private float time_life = 0;
     private float x, y;
 
@@ -20,6 +20,14 @@ public class Point_of_fire {// точка генерация поэара
         this.y = yp;
     }
 
+    public Point_of_fire(ParticleCustum particleCustum) {
+        this.lifetime_initial = -1;
+        this.time_life = MathUtils.random(7, 12);
+        this.pc = particleCustum;
+        this.x = -1000;
+        this.y = -1000;
+    }
+
     public void update(float dt) {
         if (!isLive()) return;
         this.time_life = time_life - dt;
@@ -29,18 +37,18 @@ public class Point_of_fire {// точка генерация поэара
 
     public boolean isLive() {
         //////////
-        if (time_life < 2) time_life = lifetime_initial;
-        //////////
-        //// if(time_life < 0)return false; return true;
+//        if (time_life < 2) time_life = lifetime_initial;
+//        //////////
+        if (time_life < -.5f) return false;
         return true;
     }
 
     private void generateSmoke() {
         x = 300 + (time_life * 100);
-        y = 300 + (MathUtils.sin(time_life)*   100);
-        float s = MathUtils.map(lifetime_initial, 0, 0.85f, .001f, time_life);
+        y = 300 + (MathUtils.sin(time_life) * 100);
+        float s = MathUtils.map(lifetime_initial, 0, 0.95f, .000f, time_life);
         if (MathUtils.randomBoolean(s))
-            pc.addParticalsSmokeStereo(x, y, 15,true);
+            pc.addParticalsSmokeStereo(x, y, 15, true);
 
     }
 

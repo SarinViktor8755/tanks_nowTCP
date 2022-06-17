@@ -144,7 +144,7 @@ public class IndexMap {
     }
 
 
-    public Vector2 resolving_conflict_with_objects(Vector2 pos, float dt) { /// решение коллизии с обьектами
+    public void resolving_conflict_with_objects(Vector2 pos, float dt) { /// решение коллизии с обьектами
 //        for (int i = 0; i < allfigure.size(); i++) {
 //            if (allfigure.get(i) instanceof Rectangle) {
 //                Rectangle rectangle = (Rectangle) allfigure.get(i);
@@ -171,20 +171,49 @@ public class IndexMap {
         for (int i = 0; i < allfigure.size(); i++) {
             if (allfigure.get(i) instanceof Rectangle) {
                 Rectangle rectangle = (Rectangle) allfigure.get(i);
-            //    Vector2 resolving = rectangle.get_vector2_from_center(pos);
-                if(!rectangle.isPointCollision(pos.x,pos.y)) continue;
-//                if (pos.x < rectangle.getPositionWH().x) pos.x = rectangle.getPositionWH().x;
-//                if (pos.x > rectangle.getPosition().x) pos.x = rectangle.getPosition().x;
+                //    Vector2 resolving = rectangle.get_vector2_from_center(pos);
+                if (!rectangle.isPointCollision(pos.x, pos.y)) continue;
 
-//                if()
+                float min;
 
-//                if (pos.y < rectangle.getPositionWH().y - 3) pos.y = rectangle.getPositionWH().y;
-//                if (pos.y > rectangle.getPosition().y + 3) pos.y = rectangle.getPosition().y;
+                float x1 = Math.abs(pos.x - rectangle.getPositionWH().x);
+                float x2 = Math.abs(pos.x - rectangle.getPosition().x);
+
+                float y1 = Math.abs(pos.y - rectangle.getPositionWH().y);
+                float y2 = Math.abs(pos.y - rectangle.getPosition().y);
+
+                if ((x1 < x2) && (x1 < y1) && (x1 < y2)) {
+                    pos.x = rectangle.getPositionWH().x + 15;
+                    return;
+                }
+                if ((x2 < x1) && (x2 < y1) && (x2 < y2)) {
+                    pos.x = rectangle.getPosition().x - 15;
+                    return;
+                }
+
+                if ((y1 < x1) && (y1 < x2) && (y1 < y2)) {
+                    pos.y = rectangle.getPositionWH().y + 15;
+                    return;
+                }
+                if ((y2 < x1) && (y2 < y1) && (y2 < y1)) {
+                    pos.y = rectangle.getPosition().y - 15;
+                    return;
+                }
+
             }
+
+            if (allfigure.get(i) instanceof Ellipse) {
+                Ellipse e = (Ellipse) allfigure.get(i);
+                if (!e.isPointCollision(pos.x, pos.y)) continue;
+                Vector2 resolving = e.get_vector2_from_center(pos, dt);
+
+                pos.set(resolving);
+
+            }
+
         }
 
 
-        return null;
     }
 
 

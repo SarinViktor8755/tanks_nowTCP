@@ -1,5 +1,7 @@
 package main.java.com.Bots;
 
+import static main.java.com.Bots.BehaviourBot.SPEED_BULLET;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -88,6 +90,9 @@ public class IndexBot extends Thread {
     //////////////////////////////
     public void movetBot(float deltaTime) { // перемещения поля
         for (Map.Entry<Integer, DBBot> tank : dbBots.entrySet()) {
+            if(MathUtils.randomBoolean(0.005f)) {
+                botShoot(tank.getValue().getId());
+            }
 
             Player p = gs.getLp().getPlayerForId(tank.getValue().getId());
             rotation_body(deltaTime, tank.getValue(), p.getBody_rotation()); // поворот туловеща
@@ -98,8 +103,9 @@ public class IndexBot extends Thread {
 
 
             ///////
-            Vector2 r = gs.getMainGame().getMapSpace().resolving_conflict_with_objects(p.getPosi(), deltaTime);
-            if (r != null) p.getPosi().add(r);
+            //Vector2 r =
+                    gs.getMainGame().getMapSpace().resolving_conflict_with_objects(p.getPosi(), deltaTime);
+           // if (r != null) p.getPosi().add(r);
             ///////
             collisinOtherTanksTrue(p.getPosi(), deltaTime, p.getBody_rotation()); /// calisiion tanks
 
@@ -140,6 +146,22 @@ public class IndexBot extends Thread {
         if ((dbBots.size() + lPlayers) < target_plaers) addBot();
         if ((dbBots.size() + lPlayers) > target_plaers) delBot();
         //    System.out.println(lPlayers + "  " + dbBots.size());
+    }
+
+    public static void botShoot(int id) { /// выстрел LAVEL_1
+        Player p = gs.getLp().getPlayerForId(id);
+        Player bot = gs.getLp().getPlayerForId(id);
+        Vector2 velBullet = new Vector2(SPEED_BULLET, 0).setAngleDeg(bot.getRotTower());
+
+        Network.StockMessOut sm = new Network.StockMessOut();
+        sm.p1 = p.getPosi().x;
+        sm.p2 = p.getPosi().y;
+        sm.p3 = p.getRotTower();
+        sm.p4 = 5000 + MathUtils.random(99999999);
+        sm.tip = Heading_type.MY_SHOT;
+
+        gs.getMainGame().getBullets().addBullet(new Vector2(bot.getPosi().x, bot.getPosi().y), velBullet, 44, bot.getId());
+        gs.getServer().sendToAllTCP(sm);
     }
 
 
@@ -200,6 +222,8 @@ public class IndexBot extends Thread {
         names.add("Sasha");
         return names.get(MathUtils.random(names.size() - 1)) + "@Bot";
     }
+
+
 
 
 }

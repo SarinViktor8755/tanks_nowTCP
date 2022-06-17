@@ -256,7 +256,7 @@ public class GamePlayScreen implements Screen {
     }
 
 
-    public void setPos(int x, int y) {
+    public void setPos(float x, float y) {
         this.pos.set(pos.x + x, pos.y + y);
     }
 

@@ -33,19 +33,7 @@ public class BehaviourBot { // поведение бота - вектор нап
 //    }
 //
 //
-//    public static void botShoot(GameServer gs, DBBot dbBot) { /// выстрел LAVEL_1
-//        Player bot = gs.getLp().getPlayerForId(dbBot.getId());
-//        Vector2 velBullet = new Vector2(SPEED_BULLET, 0).setAngleDeg(bot.getRotTower());
-//        Network.StockMessOut sm = new Network.StockMessOut();
-//        sm.p1 = dbBot.getPosition().x;
-//        sm.p2 = dbBot.getPosition().y;
-//        sm.p3 = dbBot.getAngle_rotation_tower().angleDeg();
-//        sm.p4 = 5000 + MathUtils.random(99999999);
-//        sm.tip = Heading_type.MY_SHOT;
-//
-//        gs.getMainGame().getBullets().addBullet(new Vector2(bot.getPosi().x, bot.getPosi().y), velBullet, 44, bot.getId());
-//        gs.getServer().sendToAllTCP(sm);
-//    }
+
 //
 //    public static void updatePlayerInPlayList(){
 ////        for (var entry : map.entrySet()) {

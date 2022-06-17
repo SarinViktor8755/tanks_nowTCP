@@ -28,6 +28,9 @@ public class ParticleCustum {
     ArrayDeque<Falling_element> falling_elements; //падаюшие элементы
     ArrayDeque<Smoke_element> smoke_elements; // Дым в лбьемк
     ArrayDeque<PasricalDeathSmoke> pasricalDeathSmokes;
+
+    ArrayDeque<Point_of_fire> point_of_fires;
+
     Vector2 temp_V;
 
     private Texture t;
@@ -57,10 +60,16 @@ public class ParticleCustum {
         this.falling_elements = new ArrayDeque<>();
         this.smoke_elements = new ArrayDeque<>();
         this.pasricalDeathSmokes = new ArrayDeque<>();
+        this.point_of_fires = new ArrayDeque<>();
 
         for (int i = 0; i < 2000; i++) {
             Shard ed = new Shard();
             this.shardsArr.add(ed);
+        }
+
+        for (int i = 0; i < 30; i++) {
+            Point_of_fire ed = new Point_of_fire(this);
+            this.point_of_fires.add(ed);
         }
 
         for (int i = 0; i < 120; i++) {
@@ -108,7 +117,8 @@ public class ParticleCustum {
             this.pasricalDeathSmokes.add(new PasricalDeathSmoke());
         }
 
-        point_of_fire= new Point_of_fire(15,300,300,this);
+
+        point_of_fire = new Point_of_fire(15, 300, 300, this);
 
 
         this.gps = gps;
@@ -268,25 +278,25 @@ public class ParticleCustum {
 //            smoke_elements.offerFirst(smoke_element);
 //        }
         rander_Falling_element(sb, Gdx.graphics.getDeltaTime());
-             rander_smoke_element(sb,Gdx.graphics.getDeltaTime());
-             point_of_fire.update(Gdx.graphics.getDeltaTime());
+        rander_smoke_element(sb, Gdx.graphics.getDeltaTime());
+        //point_of_fire.update(Gdx.graphics.getDeltaTime());
     }
 
     public void addParticalsSmokeStereo(float x, float y, int hp) {/// дым горения
         float black = MathUtils.map(50, 0, 0, 1, hp) + MathUtils.random(-.35f, +.35f);
         if (!checkViseble(x, y)) return;
         Smoke_element smoke_element = this.smoke_elements.pollLast();
-        smoke_element.add(gps.getTank().getPosition().x  + MathUtils.random(-5, 5), gps.getTank().getPosition().y  + MathUtils.random(-5, 5),
+        smoke_element.add(gps.getTank().getPosition().x + MathUtils.random(-5, 5), gps.getTank().getPosition().y + MathUtils.random(-5, 5),
                 0f, MathUtils.random(.5f, 1f), t,
                 1 - black, 1 - black, 1 - black, 1
-                );
-  //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
+        );
+        //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
         smoke_elements.offerFirst(smoke_element);
     }
 
     public void addParticalsSmokeStereo(float x, float y, float random, boolean a) {/// дым умершего
         Smoke_element smoke_element = this.smoke_elements.pollLast();
-        smoke_element.add(x  + MathUtils.random(-random, random), y  + MathUtils.random(-random, random),
+        smoke_element.add(x + MathUtils.random(-random, random), y + MathUtils.random(-random, random),
                 0f, MathUtils.random(.5f, 3f), t,
                 1, 0, 1, 1
         );
@@ -295,11 +305,9 @@ public class ParticleCustum {
     }
 
 
-
-    public void addDeathSmoke(float x, float y){
+    public void addDeathSmoke(float x, float y) {
         PasricalDeathSmoke pasricalDeathSmoke = this.pasricalDeathSmokes.pollLast();
-
-        pasricalDeathSmoke.add(x,y,0,2,t);
+        pasricalDeathSmoke.add(x, y, 0, 2, t);
         pasricalDeathSmokes.offerFirst(pasricalDeathSmoke);
     }
 
@@ -323,6 +331,19 @@ public class ParticleCustum {
             this.particleDeque.offerFirst(a);
         }
     }
+
+    private void updatePoinsFire(float dt) {
+        for (Point_of_fire pf : point_of_fires) {  // дым после смерти
+            point_of_fire.update(dt);
+        }
+    }
+    public void addPoint_of_fire(float x, float y){
+        Point_of_fire pf = this.point_of_fires.pollLast();
+
+
+        this.point_of_fires.offerFirst(pf);
+    }
+
 
     public void addParticalsSmokeOne(float x, float y) {
         if (VectorUtils.getLen2(gps.getTank().getPosition(), x, y) > 90_000) return;

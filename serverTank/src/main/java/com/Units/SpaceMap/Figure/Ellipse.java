@@ -29,24 +29,13 @@ public class Ellipse implements Figure {
     }
 
     public Vector2 get_vector2_from_center(float x, float y, float dt) { // дает вектор от центра кализии
-        if (VectorUtils.getLen2(x, y, positionCenter.x, positionCenter.y) < radius2) {
             Vector2 pos = new Vector2(x, y);
             Vector2 result = new Vector2(0, 0);
-           // result.set(positionCenter.sub(pos).scl(dt/1000f));
-            System.out.println(dt/1000f);
-            return result.set(pos.cpy().sub(this.positionCenter)).scl(dt/100);
+            return result.set(pos.cpy().sub(positionCenter)).nor();
 
-
-        }
-        return null;
     }
 
     public Vector2 get_vector2_from_center(Vector2 pos,float dt) { // дает вектор от центра кализии
-//        if (pos.dst(positionCenter) < radius) {
-//            Vector2 result = new Vector2(0, 0);
-//            result.set(pos.cpy().sub(positionCenter).scl(dt));
-//            return result;
-//        }
         return get_vector2_from_center(pos.x,pos.y,dt);
     }
 
