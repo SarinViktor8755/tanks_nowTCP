@@ -81,18 +81,6 @@ public class OpponentsTanks { // ОДИН ТАНК
 
     }
 
-    private void generatorSmoke() {
-        if (hp < 70) {
-            //  System.out.println(hp);
-            if (MathUtils.randomBoolean((100 - hp) / 380f))
-                gsp.pc.addParticalsSmokeStereo(position.x + MathUtils.random(-25, 25), position.y, hp + MathUtils.random(-25, 25));
-        } else if (hp < 50) {
-            if (MathUtils.randomBoolean(.05f))
-                gsp.pc.addParticalsSmokeStereo(position.x + MathUtils.random(-25, 25), position.y + MathUtils.random(-25, 25), hp);
-//            if (hp < 15) if (MathUtils.randomBoolean(.05f))
-//                gsp.pc.addPasricalExplosionDeath(position.x, position.y);
-        }
-    }
 
 
     public float getColor() {
@@ -159,7 +147,8 @@ public class OpponentsTanks { // ОДИН ТАНК
 
 
     public void update(float delta) {
-        generatorSmoke();
+       // generatorSmoke();
+       // gsp.pc.generatorSmoke(this.hp, position.x, position.y);
 
         // if(MathUtils.randomBoolean(.005f)) gsp.pc.addPasricalExplosionDeath(position.x,position.y); // взрыв танка
         //       towerRotation.update(delta);
@@ -167,6 +156,7 @@ public class OpponentsTanks { // ОДИН ТАНК
 //        move(delta);
 //        generatorSmoke();
         //   generatorSmoke();
+
 
 
     }
@@ -180,8 +170,8 @@ public class OpponentsTanks { // ОДИН ТАНК
         /// gsp.getBullets().addBullet(smooke, getDirection_tower().cpy().nor().scl(speed));
         gsp.getAudioEngine().pleySoundKickStick((25000 - VectorUtils.getLen2(position, gsp.getTank().getPosition())) / 25000);
 //        gsp.getGameSpace().getLighting().getBuletFlash().newFlesh(position.x, position.y);
+     //   gsp.pc.addPasricalExplosion(.3f, smooke.x, smooke.y);
 
-        gsp.pc.addPasricalExplosion(.3f, smooke.x, smooke.y);
         gsp.pc.addParticalsSmokeOne(smooke.x, smooke.y);
 
         // gsp.pc.addPasricalDeath_little(smooke.x, smooke.y,3);

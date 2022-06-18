@@ -176,9 +176,9 @@ public class TanksOther { /// много танков )))
      //   System.out.println("--------");
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
             t = tank.getValue();
-           // System.out.print(t.nomder + " : ");
 
             if (!tank.getValue().isLive()) continue;
+            gsp.pc.generatorSmoke(tank.getValue().hp,t.getPosition().x,t.getPosition().y);
             updateColor(t, Gdx.graphics.getDeltaTime());
 
             if (t.getNikPlayer() != null) {

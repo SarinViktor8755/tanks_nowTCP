@@ -123,7 +123,9 @@ public class Tank {
         if (this.tr.getTargetSize() > 1) gsp.getController().setButtonChangingOpponent(true);
         else gsp.getController().setButtonChangingOpponent(false);
         //if (MathUtils.randomBoolean(.05f)) hp--;
-        generatorSmoke();
+///
+        gsp.pc.generatorSmoke(hp,position.x, position.y);
+
 
         getTargetCamera();
         getTargetCamera(directionMovementControll);
@@ -191,24 +193,7 @@ public class Tank {
         }
     }
 /////////////////////////////////////////////////
-    private void generatorSmoke() { // генератор Дыма для танка
-        if (hp < 70) {
-            //  System.out.println(hp);
-            if (MathUtils.randomBoolean((100 - hp) / 1500f))
-                gsp.pc.addParticalsSmokeStereo(position.x, position.y, hp);
-        } else if (hp < 50) {
-            if (MathUtils.randomBoolean(.0005f))
-                gsp.pc.addParticalsSmokeStereo(position.x, position.y, hp);
-            // if(hp < 15) if(MathUtils.randomBoolean(.05f)) gsp.pc.addPasricalExplosionDeath(position.x, position.y);
-        }
 
-//        if (hp < 30) {
-//            System.out.println(hp);
-//            if (MathUtils.randomBoolean((100 - hp) / 1680f))
-//                gsp.pc.addPasricalExplosion(5, position.x + 16, position.y + 16);
-//        }
-
-    }
 
     private void upDateHpHud() {
         gsp.getController().setHPHeroTank(this.hp);
