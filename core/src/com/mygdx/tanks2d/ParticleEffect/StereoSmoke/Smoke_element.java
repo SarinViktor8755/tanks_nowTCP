@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Smoke_element extends Falling_element { /// это горит танк
     static final float MIN_H = 0;
-    static final float MAX_H = 8;
+    static final float MAX_H = 18;
 
 //    @Override
 //    protected boolean checkLimet() {
@@ -17,14 +17,14 @@ public class Smoke_element extends Falling_element { /// это горит та�
 
     @Override
     protected void update(float dt, Camera camera) {
-        dx = ((camera.position.x - position.x) / -10);
-        dy = ((camera.position.y - position.y) / -10);
+        dx = ((camera.position.x - position.x) / -130);
+        dy = ((camera.position.y - position.y) / -130);
         wi = position.z + texture.getWidth() / 2;
         hi = position.z + texture.getHeight() / 2;
 
         position.z += dt * speed;
-        color.a = MathUtils.map(Smoke_element.MIN_H, Smoke_element.MAX_H, .7f, -0.00f, position.z);
-        color.a = Interpolation.pow3OutInverse.apply(color.a);
+        color.a = MathUtils.map(this.MIN_H, this.MAX_H, .7f, -0.00f, position.z);
+       // color.a = Interpolation.pow3OutInverse.apply(color.a);
     }
 
 

@@ -57,9 +57,10 @@ public class ParticleCustum {
         this.particleDeque = new ArrayDeque<>();
         this.pasricalExplosions = new ArrayDeque<>();
         this.pasricalExplosionsBigParam = new ArrayDeque<>();
-        this.pasricalGarbage = new ArrayDeque<>();
+        //this.pasricalGarbage = new ArrayDeque<>();
         this.explosion_Death = new ArrayDeque<>(); ///  текстур взрыва тотала
         this.explosion_Death_little = new ArrayDeque<>(); ///  текстур взрыва тотала__little
+
         this.falling_elements = new ArrayDeque<>();
         this.smoke_elements = new ArrayDeque<>();
         this.pasricalDeathSmokes = new ArrayDeque<>();
@@ -112,9 +113,9 @@ public class ParticleCustum {
             this.pasricalExplosionsBigParam.add(new PasricalExplosionBigParameter());
         }
 
-        for (int i = 0; i < 800; i++) {
-            this.pasricalGarbage.add(new Garbage());
-        }
+//        for (int i = 0; i < 800; i++) {
+//            this.pasricalGarbage.add(new Garbage());
+//        }
 
         for (int i = 0; i < 18; i++) {
             this.pasricalDeathSmokes.add(new PasricalDeathSmoke());
@@ -177,17 +178,21 @@ public class ParticleCustum {
 
 
     public void render(SpriteBatch sb) {
+        float dt = Gdx.graphics.getDeltaTime();
+        rander_point_of_fires(dt);
+        rander_particleDeque(); // кусочки мусора
+        rander_explosion_Death_little(); // маленькие взрывы
+//        rander_pasricalExplosions();
+        //rander_pasricalExplosionsBigParam();
+      // updatePoinsFire(dt); // обновление дыма
+        rander_smoke_death(sb, Gdx.graphics.getDeltaTime());
+        rander_explosion_Death(); // большой взрыв
+//        rander_Falling_element(sb, dt);
+        rander_smoke_element(sb, dt); // дым вылетающий от ранения
 
+    }
 
-        rander_particleDeque();
-        rander_explosion_Death_little();
-        rander_pasricalExplosions();
-        rander_pasricalExplosionsBigParam();
-        updatePoinsFire(Gdx.graphics.getDeltaTime());
-
-        this.rander_smoke_death(sb, Gdx.graphics.getDeltaTime());
-
-
+    public void rander_explosion_Death(){
         for (Explosion_Death ed : explosion_Death) {
             if (!ed.isLife()) continue;
             ed.update();
@@ -202,11 +207,6 @@ public class ParticleCustum {
                     xw, yw
             );
         }
-
-
-        rander_Falling_element(sb, Gdx.graphics.getDeltaTime());
-        rander_smoke_element(sb, Gdx.graphics.getDeltaTime());
-        //point_of_fire.update(Gdx.graphics.getDeltaTime());
     }
 
     public void addParticalsSmokeStereo(float x, float y, float hp) {/// дым горения
@@ -219,7 +219,7 @@ public class ParticleCustum {
         );
         //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
         smoke_elements.offerFirst(smoke_element);
-        add_Point_of_fire(x, y);
+        //add_Point_of_fire(x, y);
     }
 
     public void addParticalsSmokeStereo(float x, float y, float random, boolean a) {/// дым умершего
@@ -233,11 +233,11 @@ public class ParticleCustum {
     }
 
 
-    public void addDeathSmoke(float x, float y) {
-        PasricalDeathSmoke pasricalDeathSmoke = this.pasricalDeathSmokes.pollLast();
-        pasricalDeathSmoke.add(x, y, 0, 2, t);
-        pasricalDeathSmokes.offerFirst(pasricalDeathSmoke);
-    }
+//    public void addDeathSmoke(float x, float y) {
+//        PasricalDeathSmoke pasricalDeathSmoke = this.pasricalDeathSmokes.pollLast();
+//        pasricalDeathSmoke.add(x, y, 0, 2, t);
+//        pasricalDeathSmokes.offerFirst(pasricalDeathSmoke);
+//    }
 
     private void rander_explosion_Death_little() {
         for (Explosion_Death ed : explosion_Death_little) {
@@ -282,7 +282,6 @@ public class ParticleCustum {
     private void updatePoinsFire(float dt) {
         for (Point_of_fire pf : point_of_fires) {  // дым после смерти
             pf.update(dt);
-
         }
     }
 
@@ -293,21 +292,21 @@ public class ParticleCustum {
     }
 
 
-    public void addParticalsSmokeOne(float x, float y) {
-        if (VectorUtils.getLen2(gps.getTank().getPosition(), x, y) > 90_000) return;
-        ParticleSmoke a;
-        a = this.particleDeque.pollLast();
-        a.setParameters(1.0f,
-                x, y,
-                MathUtils.random(0, 360), MathUtils.random(-5, 5),
-                .5f,
-                1.2f,
-                -.4f, -.4f,
-                MathUtils.random(.7f, 1), .4f, .4f,
-                .2f
-        );
-        this.particleDeque.offerFirst(a);
-    }
+//    public void addParticalsSmokeOne(float x, float y) {
+//        if (VectorUtils.getLen2(gps.getTank().getPosition(), x, y) > 90_000) return;
+//        ParticleSmoke a;
+//        a = this.particleDeque.pollLast();
+//        a.setParameters(1.0f,
+//                x, y,
+//                MathUtils.random(0, 360), MathUtils.random(-5, 5),
+//                .5f,
+//                1.2f,
+//                -.4f, -.4f,
+//                MathUtils.random(.7f, 1), .4f, .4f,
+//                .2f
+//        );
+//        this.particleDeque.offerFirst(a);
+//    }
 
     public void addParticalsSmokeOneBullet(float x, float y) {
         if (!checkViseble(x, y)) return;
@@ -331,8 +330,8 @@ public class ParticleCustum {
         if (!checkViseble(x, y)) return;
         Explosion_Death a = this.explosion_Death.pollLast();
         a.setParameters(x, y);
-        System.out.println("Vzriv smerti");
-        addDeathSmoke(x, y);
+        //System.out.println("Vzriv smerti");
+       // addDeathSmoke(x, y);
         this.explosion_Death.offerFirst(a);
     }
 
@@ -343,11 +342,11 @@ public class ParticleCustum {
         this.explosion_Death_little.offerFirst(a);
     }
 
-    public void addGarbage(float x, float y) {
-        Garbage g = this.pasricalGarbage.pollLast();
-        g.setParametors(x, y);
-        this.pasricalGarbage.offerFirst(g);
-    }
+//    public void addGarbage(float x, float y) {
+//        Garbage g = this.pasricalGarbage.pollLast();
+//        g.setParametors(x, y);
+//        this.pasricalGarbage.offerFirst(g);
+//    }
 
 
     public void addShares(float x, float y) {
@@ -392,6 +391,13 @@ public class ParticleCustum {
     public void rander_Falling_element(SpriteBatch spriteBatch, float deltaTimme) {
         for (Falling_element falling_element : falling_elements) {
             falling_element.rander(deltaTimme, gps.getCameraGame().getCamera(), spriteBatch);
+
+        }
+    }
+
+    private void  rander_point_of_fires(float dt){
+        for (Point_of_fire pf : point_of_fires) {
+            pf.update(dt);
 
         }
     }
@@ -462,9 +468,6 @@ public class ParticleCustum {
         }
     }
 
-    public void rander_explosion_Death() {
-
-    }
 
     public void rander_smoke_element(SpriteBatch spriteBatch, float deltaTimme) {
         for (Smoke_element smoke_element : smoke_elements) {

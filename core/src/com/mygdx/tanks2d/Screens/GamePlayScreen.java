@@ -181,17 +181,15 @@ public class GamePlayScreen implements Screen {
             this.pc.render(getBatch());
             this.startFlashForMainTank();                                                  // вспышка из дула и вспышка вокруг танка
 
-/////////////
-//        Vector2 smooke = tank.getPosition().cpy().sub(tank.getDirection_tower().cpy().nor().scl(-20 ));
-//        batch.setColor(1,1,1,.3f);
-//        getBatch().draw(mainGame.getAssetManager().get("badlogic1B.png",Texture.class),smooke.x,smooke.y,45,45);
-//        batch.setColor(1,1,1,1);
-            //////////////////////////////////////
-
             this.batch.end();
             //  this.getGameSpace().getLighting().renderLights(cameraGame.getCamera()); временно
             this.controller.draw();
             this.getBatch().setColor(1, 1, 1, 1);
+
+            if(MathUtils.randomBoolean(.05f)){
+                pc.add_Point_of_fire(MathUtils.random(300,450),MathUtils.random(300,560));
+                System.out.println("add_point");
+            }
 
         } catch (ConcurrentModificationException e) {
             this.batch.end();

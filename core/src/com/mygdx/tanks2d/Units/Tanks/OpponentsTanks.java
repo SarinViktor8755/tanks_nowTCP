@@ -1,15 +1,12 @@
 package com.mygdx.tanks2d.Units.Tanks;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.Screens.GamePlayScreen;
 import com.mygdx.tanks2d.Utils.VectorUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+
 
 
 public class OpponentsTanks { // ОДИН ТАНК
@@ -172,7 +169,7 @@ public class OpponentsTanks { // ОДИН ТАНК
 //        gsp.getGameSpace().getLighting().getBuletFlash().newFlesh(position.x, position.y);
      //   gsp.pc.addPasricalExplosion(.3f, smooke.x, smooke.y);
 
-        gsp.pc.addParticalsSmokeOne(smooke.x, smooke.y);
+        //gsp.pc.addParticalsSmokeOne(smooke.x, smooke.y);
 
         // gsp.pc.addPasricalDeath_little(smooke.x, smooke.y,3);
 
