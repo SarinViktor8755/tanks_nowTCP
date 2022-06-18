@@ -131,7 +131,20 @@ public class ParticleCustum {
         //f.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Linear);
 
     }
+    public void render(SpriteBatch sb) {
+        float dt = Gdx.graphics.getDeltaTime();
+        rander_point_of_fires(dt);
+        rander_particleDeque(); // кусочки мусора
+        rander_explosion_Death_little(); // маленькие взрывы
+//        rander_pasricalExplosions();
+        //rander_pasricalExplosionsBigParam();
+        // updatePoinsFire(dt); // обновление дыма
+        rander_smoke_death(sb, Gdx.graphics.getDeltaTime());
+        rander_explosion_Death(); // большой взрыв
+//        rander_Falling_element(sb, dt);
+        rander_smoke_element(sb, dt); // дым вылетающий от ранения
 
+    }
     public void randerGarbage(SpriteBatch spriteBatch) {
 
         int k = 0;
@@ -177,20 +190,7 @@ public class ParticleCustum {
     }
 
 
-    public void render(SpriteBatch sb) {
-        float dt = Gdx.graphics.getDeltaTime();
-        rander_point_of_fires(dt);
-        rander_particleDeque(); // кусочки мусора
-        rander_explosion_Death_little(); // маленькие взрывы
-//        rander_pasricalExplosions();
-        //rander_pasricalExplosionsBigParam();
-      // updatePoinsFire(dt); // обновление дыма
-        rander_smoke_death(sb, Gdx.graphics.getDeltaTime());
-        rander_explosion_Death(); // большой взрыв
-//        rander_Falling_element(sb, dt);
-        rander_smoke_element(sb, dt); // дым вылетающий от ранения
 
-    }
 
     public void rander_explosion_Death(){
         for (Explosion_Death ed : explosion_Death) {
@@ -224,9 +224,9 @@ public class ParticleCustum {
 
     public void addParticalsSmokeStereo(float x, float y, float random, boolean a) {/// дым умершего
         Smoke_element smoke_element = this.smoke_elements.pollLast();
-        smoke_element.add(x + MathUtils.random(-random, random), y + MathUtils.random(-random, random),
-                0f, MathUtils.random(.5f, 3f), t,
-                1, 0, 1, 1
+        smoke_element.add(x + MathUtils.random(0, 160), y + MathUtils.random(-random, random),
+                0f, 1, t,
+                1, 0, MathUtils.random(.5f,1), 1
         );
         //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
         smoke_elements.offerFirst(smoke_element);
@@ -279,11 +279,6 @@ public class ParticleCustum {
         }
     }
 
-    private void updatePoinsFire(float dt) {
-        for (Point_of_fire pf : point_of_fires) {  // дым после смерти
-            pf.update(dt);
-        }
-    }
 
     public void add_Point_of_fire(float x, float y) {
         Point_of_fire pf = this.point_of_fires.pollLast();
@@ -398,7 +393,6 @@ public class ParticleCustum {
     private void  rander_point_of_fires(float dt){
         for (Point_of_fire pf : point_of_fires) {
             pf.update(dt);
-
         }
     }
 
@@ -470,6 +464,7 @@ public class ParticleCustum {
 
 
     public void rander_smoke_element(SpriteBatch spriteBatch, float deltaTimme) {
+
         for (Smoke_element smoke_element : smoke_elements) {
             smoke_element.rander(deltaTimme, gps.getCameraGame().getCamera(), spriteBatch);
 

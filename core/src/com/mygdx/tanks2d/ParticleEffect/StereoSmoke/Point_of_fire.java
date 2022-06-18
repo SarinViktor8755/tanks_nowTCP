@@ -42,8 +42,9 @@ public class Point_of_fire {// точка генерация поэара
 
     private void generateSmoke() {
         float s = MathUtils.map(lifetime_initial, 0, 0.95f, .000f, time_life);
-        if (MathUtils.randomBoolean(s/100f))
-            pc.addParticalsSmokeStereo(this.x, this.y, 15, true);
+
+        if (MathUtils.randomBoolean(s))
+            pc.addParticalsSmokeStereo(this.x, this.y, 0, true);
     }
 
     public void setParametors(float lifetime_initial, float x, float y){

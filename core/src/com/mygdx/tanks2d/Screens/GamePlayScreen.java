@@ -186,10 +186,10 @@ public class GamePlayScreen implements Screen {
             this.controller.draw();
             this.getBatch().setColor(1, 1, 1, 1);
 
-            if(MathUtils.randomBoolean(.05f)){
-                pc.add_Point_of_fire(MathUtils.random(300,450),MathUtils.random(300,560));
-                System.out.println("add_point");
-            }
+//            if(MathUtils.randomBoolean(.005f)){
+//
+//                System.out.println("add_point");
+//            }
 
         } catch (ConcurrentModificationException e) {
             this.batch.end();
@@ -274,7 +274,8 @@ public class GamePlayScreen implements Screen {
         Vector2 smooke = tank.getPosition().cpy().sub(tank.getDirection_tower().cpy().nor().scl(-30));
         if (controller.isAttackButon()) {
             if (!tank.redyToAttack()) return;
-            System.out.println("startFlashForMainTank !! Generator new Buulet");
+          //  System.out.println("startFlashForMainTank !! Generator new Buulet");
+            pc.add_Point_of_fire(smooke.x, smooke.y);
             this.getMainGame().getMainClient().getNetworkPacketStock().toSendMyShot(smooke.x, smooke.y, tank.getDirection_tower().angleDeg());
         }
     }
