@@ -219,10 +219,16 @@ public class GameSpace {
     }
 
     public boolean checkMapBorders(Vector2 p) {
-        if (p.x > WITH_LOCATION) return false;
-        if (p.x < 0) return false;
-        if (p.y > HEIHT_LOCATION) return false;
-        if (p.y < 0) return false;
+        checkMapBorders(p.x,p.y);
+        return true;
+    }
+
+    public boolean checkMapBordersReturnSpaceTank(Vector2 pos) {
+        if (pos.x < 0 - 0) pos.x = 0;
+        if (pos.x > WITH_LOCATION + 0) pos.x = WITH_LOCATION;
+
+        if (pos.y < 0 - 0) pos.y = 0;
+        if (pos.y > HEIHT_LOCATION + 0) pos.y = HEIHT_LOCATION;
         return true;
     }
 

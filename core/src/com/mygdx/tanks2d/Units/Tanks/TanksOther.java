@@ -359,7 +359,7 @@ public class TanksOther { /// много танков )))
 
     public Vector2 isCollisionsTanks(Vector2 pos) {
         for (Map.Entry<Integer, OpponentsTanks> tank : this.listOpponents.entrySet()) {
-            if (tank.getValue().isLive()) continue;
+            if (!tank.getValue().isLive()) continue;
             if (tank.getValue().isCollisionsTanks(pos))
                 return new Vector2().set(pos.cpy().sub(tank.getValue().getPosition()).nor());
         }

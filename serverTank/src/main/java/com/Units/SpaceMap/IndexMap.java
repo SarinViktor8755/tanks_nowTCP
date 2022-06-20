@@ -122,9 +122,11 @@ public class IndexMap {
         if (pos.x > width_map + 7) pos.x = width_map;
 
         if (pos.y < 0 - 7) pos.y = 0;
-        if (pos.y > width_map + 7) pos.y = width_map;
+        if (pos.y > height_map + 7) pos.y = height_map;
 
     }
+
+
 
     public boolean isPointInCollision(float x, float y) { // кализия для бууулета
         for (int i = 0; i < allfigure.size(); i++) {

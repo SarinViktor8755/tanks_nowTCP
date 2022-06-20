@@ -118,7 +118,7 @@ public class IndexBot extends Thread {
         Vector2 ct = gs.getLp().isCollisionsTanks(position);
         if (ct != null) {  // танки другие
             //position.add(ct.scl(90 * dt ));
-            position.sub(rotation.cpy().scl(dt * 90 * 1.5f)); // тут вроде норм
+            position.sub(rotation.cpy().scl(dt * 90 * -2.5f)); // тут вроде норм
         }
     }
 

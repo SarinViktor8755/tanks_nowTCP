@@ -103,12 +103,12 @@ public class Tank {
     }
 
     public void update(Vector2 directionMovementControll, boolean inTuch) {
-        if(!isLive()) this.position.set(-1111,-1111);
+        if (!isLive()) this.position.set(-1111, -1111);
         // if (MathUtils.randomBoolean(.005f)) hp = MathUtils.random(0, 80);
         // if(MathUtils.randomBoolean(.05f)) gsp.pc.addPasricalExplosionDeath(position.x, position.y);
         upDateHpHud();
 ////////////////////////////////////
-        gsp.getGameSpace().getLighting().setLasetOn(false);
+       // gsp.getGameSpace().getLighting().setLasetOn(false);
         if (this.tr.getNomTarget() != null) {
             targetCoordinat = gsp.getTanksOther().getTankForID(this.tr.getNomTarget()).getPosition();
             gsp.getGameSpace().getLighting().setLasetOn(true);
@@ -137,11 +137,7 @@ public class Tank {
         generatorSled();
 
 
-        collisinRectangleTrue();
-        collisinCircleTrue();
-        collisinOtherTanksTrue();
     }
-
 
 
     private void generatorSled() {
@@ -155,10 +151,12 @@ public class Tank {
     private void moveMainTank(Vector2 directionMovementControll) { // движние основного танка
         //System.out.println(direction.len());
         rotation_the_tower(directionMovementControll);
-        collisinOtherTanksTrue();
+        this.position.add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime()));
 
-        if (gsp.getGameSpace().checkMapBorders(position.cpy().add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime())))) // границы карты
-            this.position.add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime()));
+        gsp.getGameSpace().checkMapBordersReturnSpaceTank(getPosition());
+        collisinRectangleTrue();
+        collisinCircleTrue();
+        collisinOtherTanksTrue();
 
         ///////////////////
 
@@ -173,24 +171,29 @@ public class Tank {
             }
     }
 
-/////////////////////////////////////////collisin
+    /////////////////////////////////////////collisin
     public void collisinRectangleTrue() {
         Vector2 c = gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition());
-        if (c != null) position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
+//        if (c != null) position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
+
+
     }
 
     public void collisinCircleTrue() {
         Vector2 c = gsp.getGameSpace().getMainCollision().isCircleCircle(getPosition());
         if (c != null) position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
+
     }
 
     private void collisinOtherTanksTrue() {
         Vector2 ct = gsp.getTanksOther().isCollisionsTanks(position);
         if (ct != null) {  // танки другие
-            position.add(ct.scl(2 * SPEED * Gdx.graphics.getDeltaTime()));
+            position.sub(direction.cpy().nor().scl(Gdx.graphics.getDeltaTime() * 90)); // тут вроде норм
+            //System.out.println("isCollisionsTanks");
         }
     }
-/////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////
     private void generatorSmoke() { // генератор Дыма для танка
         if (hp < 70) {
             //  System.out.println(hp);
@@ -331,10 +334,11 @@ public class Tank {
         Vector2 temp = position.cpy().sub(direction_tower.cpy().scl(-160));
         if (isLive())
             gsp.getCameraGame().moveFloatCameraToPoint(temp.x, temp.y, (int) 3.5); //камера перемещение
-        // куда пееремещать
+            // куда пееремещать
         else {
             gsp.getCameraGame().deathStatus(this);
-            if (MathUtils.randomBoolean(.004f))gsp.getCameraGame().createNewTargetDeathRhim(gsp.getTanksOther().getRandomPlayer());
+            if (MathUtils.randomBoolean(.004f))
+                gsp.getCameraGame().createNewTargetDeathRhim(gsp.getTanksOther().getRandomPlayer());
         }
 
 
