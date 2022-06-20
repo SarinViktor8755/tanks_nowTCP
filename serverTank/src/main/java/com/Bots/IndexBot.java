@@ -159,13 +159,15 @@ public class IndexBot extends Thread {
 
         Vector2 smooke = p.getPosi().cpy().sub(rot.scl(-30));
         Network.StockMessOut sm = new Network.StockMessOut();
+
+        int n = 5000 + MathUtils.random(99999999);
         sm.p1 = smooke.x;
         sm.p2 = smooke.y;
         sm.p3 = p.getRotTower();
-        sm.p4 = 5000 + MathUtils.random(99999999);
+        sm.p4 = n;
         sm.tip = Heading_type.MY_SHOT;
 
-        gs.getMainGame().getBullets().addBullet(new Vector2(bot.getPosi().x, bot.getPosi().y), velBullet, 44, bot.getId());
+        gs.getMainGame().getBullets().addBullet(new Vector2(bot.getPosi().x, bot.getPosi().y), velBullet, n, bot.getId());
         gs.getServer().sendToAllTCP(sm);
     }
 

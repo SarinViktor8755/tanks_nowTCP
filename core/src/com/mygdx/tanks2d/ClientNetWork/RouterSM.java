@@ -47,7 +47,7 @@ public class RouterSM {
             try {
                 // Vector2 v = mainGame.getGamePlayScreen().getBullets().getBullet((int) sm.p3).direction;
                 mainGame.getGamePlayScreen().playExplosion(pp, velocity);
-
+                System.out.println(sm.p3 + "-------------");
                 Vector2 v = mainGame.getGamePlayScreen().getBullets().removeBullet((int) sm.p3);
                 v.rotateDeg(180);
 
@@ -56,7 +56,7 @@ public class RouterSM {
                     mainGame.getGamePlayScreen().getPc().addShares(sm.p1, sm.p2, v.x, v.y);
                 }
             } catch (NullPointerException e) {
-                //  e.printStackTrace();
+                  e.printStackTrace();
             }
             return;
         }

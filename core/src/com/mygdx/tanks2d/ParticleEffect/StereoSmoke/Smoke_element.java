@@ -19,7 +19,7 @@ public class Smoke_element extends Falling_element { /// это горит та�
         this.position.z += dt * speed;
         this.color.a = MathUtils.map(this.MIN_H, this.MAX_H, .7f, -0.00f, position.z);
        // color.a = Interpolation.pow3OutInverse.apply(color.a);
-        System.out.println(this.color.a);
+       // System.out.println(this.color.a);
     }
 
 
