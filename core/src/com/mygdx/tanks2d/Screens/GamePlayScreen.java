@@ -181,17 +181,15 @@ public class GamePlayScreen implements Screen {
             this.pc.render(getBatch());
             this.startFlashForMainTank();                                                  // вспышка из дула и вспышка вокруг танка
 
-/////////////
-//        Vector2 smooke = tank.getPosition().cpy().sub(tank.getDirection_tower().cpy().nor().scl(-20 ));
-//        batch.setColor(1,1,1,.3f);
-//        getBatch().draw(mainGame.getAssetManager().get("badlogic1B.png",Texture.class),smooke.x,smooke.y,45,45);
-//        batch.setColor(1,1,1,1);
-            //////////////////////////////////////
-
             this.batch.end();
             //  this.getGameSpace().getLighting().renderLights(cameraGame.getCamera()); временно
             this.controller.draw();
             this.getBatch().setColor(1, 1, 1, 1);
+
+//            if(MathUtils.randomBoolean(.005f)){
+//
+//                System.out.println("add_point");
+//            }
 
         } catch (ConcurrentModificationException e) {
             this.batch.end();
@@ -276,7 +274,8 @@ public class GamePlayScreen implements Screen {
         Vector2 smooke = tank.getPosition().cpy().sub(tank.getDirection_tower().cpy().nor().scl(-30));
         if (controller.isAttackButon()) {
             if (!tank.redyToAttack()) return;
-            System.out.println("startFlashForMainTank !! Generator new Buulet");
+          //  System.out.println("startFlashForMainTank !! Generator new Buulet");
+            pc.add_Point_of_fire(smooke.x, smooke.y);
             this.getMainGame().getMainClient().getNetworkPacketStock().toSendMyShot(smooke.x, smooke.y, tank.getDirection_tower().angleDeg());
         }
     }

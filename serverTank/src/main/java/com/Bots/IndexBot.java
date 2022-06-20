@@ -29,6 +29,7 @@ public class IndexBot extends Thread {
     private final Vector2 speed_constanta = new Vector2(90, 0);
 
     private Vector2 temp_position_vector;
+    private Vector2 temp_position_vector1;
     private int countBot;
 
 
@@ -38,7 +39,7 @@ public class IndexBot extends Thread {
     public IndexBot(GameServer gameServer, int number_bots) {
         this.countBot = number_bots;
         this.temp_position_vector = new Vector2();
-
+        temp_position_vector1 = new Vector2();
         this.gs = gameServer;
         this.dbBots = new HashMap<>();
         this.sizeBot = number_bots;
@@ -90,7 +91,7 @@ public class IndexBot extends Thread {
     //////////////////////////////
     public void movetBot(float deltaTime) { // перемещения поля
         for (Map.Entry<Integer, DBBot> tank : dbBots.entrySet()) {
-            if(MathUtils.randomBoolean(0.005f)) {
+            if (MathUtils.randomBoolean(0.005f)) {
                 botShoot(tank.getValue().getId());
             }
 
@@ -98,14 +99,14 @@ public class IndexBot extends Thread {
             rotation_body(deltaTime, tank.getValue(), p.getBody_rotation()); // поворот туловеща
 
             if (!gs.getMainGame().getMapSpace().in_dimensions_terrain(p.getPosi().x, p.getPosi().y)) { // перемещеени вперед
-                 gs.getMainGame().getMapSpace().returnToSpace(p.getPosi());
+                gs.getMainGame().getMapSpace().returnToSpace(p.getPosi());
             } //else //
 
 
             ///////
             //Vector2 r =
-                    gs.getMainGame().getMapSpace().resolving_conflict_with_objects(p.getPosi(), deltaTime);
-           // if (r != null) p.getPosi().add(r);
+            gs.getMainGame().getMapSpace().resolving_conflict_with_objects(p.getPosi(), deltaTime);
+            // if (r != null) p.getPosi().add(r);
             ///////
             collisinOtherTanksTrue(p.getPosi(), deltaTime, p.getBody_rotation()); /// calisiion tanks
 
@@ -150,13 +151,16 @@ public class IndexBot extends Thread {
 
     public static void botShoot(int id) { /// выстрел LAVEL_1
         Player p = gs.getLp().getPlayerForId(id);
-        if(!p.isLive()) return;
+        if (!p.isLive()) return;
         Player bot = gs.getLp().getPlayerForId(id);
-        Vector2 velBullet = new Vector2(SPEED_BULLET, 0).setAngleDeg(bot.getRotTower());
 
+        Vector2 velBullet = new Vector2(SPEED_BULLET, 0).setAngleDeg(bot.getRotTower());
+        Vector2 rot = new Vector2(1, 0).set(1, 0).setAngleDeg(p.getRotTower());
+
+        Vector2 smooke = p.getPosi().cpy().sub(rot.scl(-30));
         Network.StockMessOut sm = new Network.StockMessOut();
-        sm.p1 = p.getPosi().x;
-        sm.p2 = p.getPosi().y;
+        sm.p1 = smooke.x;
+        sm.p2 = smooke.y;
         sm.p3 = p.getRotTower();
         sm.p4 = 5000 + MathUtils.random(99999999);
         sm.tip = Heading_type.MY_SHOT;
@@ -164,7 +168,6 @@ public class IndexBot extends Thread {
         gs.getMainGame().getBullets().addBullet(new Vector2(bot.getPosi().x, bot.getPosi().y), velBullet, 44, bot.getId());
         gs.getServer().sendToAllTCP(sm);
     }
-
 
 
     private void delBot() {
@@ -223,8 +226,6 @@ public class IndexBot extends Thread {
         names.add("Sasha");
         return names.get(MathUtils.random(names.size() - 1)) + "@Bot";
     }
-
-
 
 
 }

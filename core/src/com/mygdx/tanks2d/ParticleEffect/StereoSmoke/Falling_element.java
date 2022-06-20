@@ -59,12 +59,12 @@ public class Falling_element { // базовый класс
         update(dt, camera);
         spriteBatch.setColor(this.color);
         spriteBatch.draw(
-                texture, position.x + dx, position.y + dy,
-                wi / 2,
-                hi / 2,
+                texture, this.position.x + dx, this.position.y + dy,
+                this.wi / 2,
+                this.hi / 2,
                 texture.getWidth(), texture.getHeight(),
-                position.z+.4f, position.z +.4f, align, 0, 0
-                , texture.getWidth(), texture.getHeight(), false, false
+                this.position.z+.4f, this.position.z +.4f, this.align, 0, 0
+                , this.texture.getWidth(), this.texture.getHeight(), false, false
 
 
         );

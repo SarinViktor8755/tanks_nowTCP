@@ -40,10 +40,10 @@ public class PasricalExplosionBigParameter{
     public void update(ParticleCustum particleCustum) {
         time_life = time_life - Gdx.graphics.getDeltaTime();
         if(alpha < 1) return;
-        if(MathUtils.randomBoolean(Gdx.graphics.getDeltaTime() * 30))
-            for (int i = 0; i < 2; i++) {
-                particleCustum.addGarbage(getPosition().x, getPosition().y);
-            }
+//        if(MathUtils.randomBoolean(Gdx.graphics.getDeltaTime() * 30))
+//            for (int i = 0; i < 2; i++) {
+//                particleCustum.addGarbage(getPosition().x, getPosition().y);
+//            }
 
 
     }
