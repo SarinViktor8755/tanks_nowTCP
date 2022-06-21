@@ -121,6 +121,7 @@ public class DBBot {
     }
 
     public float getTargetAlign() {
+        targetAlign = MathUtils.random(0,350);
         return targetAlign;
     }
 
