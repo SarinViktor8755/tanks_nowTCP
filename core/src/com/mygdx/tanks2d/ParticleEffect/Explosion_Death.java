@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-import org.graalvm.compiler.loop.MathUtil;
-
 public class Explosion_Death {
     private Vector2 position;
     private float time_life;

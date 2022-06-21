@@ -127,7 +127,6 @@ public class IndexMap {
     }
 
 
-
     public boolean isPointInCollision(float x, float y) { // кализия для бууулета
         for (int i = 0; i < allfigure.size(); i++) {
             if (allfigure.get(i) instanceof Rectangle) {
@@ -147,8 +146,6 @@ public class IndexMap {
 
 
     public void resolving_conflict_with_objects(Vector2 pos, float dt) { /// решение коллизии с обьектами
-
-
         for (int i = 0; i < allfigure.size(); i++) {
             if (allfigure.get(i) instanceof Rectangle) {
                 Rectangle rectangle = (Rectangle) allfigure.get(i);
@@ -186,15 +183,12 @@ public class IndexMap {
             if (allfigure.get(i) instanceof Ellipse) {
                 Ellipse e = (Ellipse) allfigure.get(i);
                 if (!e.isPointCollision(pos.x, pos.y)) continue;
-                Vector2 resolving = e.get_vector2_from_center(pos, dt);
 
-                pos.set(e.getPositionCenter().cpy().add(300,300));
+                Vector2 tv =  e.getPositionCenter().sub(pos).nor().scl(e.getRadius());
+                pos.set(tv);
 
             }
-
         }
-
-
     }
 
 

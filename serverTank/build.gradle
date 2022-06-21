@@ -9,11 +9,14 @@ task run(dependsOn: classes, type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     ignoreExitValue = true
+
 }
 
 task createSarin_v(type: Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from files(sourceSets.main.output.classesDirs)
     from files(sourceSets.main.output.resourcesDir)
+
   //  from {configurations.compileClasspath.collect {zipTree(it)}}
 
     from {
