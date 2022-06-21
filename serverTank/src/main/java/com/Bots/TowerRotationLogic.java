@@ -18,7 +18,7 @@ public class TowerRotationLogic { /// поворот любой башни ЛО�
 
     public static void updateTowerRotation(float delta,DBBot dbBot) {
            rotation_Tower(delta,dbBot);
-
+               // ..............
 
 
     }
@@ -30,6 +30,10 @@ public class TowerRotationLogic { /// поворот любой башни ЛО�
             else
                 dbBot.getTarget_angle_rotation_tower().rotateDeg(speed_rotation_towr * delta);
         }
+
+
+
+
     }
 //
 
