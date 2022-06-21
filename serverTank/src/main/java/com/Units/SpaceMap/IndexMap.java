@@ -147,27 +147,6 @@ public class IndexMap {
 
 
     public void resolving_conflict_with_objects(Vector2 pos, float dt) { /// решение коллизии с обьектами
-//        for (int i = 0; i < allfigure.size(); i++) {
-//            if (allfigure.get(i) instanceof Rectangle) {
-//                Rectangle rectangle = (Rectangle) allfigure.get(i);
-//                Vector2 resolving = rectangle.get_vector2_from_center(pos);
-//                if (resolving != null) {
-//                    resolving.nor().scl(SPEED * dt * .004f);
-//                    return resolving;
-//                }
-//
-//            }
-//            if (allfigure.get(i) instanceof Ellipse) {
-//                Ellipse e = (Ellipse) allfigure.get(i);
-//                Vector2 resolving = e.get_vector2_from_center(pos, dt);
-//                if (resolving != null) {
-//                    resolving.set(resolving);
-//                    ///   System.out.println("Ellipse");
-//                    return resolving;
-//
-//                }
-//
-//            }
 
 
         for (int i = 0; i < allfigure.size(); i++) {
@@ -209,7 +188,7 @@ public class IndexMap {
                 if (!e.isPointCollision(pos.x, pos.y)) continue;
                 Vector2 resolving = e.get_vector2_from_center(pos, dt);
 
-                pos.set(resolving);
+                pos.set(e.getPositionCenter().cpy().add(300,300));
 
             }
 

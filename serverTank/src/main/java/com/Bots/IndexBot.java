@@ -109,7 +109,6 @@ public class IndexBot extends Thread {
             // if (r != null) p.getPosi().add(r);
             ///////
             collisinOtherTanksTrue(p.getPosi(), deltaTime, p.getBody_rotation()); /// calisiion tanks
-
             p.getPosi().sub(p.getBody_rotation().cpy().scl(deltaTime * 90));
             // if(MathUtils.randomBoolean(.005f))tank.getValue().getTarget_body_rotation_angle().setAngleDeg(MathUtils.random(-180,180));
         }

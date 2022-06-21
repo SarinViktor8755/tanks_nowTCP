@@ -13,7 +13,7 @@ public class Falling_element { // базовый класс
     SpriteBatch spriteBatch;
     float speed;
     static final float MIN_H = 0;
-    static final float MAX_H = 2;
+    static final float MAX_H = 1;
     float align;
     Color color;
     float dx, dy, wi, hi;
@@ -26,12 +26,12 @@ public class Falling_element { // базовый класс
 
     }
 
-    public void add(float x, float y, float h, float speed, Texture tex) {
-        this.position.set(x, y, h);
-        this.speed = speed;
-        this.texture = tex;
-        this.color.a = .7f;
-    }
+//    public void add(float x, float y, float h, float speed, Texture tex) {
+//        this.position.set(x, y, h);
+//        this.speed = speed;
+//        this.texture = tex;
+//        this.color.a = .7f;
+//    }
 
     public void add(float x, float y, float h, float speed, Texture tex, float r, float g, float b, float a) {
         this.position.set(x, y, h);
