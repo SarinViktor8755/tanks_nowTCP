@@ -205,6 +205,7 @@ public class IndexMap {
 //        Vector2 c = gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition());
 //        if (c != null) position.add(c.scl(SPEED * dt));
 //    }
+
 //
 //    public void collisinCircleTrue() {
 //        Vector2 c = isCircleCircle(getPosition());
