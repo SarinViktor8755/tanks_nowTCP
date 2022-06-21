@@ -42,6 +42,37 @@ public class MainCollision {
         return null;
     }
 
+    public void isCollisionsRectangleReturnPosition(Vector2 pos) {
+        for (BoxCollision rectangle : box) {
+            if (rectangle.isCollisionTank(pos)) continue;
+
+            float x1 = Math.abs(pos.x - rectangle.getRu().x);
+            float x2 = Math.abs(pos.x - rectangle.getLb().x);
+
+            float y1 = Math.abs(pos.y - rectangle.getRu().y);
+            float y2 = Math.abs(pos.y - rectangle.getLb().y);
+
+            if ((x1 < x2) && (x1 < y1) && (x1 < y2)) {
+                pos.x = rectangle.getRu().x + 15;
+                return;
+            }
+            if ((x2 < x1) && (x2 < y1) && (x2 < y2)) {
+                pos.x = rectangle.getLb().x - 15;
+                return;
+            }
+
+            if ((y1 < x1) && (y1 < x2) && (y1 < y2)) {
+                pos.y = rectangle.getRu().y + 15;
+                return;
+            }
+            if ((y2 < x1) && (y2 < y1) && (y2 < y1)) {
+                pos.y = rectangle.getLb().y - 15;
+                return;
+            }
+
+        }
+    }
+
     ////////////////////////
 
     public void addCircleeMapObject(Vector2 c, float r) {

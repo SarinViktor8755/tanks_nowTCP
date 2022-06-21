@@ -173,9 +173,9 @@ public class Tank {
 
     /////////////////////////////////////////collisin
     public void collisinRectangleTrue() {
-        Vector2 c = gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition());
-//        if (c != null) position.add(c.scl(SPEED * Gdx.graphics.getDeltaTime()));
-
+        //Vector2 c = gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition());
+        if(gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition())!=null)
+        gsp.getGameSpace().getMainCollision().isCollisionsRectangleReturnPosition(position);
 
     }
 

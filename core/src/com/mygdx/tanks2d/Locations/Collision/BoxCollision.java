@@ -29,6 +29,14 @@ public class BoxCollision {
         this.center.set(x, y);
     }
 
+    public Vector2 getLb() {
+        return lb;
+    }
+
+    public Vector2 getRu() {
+        return ru;
+    }
+
     Vector2 get_vector2_from_center(int x, int y) {
         return center;
     }
