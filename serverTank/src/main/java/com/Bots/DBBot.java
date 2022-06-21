@@ -15,8 +15,15 @@ public class DBBot {
     //////////////////////Target
 
     private Vector2 target_position;
-    private Vector2 target_body_rotation_angle;
-    private Vector2 target_angle_rotation_tower;
+    private Vector2 target_body_rotation_angle; // направление тела
+    private Vector2 target_angle_rotation_tower; // направление башни
+
+
+    private Vector2 myPosition; // позиция
+
+    private Integer nomTarget;
+    private int target_tank;
+    private float targetAlign; // целивой угол
 
     public DBBot(int id) {
         this.id = id;
@@ -24,6 +31,12 @@ public class DBBot {
         target_body_rotation_angle  = new Vector2(1,0);
         target_angle_rotation_tower  = new Vector2(1,0);
         target_angle_rotation_tower.set(target_body_rotation_angle);
+
+        targetAlign = target_angle_rotation_tower.angleDeg();
+        nomTarget = null;
+        target_tank = 0;
+
+
     }
 
     public int getId() {
@@ -80,5 +93,38 @@ public class DBBot {
 
     public void setTarget_angle_rotation_tower(Vector2 target_angle_rotation_tower) {
         this.target_angle_rotation_tower = target_angle_rotation_tower;
+    }
+
+
+    public Vector2 getMyPosition() {
+        return myPosition;
+    }
+
+    public void setMyPosition(Vector2 myPosition) {
+        this.myPosition = myPosition;
+    }
+
+    public Integer getNomTarget() {
+        return nomTarget;
+    }
+
+    public void setNomTarget(Integer nomTarget) {
+        this.nomTarget = nomTarget;
+    }
+
+    public int getTarget_tank() {
+        return target_tank;
+    }
+
+    public void setTarget_tank(int target_tank) {
+        this.target_tank = target_tank;
+    }
+
+    public float getTargetAlign() {
+        return targetAlign;
+    }
+
+    public void setTargetAlign(float targetAlign) {
+        this.targetAlign = targetAlign;
     }
 }

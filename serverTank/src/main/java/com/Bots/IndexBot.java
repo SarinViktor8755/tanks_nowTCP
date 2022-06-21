@@ -35,6 +35,8 @@ public class IndexBot extends Thread {
 
     private int sizeBot = 10;
 
+    private TowerRotationLogic tr;
+
 
     public IndexBot(GameServer gameServer, int number_bots) {
         this.countBot = number_bots;
@@ -43,6 +45,7 @@ public class IndexBot extends Thread {
         this.gs = gameServer;
         this.dbBots = new HashMap<>();
         this.sizeBot = number_bots;
+        this.tr = new TowerRotationLogic();
         // this.botBehavior = new BotBehavior(botList); // поведение бота - тут вся логика  )))
         // this.allPlayers = new HashMap<Integer, TowerRotation>();
 
@@ -111,6 +114,11 @@ public class IndexBot extends Thread {
             collisinOtherTanksTrue(p.getPosi(), deltaTime, p.getBody_rotation()); /// calisiion tanks
             p.getPosi().sub(p.getBody_rotation().cpy().scl(deltaTime * 90));
             // if(MathUtils.randomBoolean(.005f))tank.getValue().getTarget_body_rotation_angle().setAngleDeg(MathUtils.random(-180,180));
+
+            TowerRotationLogic.updateTowerRotation(deltaTime, tank.getValue());
+
+
+
         }
     }
 
