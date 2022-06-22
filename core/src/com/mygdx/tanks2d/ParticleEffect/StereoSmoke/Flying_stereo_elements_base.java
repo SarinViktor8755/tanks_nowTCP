@@ -22,6 +22,7 @@ public class Flying_stereo_elements_base {
         this.position = new Vector3(-1000, -1000, -100);
         this.align = MathUtils.random(-360, 360);
         color = Color.WHITE;
+        this.spriteBatch = spriteBatch;
     }
 
     public void add(float x, float y, float h, float speed, Texture tex, float r, float g, float b, float a) {
