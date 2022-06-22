@@ -183,9 +183,9 @@ public class IndexMap {
             if (allfigure.get(i) instanceof Ellipse) {
                 Ellipse e = (Ellipse) allfigure.get(i);
                 if (!e.isPointCollision(pos.x, pos.y)) continue;
-
+                System.out.println("Ellipse");
                 Vector2 tv =  e.getPositionCenter().sub(pos).nor().scl(e.getRadius());
-                pos.set(tv);
+                pos.set(200,200);
 
             }
         }

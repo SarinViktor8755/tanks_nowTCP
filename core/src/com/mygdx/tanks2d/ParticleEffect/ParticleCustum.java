@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.Falling_element;
+import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.Flying_stereo_elements_base;
 import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.PasricalDeathSmoke;
 import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.Point_of_fire;
 import com.mygdx.tanks2d.ParticleEffect.StereoSmoke.Smoke_element;
@@ -29,6 +30,8 @@ public class ParticleCustum {
     ArrayDeque<Falling_element> falling_elements; //падаюшие элементы
     ArrayDeque<Smoke_element> smoke_elements; // Дым в лбьемк
     ArrayDeque<PasricalDeathSmoke> pasricalDeathSmokes;
+
+    ArrayDeque<Flying_stereo_elements_base> flying_stereo_elements_bases;
 
     ArrayDeque<Point_of_fire> point_of_fires;
 
@@ -65,6 +68,7 @@ public class ParticleCustum {
         this.smoke_elements = new ArrayDeque<>();
         this.pasricalDeathSmokes = new ArrayDeque<>();
         this.point_of_fires = new ArrayDeque<>();
+        this.flying_stereo_elements_bases = new ArrayDeque<>();
 
         for (int i = 0; i < 2000; i++) {
             Shard ed = new Shard();
@@ -121,8 +125,12 @@ public class ParticleCustum {
             this.pasricalDeathSmokes.add(new PasricalDeathSmoke());
         }
 
+        for (int i = 0; i < 800; i++) {
+            this.flying_stereo_elements_bases.add(new Flying_stereo_elements_base(sb));
+        }
 
-       // point_of_fire = new Point_of_fire(15, 300, 300, this);
+
+        // point_of_fire = new Point_of_fire(15, 300, 300, this);
 
 
         this.gps = gps;
@@ -131,6 +139,7 @@ public class ParticleCustum {
         //f.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Linear);
 
     }
+
     public void render(SpriteBatch sb) {
         float dt = Gdx.graphics.getDeltaTime();
         rander_point_of_fires(dt);
@@ -142,32 +151,24 @@ public class ParticleCustum {
         rander_smoke_death(sb, Gdx.graphics.getDeltaTime());
         rander_explosion_Death(); // большой взрыв
 //        rander_Falling_element(sb, dt);
-        rander_smoke_element(sb, dt); // дым вылетающий от ранения
+        //  rander_smoke_element(sb, dt); // дым вылетающий от ранения
+        rander_flying_stereo_elements_bases();  // дым вылетающий от ранения НОВЫЙ
+
+        if (MathUtils.randomBoolean(.005f)) {
+            System.out.println("addFly");
+            add_flying_stereo_elements_bases(
+                    MathUtils.random(100, 200), MathUtils.random(100, 200),
+                    0, 1, t, 1, 1, 1, 1
+            );
+        }
+
+
+
+
 
     }
+
     public void randerGarbage(SpriteBatch spriteBatch) {
-
-        int k = 0;
-
-//        for (Garbage g : pasricalGarbage) {  // oskolki
-//            //if (!fd.isLife()) continue;
-//            k++;
-//
-//
-//            g.upDate();
-//            spriteBatch.setColor(1, 1, 1, 1 - (MathUtils.map(0f, pasricalGarbage.size(), 0.3f, 1f, k)));
-//
-//
-//            spriteBatch.draw(iron,
-//                    g.getPos().x - iron.getWidth() / 2, g.getPos().y - iron.getHeight() / 2,
-//                    f.getWidth(), f.getHeight(),
-//                    iron.getWidth() / 2, iron.getHeight() / 2,
-//                    1, 1,
-//                    g.getRot(),
-//                    0, 0,
-//                    iron.getWidth(), iron.getHeight(),
-//                    false, false);
-//        }
 
         for (Shard s : shardsArr) {  // частицы
             s.upDate();
@@ -175,7 +176,6 @@ public class ParticleCustum {
             // spriteBatch.draw(shardsTex,MathUtils.random(150,500),MathUtils.random(150,500));
             spriteBatch.draw(shardsTex, s.getPos().x, s.getPos().y);
         }
-
 
     }
 
@@ -190,9 +190,7 @@ public class ParticleCustum {
     }
 
 
-
-
-    public void rander_explosion_Death(){
+    public void rander_explosion_Death() {
         for (Explosion_Death ed : explosion_Death) {
             if (!ed.isLife()) continue;
             ed.update();
@@ -207,6 +205,18 @@ public class ParticleCustum {
                     xw, yw
             );
         }
+    }
+
+    public void rander_flying_stereo_elements_bases() {
+        for (Flying_stereo_elements_base fse : flying_stereo_elements_bases) {
+            fse.rander(Gdx.graphics.getDeltaTime(), gps.getCameraGame().getCamera());
+        }
+    }
+
+    public void add_flying_stereo_elements_bases(float x, float y, float h, float speed, Texture tex, float r, float g, float b, float a) {
+        Flying_stereo_elements_base fe = this.flying_stereo_elements_bases.pollLast();
+        fe.add(x, y, h, speed, tex, r, g, b, a);
+        this.flying_stereo_elements_bases.offerFirst(fe);
     }
 
     public void addParticalsSmokeStereo(float x, float y, float hp) {/// дым горения
@@ -226,18 +236,12 @@ public class ParticleCustum {
         Smoke_element smoke_element = this.smoke_elements.pollLast();
         smoke_element.add(x + MathUtils.random(0, 160), y + MathUtils.random(-random, random),
                 0f, 1, t,
-                1, 0, MathUtils.random(.5f,1), 1
+                1, 0, MathUtils.random(.5f, 1), 1
         );
         //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
         smoke_elements.offerFirst(smoke_element);
     }
 
-
-//    public void addDeathSmoke(float x, float y) {
-//        PasricalDeathSmoke pasricalDeathSmoke = this.pasricalDeathSmokes.pollLast();
-//        pasricalDeathSmoke.add(x, y, 0, 2, t);
-//        pasricalDeathSmokes.offerFirst(pasricalDeathSmoke);
-//    }
 
     private void rander_explosion_Death_little() {
         for (Explosion_Death ed : explosion_Death_little) {
@@ -320,13 +324,12 @@ public class ParticleCustum {
     }
 
 
-
     public void addPasricalDeath(float x, float y) {
         if (!checkViseble(x, y)) return;
         Explosion_Death a = this.explosion_Death.pollLast();
         a.setParameters(x, y);
         //System.out.println("Vzriv smerti");
-       // addDeathSmoke(x, y);
+        // addDeathSmoke(x, y);
         this.explosion_Death.offerFirst(a);
     }
 
@@ -390,7 +393,7 @@ public class ParticleCustum {
         }
     }
 
-    private void  rander_point_of_fires(float dt){
+    private void rander_point_of_fires(float dt) {
         for (Point_of_fire pf : point_of_fires) {
             pf.update(dt);
         }
@@ -426,10 +429,10 @@ public class ParticleCustum {
 
     private void rander_pasricalExplosions() {  // взрывы вроде мелкие
         for (PasricalExplosion u : pasricalExplosions) {
-          //  System.out.println("Fire 1  " + pasricalExplosions.size());
+            //  System.out.println("Fire 1  " + pasricalExplosions.size());
             if (!u.isLife()) continue;
             u.update();
-       //     System.out.println("Fire 2");
+            //     System.out.println("Fire 2");
             sb.setColor(1, 1, 1, MathUtils.clamp(u.getTime_life(), -1, 1) * 10);
             sb.draw(f,
                     u.getPosition().x - f.getWidth() * u.getScale() / 2, u.getPosition().y - f.getWidth() * u.getScale() / 2,
@@ -481,10 +484,10 @@ public class ParticleCustum {
 
     public void generatorSmoke(float hp, float x, float y) { // генератор Дыма для танка
         float dhp = hp;
-        if(hp > 95) return;
+        if (hp > 95) return;
         dhp = MathUtils.map(0, 90, 1, 0.0f, dhp);
         dhp = Interpolation.fade.apply(dhp);
-       //System.out.println(dhp);
+        //System.out.println(dhp);
         if (MathUtils.randomBoolean(dhp / 3f))
             addParticalsSmokeStereo(x, y, hp);
     }
