@@ -108,7 +108,7 @@ public class Tank {
         // if(MathUtils.randomBoolean(.05f)) gsp.pc.addPasricalExplosionDeath(position.x, position.y);
         upDateHpHud();
 ////////////////////////////////////
-       // gsp.getGameSpace().getLighting().setLasetOn(false);
+        // gsp.getGameSpace().getLighting().setLasetOn(false);
         if (this.tr.getNomTarget() != null) {
             targetCoordinat = gsp.getTanksOther().getTankForID(this.tr.getNomTarget()).getPosition();
             gsp.getGameSpace().getLighting().setLasetOn(true);
@@ -125,7 +125,9 @@ public class Tank {
         //if (MathUtils.randomBoolean(.05f)) hp--;
         generatorSmoke();
 
-        hp=MathUtils.random(1,100);
+
+        if (MathUtils.randomBoolean(.005f))
+            hp = MathUtils.random(1, 100);
 
         getTargetCamera();
         getTargetCamera(directionMovementControll);
@@ -176,8 +178,8 @@ public class Tank {
     /////////////////////////////////////////collisin
     public void collisinRectangleTrue() {
         //Vector2 c = gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition());
-        if(gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition())!=null)
-        gsp.getGameSpace().getMainCollision().isCollisionsRectangleReturnPosition(position);
+        if (gsp.getGameSpace().getMainCollision().isCollisionsRectangle(getPosition()) != null)
+            gsp.getGameSpace().getMainCollision().isCollisionsRectangleReturnPosition(position);
 
     }
 
@@ -197,6 +199,7 @@ public class Tank {
 
     /////////////////////////////////////////////////
     private void generatorSmoke() { // генератор Дыма для танка
+
         if (hp < 70) {
             //  System.out.println(hp);
             if (MathUtils.randomBoolean((100 - hp) / 1500f))
