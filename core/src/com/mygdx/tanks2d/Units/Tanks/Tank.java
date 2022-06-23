@@ -125,6 +125,8 @@ public class Tank {
         //if (MathUtils.randomBoolean(.05f)) hp--;
         generatorSmoke();
 
+        hp=MathUtils.random(1,100);
+
         getTargetCamera();
         getTargetCamera(directionMovementControll);
         //  targetDetectionTower();
@@ -199,6 +201,8 @@ public class Tank {
             //  System.out.println(hp);
             if (MathUtils.randomBoolean((100 - hp) / 1500f))
                 gsp.pc.addParticalsSmokeStereo(position.x, position.y, hp);
+
+
         } else if (hp < 50) {
             if (MathUtils.randomBoolean(.0005f))
                 gsp.pc.addParticalsSmokeStereo(position.x, position.y, hp);

@@ -154,11 +154,11 @@ public class ParticleCustum {
         //  rander_smoke_element(sb, dt); // дым вылетающий от ранения
         rander_flying_stereo_elements_bases();  // дым вылетающий от ранения НОВЫЙ
 
-        if (MathUtils.randomBoolean(.005f)) {
+        if (MathUtils.randomBoolean(.5f)) {
             System.out.println("addFly");
             add_flying_stereo_elements_bases(
-                    MathUtils.random(100, 200), MathUtils.random(100, 200),
-                    0, 1, t, 1, 1, 1, 1
+                    gps.getTank().getPosition().x, gps.getTank().getPosition().y,
+                    1,.5f, 3, t, 1, 1, 1, .8f
             );
         }
 
@@ -213,9 +213,9 @@ public class ParticleCustum {
         }
     }
 
-    public void add_flying_stereo_elements_bases(float x, float y, float h, float speed, Texture tex, float r, float g, float b, float a) {
+    public void add_flying_stereo_elements_bases(float x, float y, float h, float scale , float speed, Texture tex, float r, float g, float b, float a) {
         Flying_stereo_elements_base fe = this.flying_stereo_elements_bases.pollLast();
-        fe.add(x, y, h, speed, tex, r, g, b, a);
+        fe.add(x, y, h,scale, speed, tex, r, g, b, a);
         this.flying_stereo_elements_bases.offerFirst(fe);
     }
 
@@ -227,6 +227,12 @@ public class ParticleCustum {
                 0f, MathUtils.random(.5f, 1f), t,
                 1 - black, 1 - black, 1 - black, 1
         );
+        add_flying_stereo_elements_bases(
+                gps.getTank().getPosition().x + MathUtils.random(-5, 5),
+                gps.getTank().getPosition().y + MathUtils.random(-5, 5),
+                0,MathUtils.random(.4f,2),2,t,1 - black, 1 - black, 1 - black, 1
+        );
+
         //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
         smoke_elements.offerFirst(smoke_element);
         //add_Point_of_fire(x, y);
