@@ -276,8 +276,7 @@ public class GamePlayScreen implements Screen {
         Vector2 smooke = tank.getPosition().cpy().sub(tank.getDirection_tower().cpy().nor().scl(-30));
         if (controller.isAttackButon()) {
             if (!tank.redyToAttack()) return;
-            mainGame.getGamePlayScreen().getPc().add_Point_of_fire(getTank().getPosition().x,getTank().getPosition().y);
-            System.out.println("startFlashForMainTank !! Generator new Buulet");
+                   //  System.out.println("startFlashForMainTank !! Generator new Buulet");
             this.getMainGame().getMainClient().getNetworkPacketStock().toSendMyShot(smooke.x, smooke.y, tank.getDirection_tower().angleDeg());
         }
     }

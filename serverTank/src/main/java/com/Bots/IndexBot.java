@@ -29,6 +29,7 @@ public class IndexBot extends Thread {
     private final Vector2 speed_constanta = new Vector2(90, 0);
 
     private Vector2 temp_position_vector;
+    private static Vector2 temp_position_vector_static;
     private int countBot;
 
 
@@ -93,11 +94,12 @@ public class IndexBot extends Thread {
     //////////////////////////////
     public void movetBot(float deltaTime) { // перемещения поля
         for (Map.Entry<Integer, DBBot> tank : dbBots.entrySet()) {
+
+            Player p = gs.getLp().getPlayerForId(tank.getValue().getId());
+            if(!p.isLive()) continue;
             if(MathUtils.randomBoolean(0.005f)) {
                 botShoot(tank.getValue().getId());
             }
-
-            Player p = gs.getLp().getPlayerForId(tank.getValue().getId());
             rotation_body(deltaTime, tank.getValue(), p.getBody_rotation()); // поворот туловеща
 
             if (!gs.getMainGame().getMapSpace().in_dimensions_terrain(p.getPosi().x, p.getPosi().y)) { // перемещеени вперед
@@ -156,15 +158,19 @@ public class IndexBot extends Thread {
 
     public static void botShoot(int id) { /// выстрел LAVEL_1
         Player p = gs.getLp().getPlayerForId(id);
-       // if(!p.isLive()) return;
         Player bot = gs.getLp().getPlayerForId(id);
         Vector2 velBullet = new Vector2(SPEED_BULLET, 0).setAngleDeg(bot.getRotTower());
 
         Network.StockMessOut sm = new Network.StockMessOut();
 
+     //   IndexBot.temp_position_vector_static.setAngleDeg(p.getRotTower());
+
+        Vector2 rot = new Vector2(1,0).setAngleDeg(p.getRotTower()).scl(-30);
+        Vector2 smooke = p.getPosi().cpy().sub(rot);
+
         int n = 5000 + MathUtils.random(99999999);
-        sm.p1 = p.getPosi().x;
-        sm.p2 = p.getPosi().y;
+        sm.p1 = smooke.x;
+        sm.p2 = smooke.y;
         sm.p3 = p.getRotTower();
         sm.p4 = n;
         sm.tip = Heading_type.MY_SHOT;

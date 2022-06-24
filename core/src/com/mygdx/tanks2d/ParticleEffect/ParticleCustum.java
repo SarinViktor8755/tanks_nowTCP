@@ -202,6 +202,7 @@ public class ParticleCustum {
                     ed.getPosition().x - (tex.getRegionWidth() / 2), ed.getPosition().y - (tex.getRegionHeight() / 2),
                     xw, yw
             );
+
         }
     }
 
@@ -217,7 +218,7 @@ public class ParticleCustum {
         this.flying_stereo_elements_bases.offerFirst(fe);
     }
 
-    public void addParticalsSmokeStereo(float x, float y, float hp) {/// дым горения
+    public void addParticalsSmokeStereo(float x, float y, float hp) {/// дым горения Уже обновил
         float black = MathUtils.map(50, 0, 0, 1, hp) + MathUtils.random(-.35f, +.35f);
         if (!checkViseble(x, y)) return;
         float delta = 12;
@@ -227,17 +228,6 @@ public class ParticleCustum {
                 2, t, 1 - black, 1 - black, 1 - black, 1
         );
 
-
-//        Smoke_element smoke_element = this.smoke_elements.pollLast();
-//        smoke_element.add(gps.getTank().getPosition().x + MathUtils.random(-5, 5), gps.getTank().getPosition().y + MathUtils.random(-5, 5),
-//                0f, MathUtils.random(.5f, 1f), t,
-//                1 - black, 1 - black, 1 - black, 1
-//        );
-//
-
-        //      smoke_element.add(gps.getTank().getPosition().x + 16 + MathUtils.random(-16, 16), gps.getTank().getPosition().y + 16 + MathUtils.random(-16, 16), MathUtils.random(2, 8), MathUtils.random(35, 40), t);
-//        smoke_elements.offerFirst(smoke_element);
-        //add_Point_of_fire(x, y);
     }
 
 
@@ -340,6 +330,8 @@ public class ParticleCustum {
         //System.out.println("Vzriv smerti");
         // addDeathSmoke(x, y);
         this.explosion_Death.offerFirst(a);
+        add_Point_of_fire(x,y);
+
     }
 
     public void addPasricalDeath_little(float x, float y, float kefM) {
