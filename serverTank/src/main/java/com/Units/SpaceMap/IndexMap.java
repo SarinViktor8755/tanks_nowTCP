@@ -132,12 +132,13 @@ public class IndexMap {
             if (allfigure.get(i) instanceof Rectangle) {
                 Rectangle r = (Rectangle) allfigure.get(i);
                 /// true если касается
+                System.out.println("111");
                 if (r.isPointCollision((int) x, (int) y)) return true;
             }
 
             if (allfigure.get(i) instanceof Ellipse) {
-                Ellipse e = (Ellipse) allfigure.get(i);
-                if (e.isPointCollision((int) x, (int) y)) return true;
+//                Ellipse e = (Ellipse) allfigure.get(i);
+//                if (e.isPointCollision((int) x, (int) y)) return true;
             }
 
         }
@@ -182,10 +183,10 @@ public class IndexMap {
 
             if (allfigure.get(i) instanceof Ellipse) {
                 Ellipse e = (Ellipse) allfigure.get(i);
-                if (!e.isPointCollision(pos.x, pos.y)) continue;
-
-                Vector2 tv =  e.getPositionCenter().sub(pos).nor().scl(e.getRadius());
-                pos.set(tv);
+//                if (!e.isPointCollision(pos.x, pos.y)) continue;
+//
+//                Vector2 tv =  e.getPositionCenter().sub(pos).nor().scl(e.getRadius());
+//                pos.set(tv);
 
             }
         }
