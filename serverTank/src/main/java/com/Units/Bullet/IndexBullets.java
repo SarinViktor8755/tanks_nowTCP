@@ -94,7 +94,6 @@ public class IndexBullets {
     }
 
     public void delBullet(Bullet bullet){
-
         gameServer.sendSHELL_RUPTURE(bullet.position.x, bullet.position.y,bullet.getNom(),bullet.getAuthor_bullet());
         bullet.position.set(-20_000,-20_000);
     }

@@ -126,8 +126,8 @@ public class Tank {
         generatorSmoke();
 
 
-        if (MathUtils.randomBoolean(.005f))
-            hp = MathUtils.random(1, 100);
+//        if (MathUtils.randomBoolean(.005f))
+//            hp = MathUtils.random(1, 100);
 
         getTargetCamera();
         getTargetCamera(directionMovementControll);

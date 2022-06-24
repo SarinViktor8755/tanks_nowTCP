@@ -116,7 +116,7 @@ public class IndexBot extends Thread {
             TowerRotationLogic.updateTowerRotation(deltaTime, tank.getValue());
 
 
-
+          //  System.out.println(p.getPosi());
         }
     }
 
@@ -156,7 +156,7 @@ public class IndexBot extends Thread {
 
     public static void botShoot(int id) { /// выстрел LAVEL_1
         Player p = gs.getLp().getPlayerForId(id);
-        if(!p.isLive()) return;
+       // if(!p.isLive()) return;
         Player bot = gs.getLp().getPlayerForId(id);
         Vector2 velBullet = new Vector2(SPEED_BULLET, 0).setAngleDeg(bot.getRotTower());
 

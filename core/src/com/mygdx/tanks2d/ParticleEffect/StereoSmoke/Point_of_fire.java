@@ -1,5 +1,6 @@
 package com.mygdx.tanks2d.ParticleEffect.StereoSmoke;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.tanks2d.MainGame;
 import com.mygdx.tanks2d.ParticleEffect.ParticleCustum;
@@ -9,6 +10,7 @@ public class Point_of_fire {// точка генерация поэара
     private float lifetime_initial = 0;
     private float time_life = 0;
     private float x, y;
+    private Texture tex;
 
     private ParticleCustum pc;
 
@@ -20,19 +22,23 @@ public class Point_of_fire {// точка генерация поэара
         this.y = yp;
     }
 
-    public Point_of_fire(ParticleCustum particleCustum) {
+    public Point_of_fire(ParticleCustum particleCustum, Texture tex) {
         this.lifetime_initial = -1;
         this.time_life = MathUtils.random(7, 12);
         this.pc = particleCustum;
         this.x = -1000;
         this.y = -1000;
+        this.tex = tex;
     }
 
     public void update(float dt) {
         if (!isLive()) return;
         this.time_life = time_life - dt;
-       // System.out.println(time_life);
-         generateSmoke();
+     //   System.out.println(time_life);
+
+            generateSmoke();
+
+
     }
 
     public boolean isLive() {
@@ -41,13 +47,33 @@ public class Point_of_fire {// точка генерация поэара
     }
 
     private void generateSmoke() {
-        float s = MathUtils.map(lifetime_initial, 0, 0.95f, .000f, time_life);
+        float shans = MathUtils.map(0,lifetime_initial,0.0f,0.4f,time_life);
+        if(MathUtils.randomBoolean(shans)) {
+            float delta = MathUtils.random(-15,15);
+            if(MathUtils.randomBoolean(.1f))
+            pc.add_flying_stereo_elements_bases(
+                    this.x + delta+ tex.getWidth()/2, this.y + delta + tex.getWidth()/2,
+                    0,1,
+                    1,
+                    this.tex,
+                    1, .3f, .1f, .3f
+            );
+            else{
+                float black = MathUtils.random(0.05f,0.15f);
+                pc.add_flying_stereo_elements_bases(
+                        this.x + delta +tex.getHeight()/2, this.y + delta+ tex.getWidth()/2,
+                        0, 1,
+                        1,
+                        this.tex,
+                        black, black, black, .3f
+                );
 
-        if (MathUtils.randomBoolean(s/100f))
-            pc.addParticalsSmokeStereo(this.x, this.y, 0, true);
+            }
+        }
+
     }
 
-    public void setParametors(float lifetime_initial, float x, float y){
+    public void setParametors(float lifetime_initial, float x, float y) {
         time_life = lifetime_initial;
         this.lifetime_initial = lifetime_initial;
         this.x = x;

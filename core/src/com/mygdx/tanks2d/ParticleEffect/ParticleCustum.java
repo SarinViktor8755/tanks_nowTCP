@@ -76,7 +76,7 @@ public class ParticleCustum {
         }
 
         for (int i = 0; i < 30; i++) {
-            Point_of_fire ed = new Point_of_fire(this);
+            Point_of_fire ed = new Point_of_fire(this,t);
             this.point_of_fires.add(ed);
         }
 
@@ -154,13 +154,14 @@ public class ParticleCustum {
         //  rander_smoke_element(sb, dt); // дым вылетающий от ранения
         rander_flying_stereo_elements_bases();  // дым вылетающий от ранения НОВЫЙ
 
-        if (MathUtils.randomBoolean(.3f)) {
-            System.out.println("addFly");
-            add_flying_stereo_elements_bases(
-                    gps.getTank().getPosition().x, gps.getTank().getPosition().y,
-                    1,.5f, 3, t, 1, 1, 1, .8f
-            );
-        }
+//        if (MathUtils.randomBoolean(.3f)) {
+//           // System.out.println("addFly");
+//            add_flying_stereo_elements_bases(
+//                    gps.getTank().getPosition().x, gps.getTank().getPosition().y,
+//                    1,.5f, 0.5f, t, 1, 1, 1, .8f
+//            );
+//        }
+
 
 
     }

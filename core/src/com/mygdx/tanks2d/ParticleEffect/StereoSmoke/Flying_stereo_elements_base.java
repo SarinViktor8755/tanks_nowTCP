@@ -13,7 +13,7 @@ public class Flying_stereo_elements_base {
     SpriteBatch spriteBatch;   // батч
     float speed;      // скорость полета
     static final float MIN_H = -1;   // минимальнаявысота
-    static final float MAX_H = 10;     // максимальнаявысота
+    static final float MAX_H = 5;     // максимальнаявысота
     float align; // угол текстуры
     Color color; // цвет ендера
     float dx, dy, wi, hi;// зачем не помню
@@ -27,10 +27,11 @@ public class Flying_stereo_elements_base {
         color = Color.WHITE;
         this.spriteBatch = spriteBatch;
         scale = 1;
+        this.align = MathUtils.random(180);
     }
 
     public void add(float x, float y, float h, float scale, float speed, Texture tex, float r, float g, float b, float a) {
-        this.position.set(x - (tex.getWidth() * scale / 2), y - (tex.getHeight() * scale / 2), h);
+        this.position.set(x, y, h);
         this.speed = speed;
         this.texture = tex;
         this.color = new Color(r, g, b, a);
@@ -40,21 +41,19 @@ public class Flying_stereo_elements_base {
     protected void update(float dt, Camera camera) {
         //deltaCamera = MathUtils.map(this.MAX_H, this.MIN_H, 300, 0, position.z);
         position.z += dt * speed;
-        dx = ((camera.position.x - position.x) * (position.z));
-        dy = ((camera.position.y - position.y) * (position.z));
-
-        scale = scale + dt / 3f;
-
 
         //    System.out.println(dx);
+        dx = ((camera.position.x - position.x) * (position.z - 1) * -5);
+        dy = ((camera.position.y - position.y) * (position.z - 1) * -5);
+
         dx = MathUtils.map(0, 2500, 0, 50, dx);
         dy = MathUtils.map(0, 2500, 0, 50, dy);
 
 //        wi = position.z + texture.getWidth();
 //        hi = position.z + texture.getHeight();
-        System.out.println(dx);
+        //     System.out.println(dx);
 
-        this.color.a = MathUtils.map(this.MAX_H, this.MIN_H, .001f, 1, position.z);
+        this.color.a = MathUtils.map(this.MAX_H, this.MIN_H * 3, .000f, .7f, position.z);
     }
 
     protected boolean checkLimet() {
@@ -67,13 +66,27 @@ public class Flying_stereo_elements_base {
         if (!checkLimet()) return;
         update(dt, camera);
         spriteBatch.setColor(this.color);
+        float scaleDel = scale + position.z * .001f;
+//        spriteBatch.draw(
+//                texture,
+//                position.x - dx,
+//                position.y - dy,
+//                texture.getWidth() / 2,
+//                texture.getHeight() / 2,
+//                texture.getWidth(), texture.getHeight(),
+//                scaleDel, scaleDel,
+//                align, 0, 0
+//                , texture.getWidth(), texture.getHeight(), false, false
+//        );
+        scaleDel = position.z * scale;
+
         spriteBatch.draw(
                 texture,
-                position.x - dx,
-                position.y - dy,
-                texture.getWidth() / 2,
-                texture.getHeight() / 2,
-                texture.getWidth() * scale, texture.getHeight() * scale,
+                position.x - ((texture.getWidth() * scaleDel) / 2) + dx,
+                position.y - ((texture.getHeight() * scaleDel) / 2) + dy,
+                ((texture.getWidth() * scaleDel) / 2),
+                ((texture.getHeight() * scaleDel) / 2),
+                texture.getWidth() * scaleDel, texture.getHeight() * scaleDel,
                 1, 1,
                 align, 0, 0
                 , texture.getWidth(), texture.getHeight(), false, false
