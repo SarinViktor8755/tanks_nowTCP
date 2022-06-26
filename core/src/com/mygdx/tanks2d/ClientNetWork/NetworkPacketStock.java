@@ -136,9 +136,9 @@ public class NetworkPacketStock {
 
     public void toSendMyNikAndTokken() {
         if(!required_to_send_tooken) return;
+        if(!client.isConnected())return;
         toSendMyTokken();
-
-        required_to_send_tooken = false;
+        required_to_send_tooken = true;
     }
 }
 

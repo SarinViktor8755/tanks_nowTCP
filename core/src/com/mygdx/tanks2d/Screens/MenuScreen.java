@@ -128,6 +128,16 @@ public class MenuScreen implements Screen {
 //                }
 
                 if(!button_start_click) {
+                    if(!mainClient.getClient().isConnected()){
+                        try {
+                            mainClient.getClient().reconnect();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        finally {
+                            return false;
+                        }
+                    }
                     NikName.setNikName(textField.getText());
                     MainGame.nik_name = textField.getText();
 

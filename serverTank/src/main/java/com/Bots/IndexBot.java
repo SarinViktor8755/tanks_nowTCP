@@ -96,10 +96,19 @@ public class IndexBot extends Thread {
         for (Map.Entry<Integer, DBBot> tank : dbBots.entrySet()) {
 
             Player p = gs.getLp().getPlayerForId(tank.getValue().getId());
+            DBBot dbtank = dbBots.get(p.getId());
+
+            dbtank.updateTackAttack(deltaTime);
+
             if(!p.isLive()) continue;
-            if(MathUtils.randomBoolean(0.005f)) {
+            if(dbtank.isRedyToAttac()){
+               // gs.getLp().getPlayerForId(tank.getValue().getId()).setRotTower(MathUtils.random(360));
+            //    dbtank.setTarget_angle_rotation_tower(MathUtils.random(360));
+
                 botShoot(tank.getValue().getId());
             }
+            p.setRotTower(dbtank.getTarget_angle_rotation_tower().angleDeg());
+            ///////////////////////////
             rotation_body(deltaTime, tank.getValue(), p.getBody_rotation()); // поворот туловеща
 
             if (!gs.getMainGame().getMapSpace().in_dimensions_terrain(p.getPosi().x, p.getPosi().y)) { // перемещеени вперед

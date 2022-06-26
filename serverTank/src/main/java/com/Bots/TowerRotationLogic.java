@@ -29,8 +29,18 @@ public class TowerRotationLogic { /// поворот любой башни ЛО�
             else
                 dbBot.getTarget_angle_rotation_tower().rotateDeg(speed_rotation_towr * delta);
         }
+    }
+
+    private void  scanning_the_terrain(){ /// поиск целей
+
+
 
     }
+
+    private float returnAngle(Vector2 positionoOpponent, Vector2 positionMy) { /// определить угол поворота
+        return positionoOpponent.cpy().sub(positionMy).angleDeg();
+    }
+
 //
 
 

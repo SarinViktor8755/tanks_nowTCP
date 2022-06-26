@@ -25,6 +25,8 @@ public class DBBot {
     private int target_tank;
     private float targetAlign; // целивой угол
 
+    private float time_tackt_attack;
+
     public DBBot(int id) {
         this.id = id;
         target_position = new Vector2(0,0);
@@ -35,6 +37,7 @@ public class DBBot {
         targetAlign = target_angle_rotation_tower.angleDeg();
         nomTarget = null;
         target_tank = 0;
+        time_tackt_attack = 0;
 
 
     }
@@ -86,6 +89,16 @@ public class DBBot {
         this.target_body_rotation_angle = target_body_rotation_angle.setAngleDeg(l);
     }
 
+    public boolean isRedyToAttac() {
+        if (this.time_tackt_attack >= 1f) {
+            time_tackt_attack = 0;
+            return true;
+        } else return false;
+    }
+
+    public void updateTackAttack(float dt){
+        this.time_tackt_attack+=dt;
+    }
 
     public Vector2 getTarget_angle_rotation_tower() {
         return target_angle_rotation_tower;
@@ -94,6 +107,11 @@ public class DBBot {
     public void setTarget_angle_rotation_tower(Vector2 target_angle_rotation_tower) {
         this.target_angle_rotation_tower = target_angle_rotation_tower;
     }
+
+    public void setTarget_angle_rotation_tower(float angel) {
+        this.target_angle_rotation_tower.setAngleDeg(angel);
+    }
+
 
 
     public Vector2 getMyPosition() {
