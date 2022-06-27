@@ -21,6 +21,10 @@ import com.mygdx.tanks2d.Screens.GamePlayScreen;
 public class GameSpace {
     GamePlayScreen gps;
 
+
+    private Vector2 rasp1;
+    private Vector2 rasp2;
+
     private TiledMap map;
     private OrthogonalTiledMapRenderer rendererMap;
     private LightingBox2D lighting;
@@ -69,6 +73,14 @@ public class GameSpace {
         mainCollision = new MainCollision(gps);
 
         for (int i = 0; i < obstacles.getObjects().getCount(); i++) {
+            System.out.println(obstacles.getObjects().get(i).getName() + " NameObjMap");
+            if(obstacles.getObjects().get(i).getName()!= null ){
+                RectangleMapObject r = (RectangleMapObject) obstacles.getObjects().get(i);
+                if(obstacles.getObjects().get(i).getName().equals("resp_1")) rasp1 = new Vector2(r.getRectangle().x,r.getRectangle().y);
+                if(obstacles.getObjects().get(i).getName().equals("resp_2")) rasp2 = new Vector2(r.getRectangle().x,r.getRectangle().y);
+               // System.out.println(rasp1 + "   "+ rasp2);
+                continue;
+            }
 
             if (obstacles.getObjects().get(i) instanceof RectangleMapObject) { /// прямоугольники
                 RectangleMapObject a = (RectangleMapObject) obstacles.getObjects().get(i);
@@ -164,6 +176,15 @@ public class GameSpace {
         if ((x < 0) || (y < 0)) return false;
         if ((x > WITH_LOCATION) || (y > HEIHT_LOCATION)) return false;
         return true;
+    }
+
+
+    public Vector2 getRasp1() {
+        return rasp1;
+    }
+
+    public Vector2 getRasp2() {
+        return rasp2;
     }
 
     public Radspurens getRadspurens() {

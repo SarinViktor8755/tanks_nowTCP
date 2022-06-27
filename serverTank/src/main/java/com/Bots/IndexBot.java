@@ -102,12 +102,13 @@ public class IndexBot extends Thread {
 
             if(!p.isLive()) continue;
             if(dbtank.isRedyToAttac()){
+                if(dbtank.getNomTarget()==null) continue;
                // gs.getLp().getPlayerForId(tank.getValue().getId()).setRotTower(MathUtils.random(360));
             //    dbtank.setTarget_angle_rotation_tower(MathUtils.random(360));
 
                 botShoot(tank.getValue().getId());
             }
-            p.setRotTower(dbtank.getTarget_angle_rotation_tower().angleDeg());
+
             ///////////////////////////
             rotation_body(deltaTime, tank.getValue(), p.getBody_rotation()); // поворот туловеща
 
@@ -124,8 +125,8 @@ public class IndexBot extends Thread {
             p.getPosi().sub(p.getBody_rotation().cpy().scl(deltaTime * 90));
             // if(MathUtils.randomBoolean(.005f))tank.getValue().getTarget_body_rotation_angle().setAngleDeg(MathUtils.random(-180,180));
 
-            TowerRotationLogic.updateTowerRotation(deltaTime, tank.getValue());
-
+            TowerRotationLogic.updateTowerRotation(deltaTime, tank.getValue(),p,gs.getLp());
+            p.setRotTower(dbtank.getTarget_angle_rotation_tower().angleDeg());
 
           //  System.out.println(p.getPosi());
         }

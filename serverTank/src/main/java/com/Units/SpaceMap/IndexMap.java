@@ -132,7 +132,7 @@ public class IndexMap {
             if (allfigure.get(i) instanceof Rectangle) {
                 Rectangle r = (Rectangle) allfigure.get(i);
                 /// true если касается
-                System.out.println("111");
+                //System.out.println("111");
                 if (r.isPointCollision((int) x, (int) y)) return true;
             }
 

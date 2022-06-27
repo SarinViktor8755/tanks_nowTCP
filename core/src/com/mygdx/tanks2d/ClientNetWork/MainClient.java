@@ -130,15 +130,7 @@ public class MainClient {
         if (object instanceof Network.StockMessOut) {
         //    System.out.println((Network.StockMessOut) object);
             routerSM.routeSM((Network.StockMessOut) object);
-//            Network.StockMessOut sm = (Network.StockMessOut) object;
-//            System.out.println(sm);
-//            if (Heading_type.MY_SHOT == sm.tip) {
-//
-//
-//
-//
-//                return;
-//            }
+
 
         }
 

@@ -30,66 +30,6 @@ public class NetworkPacketStock {
         required_to_send_tooken = true;
     }
 
-//    public void addOutgoingPackage(PacketModel packet) {
-//        ///мсразу сделать отправку )))
-//        this.outList.put(packet.getTime_even(), packet);
-//    }
-//
-//    private void addIncomingPackage(Network.StockMess packet) {
-//        //this.inList.put(packet.getTime_even(),packet);
-//    }
-//
-//
-//    public void updatOutLint(Client client) { // проверка расылка сообщений
-//        if (!online) {
-//            this.outList.clear();
-//            return;
-//        }
-//        Integer key;
-//        PacketModel temp;
-//        Iterator<Integer> in = outList.keySet().iterator(); // отправка сообщений на сервер
-//
-//        //  System.out.println(outList);
-//        // System.out.println("-------------------");
-//        while (in.hasNext()) {
-//            try {
-//
-//                key = in.next();
-//                temp = outList.get(key);
-//                temp.sendId(this.myId);
-//                temp.getP().nomer_pley = client.getID();
-//                //System.out.println("--" + outList.size());
-//                if (!temp.isActual()) continue;
-//                client.sendUDP(temp.getP()); // отправка пакетов
-//                checkByTime(temp);
-//
-//                //System.out.print(" >>> "+ temp.getTime_even());
-//                System.out.println(" >>>>>> otpravil paket " + " tip: " + temp.getTip());
-//            } catch (ConcurrentModificationException e) {
-//            }
-//        }
-//    }
-//
-//    public void updatInLint() { // проверка входящих сообщений
-//        Integer key;
-//        PacketModel temp;
-//        Iterator<Integer> in = inList.keySet().iterator(); // входящие сообщения
-//        while (in.hasNext()) {
-//            try {
-//                key = in.next();
-//                temp = inList.get(key);
-//                checkByTime(temp);// проверить по времени
-//            } catch (ConcurrentModificationException e) {
-//            }
-//        }
-//    }
-
-
-    //////////////////////////////////////////////
-//
-//    public void setMyId(int myId) {
-//        this.myId = myId;
-//    }
 
     private void send_package_to_server(int tip, float p1, float p2, float p3, float p4, String text) //Integer tip, Integer p1, Integer p2, Integer p3, Integer p4, Integer p5, Integer p6, Integer nomer_pley, String textM,
     {
@@ -121,7 +61,7 @@ public class NetworkPacketStock {
 
 
     public void toSendMyTokken() {
-        System.out.println("toSendMyTokken");
+      //  System.out.println("toSendMyTokken");
         send_package_to_server(Heading_type.MY_TOKKEN, 0, 0, 0, 0, NikName.getTokken());
     }
 

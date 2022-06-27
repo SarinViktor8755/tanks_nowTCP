@@ -95,16 +95,10 @@ public class GamePlayScreen implements Screen {
     }
 
     public void update() {
-        if(!mainGame.getMainClient().getClient().isConnected()){
-            if(MathUtils.randomBoolean(.005f)) {
-                try {
-                    mainGame.getMainClient().getClient().reconnect(5000);
-                } catch (IOException e) {
-               //     e.printStackTrace();
-                }
-            }
-            //mainGame.transitionScreenGameToMenu();
-        }
+
+
+        disconect_protection();
+
         getMainGame().updateClien();
 
         // кинуть на сервер мои координаты
@@ -127,6 +121,20 @@ public class GamePlayScreen implements Screen {
         if (controller.isInTuchMove()) audioEngine.pleySoundOfTracks();
         else audioEngine.stopSoundOfTracks();
         pos.add(controller.getDirectionMovement().cpy().scl(Gdx.graphics.getDeltaTime() * 1.5f)); /// движение танка Главного
+    }
+
+    private void disconect_protection() {
+        if(!mainGame.getMainClient().getClient().isConnected()){
+            if(MathUtils.randomBoolean(.005f)) {
+                try {
+                    tanksOther.deathAllPlayers();
+                    mainGame.getMainClient().getClient().reconnect(5000);
+                } catch (IOException e) {
+                    //     e.printStackTrace();
+                }
+            }
+            //mainGame.transitionScreenGameToMenu();
+        }
     }
 
     public float getTimeInGame() {

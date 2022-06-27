@@ -2,6 +2,7 @@ package main.java.com.Units.ListPlayer;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.tanks2d.ClientNetWork.Heading_type;
 import com.mygdx.tanks2d.ClientNetWork.Network;
 import com.mygdx.tanks2d.MainGame;
 import com.mygdx.tanks2d.Utils.VectorUtils;
@@ -34,6 +35,8 @@ public class Player {
         pos = new Vector2();
         body_rotation = new Vector2(1, 1);
 
+        if (MathUtils.randomBoolean()) command = Heading_type.BLUE_COMMAND;
+        else command = Heading_type.RED_COMMAND;
     }
 
     public void setPosition(Vector2 p) {

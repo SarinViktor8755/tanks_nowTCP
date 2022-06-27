@@ -106,7 +106,7 @@ public class GameServer {
         stockMessOut.tip = Heading_type.PARAMETERS_PLAYER;
         System.out.println(nikName);
         stockMessOut.p1 = aboutPlayer; // ХП
-        stockMessOut.p2 = Heading_type.RED_COMMAND;// КОМАНДА
+        stockMessOut.p2 = getCoomandforPlayer(aboutPlayer);// КОМАНДА
         stockMessOut.p3 = HP; // номер игрока
         stockMessOut.p4 = HP; // номер игрока
         stockMessOut.textM = nikName; // ник нейм
@@ -123,12 +123,11 @@ public class GameServer {
         Network.StockMessOut stockMessOut = new Network.StockMessOut();
         stockMessOut.tip = Heading_type.PARAMETERS_PLAYER;
         stockMessOut.p1 = p.getId(); // id
-        stockMessOut.p2 = Heading_type.RED_COMMAND;// КОМАНДА
+        stockMessOut.p2 = getCoomandforPlayer(p.getId());// КОМАНДА
         stockMessOut.p3 = p.getHp(); // ХП
         stockMessOut.p4 = p.getHp(); // номер игрока
         stockMessOut.textM = p.getNikName(); // ник нейм
         System.out.println(p.getNikName());
-
         this.server.sendToAllTCP(stockMessOut);
     }
 
@@ -193,6 +192,12 @@ public class GameServer {
         } catch (ArrayIndexOutOfBoundsException e) {
         }
         return res;
+    }
+
+    private int getCoomandforPlayer(int id) {
+         return lp.getPlayerForId(id).getCommand();
+//        if (MathUtils.randomBoolean()) return Heading_type.BLUE_COMMAND;
+//        else return Heading_type.RED_COMMAND;
     }
 
 }

@@ -37,6 +37,7 @@ public class DBBot {
         targetAlign = target_angle_rotation_tower.angleDeg();
         nomTarget = null;
         target_tank = 0;
+
         time_tackt_attack = 0;
 
 

@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 
 import main.java.com.Bots.DBBot;
+import main.java.com.Bots.TowerRotationLogic;
 import main.java.com.GameServer;
 
 public class ListPlayers {
@@ -32,6 +33,7 @@ public class ListPlayers {
         this.players = new ConcurrentHashMap<>();
         this.playersTokken = new ConcurrentHashMap<>();
         this.gameServer = gameServer;
+
         System.out.println("install_ListPlayers : " + GameServer.getDate());
     }
 
@@ -147,10 +149,8 @@ public class ListPlayers {
 
     public Vector2 isCollisionsTanks(Vector2 pos) {
         for (Map.Entry<Integer, Player> tank : this.players.entrySet()) {
-
-           // System.out.println(tank.getValue().id + "  isCollisionsTanks");
-
-            if (tank.getValue().hp < 0) continue;
+            // System.out.println(tank.getValue().id + "  isCollisionsTanks");
+            if (tank.getValue().isLive()) continue;
             if (tank.getValue().isCollisionsTanks(pos))
                 return new Vector2().set(pos.cpy().sub(tank.getValue().pos).nor());
         }
@@ -158,6 +158,20 @@ public class ListPlayers {
     }
 ///////////////////
 
+    public Integer targetTankForBotAttack(Vector2 myPosi) { // найти цель для бота - просто перебор кто первый попадется
+        Iterator<Map.Entry<Integer, Player>> entries = players.entrySet().iterator();
+        while (entries.hasNext()) {
+            Player p = entries.next().getValue();
+            float dst = p.getPosi().dst2(myPosi);
+            if (dst > TowerRotationLogic.rast_to_target) continue;
+            if (dst < 5) continue;
+            if (MathUtils.randomBoolean() && myPosi.equals(p.getPosi())) continue;
+            return p.id;
+
+        }
+        return null;
+
+    }
 
 
 }

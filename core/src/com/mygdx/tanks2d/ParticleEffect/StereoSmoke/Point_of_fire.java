@@ -50,7 +50,7 @@ public class Point_of_fire {// точка генерация поэара
         float shans = MathUtils.map(0,lifetime_initial,0.0f,0.4f,time_life);
         if(MathUtils.randomBoolean(shans)) {
             float delta = MathUtils.random(-15,15);
-            if(MathUtils.randomBoolean(.1f))
+            if(MathUtils.randomBoolean(.20f))
             pc.add_flying_stereo_elements_bases(
                     this.x + delta+ tex.getWidth()/2, this.y + delta + tex.getWidth()/2,
                     0,1,

@@ -84,13 +84,7 @@ public class RouterSM {
 
                         mainGame.getGamePlayScreen().getPc().addAnimationDeath(opponentsTanks.getPosition().x, opponentsTanks.getPosition().y);
 
-//                        positionTemp.set(1,1);
-//                        for (int i = 0; i < 500; i++) {
-//                            positionTemp.setLength2(i/100);
-//                            mainGame.getGamePlayScreen().getPc().addShares(sm.p1, sm.p2,positionTemp.x,positionTemp.y);
-//                            positionTemp.rotateDeg(4);
-//
-//                        }
+
 
 
                     }

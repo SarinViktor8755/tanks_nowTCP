@@ -156,6 +156,14 @@ public class TanksOther { /// много танков )))
 
     }
 
+    public void deathAllPlayers(){
+
+        for (Map.Entry<Integer, OpponentsTanks> tanks: listOpponents.entrySet())
+            if(MathUtils.randomBoolean())tanks.getValue().getPosition().set(-1000,-1000); else tanks.getValue().getPosition().set(1000,1000);
+
+       // this.listOpponents.clear();
+    }
+
 
     private boolean inCanMove(int x, int y) {
         gsp.getGameSpace().checkMapBorders(x, y);

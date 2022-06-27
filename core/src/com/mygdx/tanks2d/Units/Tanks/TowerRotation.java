@@ -35,6 +35,7 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
         this.listOpponents = listOpponents;
         this.timerTackt = 0;
         this.rotation = false;
+        // this.myCommand  =
     }
 
     public void update(float delta) {
@@ -51,7 +52,11 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
             if (MathUtils.randomBoolean(.3f)) targetDetectionTower(this.myPosition); // ищем цели
             nomTarget = selectTarget();
         } else {    // если  цели есть
-            if(!listOpponents.get(nomTarget).isLive() ) {target_tank = 0; nomTarget=null; return;}
+            if (!listOpponents.get(nomTarget).isLive()) { // сброс цели
+                target_tank = 0;
+                nomTarget = null;
+                return;
+            }
             turningTower(returnAngle(listOpponents.get(nomTarget).getPosition(), myPosition), delta);
             if (MathUtils.randomBoolean(.05f)) targetDetectionTower(this.myPosition); // ищем цели
             if (checkLen()) nomTarget = null;
@@ -80,6 +85,7 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
 
             float l = tank.getValue().getPosition().cpy().sub(positionMy).len2();
             if (l < 2) continue; // иключение себя
+
             if (l < rast_to_target) {
                 this.targetTreet.put(returnAngle(tank.getValue().getPosition(), myPosition), tank.getKey());
             }
@@ -106,7 +112,7 @@ public class TowerRotation { /// поворот любой башни ЛОГИК
             }
             nomTarget = selectTarget();
         } catch (NullPointerException e) {
-         //   e.printStackTrace();
+            //   e.printStackTrace();
         }
         if (temp_nom_t == nomTarget) {
             changeTarget(a);
