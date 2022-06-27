@@ -44,7 +44,7 @@ public class TowerRotationLogic { /// поворот любой башни ЛО�
 
         }
         }catch (NullPointerException e){}
-        System.out.println(dbBot.getNomTarget() + "@@" + p.getId());
+       // System.out.println(dbBot.getNomTarget() + "@@" + p.getId());
 
     }
 

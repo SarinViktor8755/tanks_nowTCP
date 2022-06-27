@@ -128,7 +128,7 @@ public class Player {
     }
 
     public String getNikName() {
-        System.out.println(this);
+       // System.out.println(this);
         return nikName;
     }
 

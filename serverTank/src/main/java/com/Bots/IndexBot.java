@@ -126,8 +126,8 @@ public class IndexBot extends Thread {
                 }
 
                 //////////ATACK
-//
-                attackBot(tank, deltaTime,p);
+
+               attackBot(tank, deltaTime,p);
 
                 ///////////////////////////
 
@@ -162,7 +162,7 @@ public class IndexBot extends Thread {
     private void collisinOtherTanksTrue(Vector2 position, float dt, Vector2 rotation) {
         Vector2 ct = gs.getLp().isCollisionsTanks(position);
         if (ct != null) {  // танки другие
-            System.out.println("collisinOtherTanksTrue");
+            //System.out.println("collisinOtherTanksTrue");
             position.sub(rotation.cpy().scl(dt * 90 * -2.5f)); // тут вроде норм
         }
     }
@@ -172,17 +172,13 @@ public class IndexBot extends Thread {
         boolean a = MathUtils.isEqual(rotaton.angleDeg(), db_bot.getTarget_body_rotation_angle().angleDeg(), 4);
         if (MathUtils.randomBoolean(.05f))
             db_bot.getTarget_body_rotation_angle().rotateDeg(MathUtils.random(50));
-
         //   System.out.println(rotaton.angleDeg() + "  " + db_bot.getTarget_body_rotation_angle().angleDeg() + "  " + MathUtils.isEqual(db_bot.getTarget_body_rotation_angle().angleDeg(), rotaton.angleDeg()));
         if (!a) {
             if ((rotaton.angleDeg(db_bot.getTarget_body_rotation_angle()) > 180)) {
                 rotaton.rotateDeg(3);
             } else rotaton.rotateDeg(-3);
-
         }
-
     }
-
 
     /////////////////////////////////////////////////
 

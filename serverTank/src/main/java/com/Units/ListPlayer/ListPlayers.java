@@ -103,7 +103,7 @@ public class ListPlayers {
         Network.StockMessOut sm = new Network.StockMessOut();
         Player p = this.players.get(aboutPlayerID);
         try {
-            System.out.println(">>>" + p.nikName);
+          //  System.out.println(">>>" + p.nikName);
             sm.textM = p.nikName;
             sm.p1 = aboutPlayerID;
             sm.p2 = p.command;

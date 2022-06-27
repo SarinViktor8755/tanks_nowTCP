@@ -18,10 +18,10 @@ public class Ellipse implements Figure {
 
     @Override
     public boolean isPointCollision(float x, float y) {
-        if (VectorUtils.getLen2(positionCenter, x, y) < radius2 + 230) return true;
-        System.out.println(positionCenter + "   " + radius2);
-        return  true;
-        //return false;
+       // if (VectorUtils.getLen(positionCenter.x,positionCenter, x, y) < radius + 23) return true;
+        if(positionCenter.len(x, y) < radius + 10) return true;
+       // return  true;
+        return false;
     }
 
     @Override

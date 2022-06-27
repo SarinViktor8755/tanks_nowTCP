@@ -69,7 +69,7 @@ public class IndexBullets {
                 player.minusHP(27);
                 gameServer.send_PARAMETERS_PLAYER(player); // рассылка всем
             }
-            System.out.println("______________________"+ np);
+          //  System.out.println("______________________"+ np);
             if(gameServer.getMainGame().getMapSpace().isPointInCollision(bullet.position.x,bullet.position.y)) delBullet(bullet);
 
 
