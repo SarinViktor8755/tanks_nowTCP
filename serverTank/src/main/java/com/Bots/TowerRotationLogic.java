@@ -35,7 +35,7 @@ public class TowerRotationLogic { /// поворот любой башни ЛО�
         if (dbBot.getNomTarget() == null) { // если нет целей
             // dbBot.setTarget_tank(0);
             dbBot.setTarget_angle_rotation_tower(p.getBody_rotation().cpy().rotateDeg(180));
-             scanning_the_terrain(dbBot, p, lp); // поиск цели
+            dbBot.setNomTarget(scanning_the_terrain(dbBot, p, lp)); // поиск цели
         } else {
             capturing_target(dbBot, p, lp);
             if(!lp.getPlayerForId(dbBot.getNomTarget()).isLive())dbBot.setNomTarget(null);
@@ -48,14 +48,17 @@ public class TowerRotationLogic { /// поворот любой башни ЛО�
 
     }
 
-    private static void scanning_the_terrain(DBBot dbBot, Player p, ListPlayers lp) {
+    private static Integer scanning_the_terrain(DBBot dbBot, Player p, ListPlayers lp) { //yfqnb wtkm
         Integer targetID = lp.targetTankForBotAttack(p.getPosi());
-        if (targetID != null) dbBot.setNomTarget(targetID);
-        else return;
+        return targetID;
+    }
+
+    private static Integer scanning_the_terrain(DBBot dbBot, Player p, ListPlayers lp, Integer idTarget) { // перенайти цель
+        Integer targetID = lp.targetTankForBotAttack(p.getPosi());
+        return targetID;
     }
 
     private static void rotation_Tower(float delta, DBBot dbBot, ListPlayers listPlayers, Player p) { /// повернуть башню на градус
-        //   System.out.println(dbBot.getTarget_angle_rotation_tower().angleDeg() + "  -  " + p.getRotTower());
         Vector2 tv = new Vector2(0, 1);
         tv.setAngleDeg(p.getRotTower());
         if (!MathUtils.isEqual(dbBot.getTarget_angle_rotation_tower().angleDeg(), tv.rotateDeg(180).angleDeg(), 2.2f)) { // сравнение угла цели , и угл аревльного
@@ -63,9 +66,7 @@ public class TowerRotationLogic { /// поворот любой башни ЛО�
                 tv.setAngleDeg(p.getRotTower());
                 tv.rotateDeg(-speed_rotation_towr * delta);
                 p.setRotTower(tv.angleDeg());
-//                dbBot.getTarget_angle_rotation_tower().rotateDeg(-speed_rotation_towr * delta);
-//                p.setRotTower(dbtank.getTarget_angle_rotation_tower().angleDeg());
-                //  System.out.println("LLLL");
+
             } else {
                 tv.setAngleDeg(p.getRotTower());
                 tv.rotateDeg(speed_rotation_towr * delta);
