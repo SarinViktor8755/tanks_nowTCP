@@ -15,10 +15,10 @@
   <object id="61" x="367" y="177" width="387" height="286"/>
   <object id="62" x="847" y="655" width="385" height="291"/>
   <object id="84" x="786" y="145.333" width="60.6667" height="413.333"/>
-  <object id="87" name="resp_1" x="94" y="772">
+  <object id="87" name="resp_1" x="130" y="733.333">
    <point/>
   </object>
-  <object id="92" name="resp_2" x="1122" y="344">
+  <object id="92" name="resp_2" x="1122" y="504">
    <point/>
   </object>
  </objectgroup>

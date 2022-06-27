@@ -101,6 +101,7 @@ public class MainGame {
 
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }).start();

@@ -23,26 +23,27 @@ public class TowerRotationLogic { /// поворот любой башни ЛО�
 
     public static void updateTowerRotation(float delta, DBBot dbBot, Player p, ListPlayers listPlayers) {
         making_Decision_Tower(dbBot, p, listPlayers); // принятие решение башня
-        rotation_Tower(delta, dbBot);/// повернуть башню на градус
+        rotation_Tower(delta, dbBot, listPlayers, p);/// повернуть башню на градус
         // ..............
 
     }
 
     private static void making_Decision_Tower(DBBot dbBot, Player p, ListPlayers lp) { // принятие решение башня
+        try {
+
+
         if (dbBot.getNomTarget() == null) { // если нет целей
-            dbBot.setTarget_tank(0);
+            // dbBot.setTarget_tank(0);
             dbBot.setTarget_angle_rotation_tower(p.getBody_rotation().cpy().rotateDeg(180));
-            //if (MathUtils.randomBoolean(.3f)) targetDetectionTower(this.myPosition); // ищем цели
-            //nomTarget = selectTarget();
-           // if (MathUtils.randomBoolean(.05f))
-                scanning_the_terrain(dbBot, p, lp); // поиск цели
+             scanning_the_terrain(dbBot, p, lp); // поиск цели
         } else {
             capturing_target(dbBot, p, lp);
             if(!lp.getPlayerForId(dbBot.getNomTarget()).isLive())dbBot.setNomTarget(null);
             if(lp.getPlayerForId(dbBot.getNomTarget()).getPosi().dst2(p.getPosi()) > rast_to_target) dbBot.setNomTarget(null);
-
+//
 
         }
+        }catch (NullPointerException e){}
         System.out.println(dbBot.getNomTarget() + "@@" + p.getId());
 
     }
@@ -53,26 +54,38 @@ public class TowerRotationLogic { /// поворот любой башни ЛО�
         else return;
     }
 
-    private static void rotation_Tower(float delta, DBBot dbBot) { /// повернуть башню на градус
-        if (!MathUtils.isEqual(dbBot.getTarget_angle_rotation_tower().angleDeg(), dbBot.getTargetAlign(), 1.2f)) { // сравнение угла цели , и угл аревльного
-            if ((dbBot.getTarget_angle_rotation_tower().cpy().setAngleDeg(dbBot.getTargetAlign()).angleDeg(dbBot.getTarget_angle_rotation_tower()) > 180))
-                dbBot.getTarget_angle_rotation_tower().rotateDeg(-speed_rotation_towr * delta);
-            else
-                dbBot.getTarget_angle_rotation_tower().rotateDeg(speed_rotation_towr * delta);
+    private static void rotation_Tower(float delta, DBBot dbBot, ListPlayers listPlayers, Player p) { /// повернуть башню на градус
+        //   System.out.println(dbBot.getTarget_angle_rotation_tower().angleDeg() + "  -  " + p.getRotTower());
+        Vector2 tv = new Vector2(0, 1);
+        tv.setAngleDeg(p.getRotTower());
+        if (!MathUtils.isEqual(dbBot.getTarget_angle_rotation_tower().angleDeg(), tv.rotateDeg(180).angleDeg(), 2.2f)) { // сравнение угла цели , и угл аревльного
+            if (tv.angleDeg(dbBot.getTarget_angle_rotation_tower()) > 180) {
+                tv.setAngleDeg(p.getRotTower());
+                tv.rotateDeg(-speed_rotation_towr * delta);
+                p.setRotTower(tv.angleDeg());
+//                dbBot.getTarget_angle_rotation_tower().rotateDeg(-speed_rotation_towr * delta);
+//                p.setRotTower(dbtank.getTarget_angle_rotation_tower().angleDeg());
+                //  System.out.println("LLLL");
+            } else {
+                tv.setAngleDeg(p.getRotTower());
+                tv.rotateDeg(speed_rotation_towr * delta);
+                p.setRotTower(tv.angleDeg());
+                //System.out.println("RRRR");
+            }
         }
     }
 
-    private static boolean capturing_target(DBBot dbBot, Player p, ListPlayers lp){ //захват целт
+    private static boolean capturing_target(DBBot dbBot, Player p, ListPlayers lp) { //захват целт
         int idTarget = dbBot.getNomTarget();
-        dbBot.setTarget_angle_rotation_tower(returnAngle(lp.getPlayerForId(idTarget).getPosi(),p.getPosi()));
+        dbBot.setTarget_angle_rotation_tower(returnAngle(lp.getPlayerForId(idTarget).getPosi(), p.getPosi()));
 
         return false;
     }
 
-    private static boolean ckeck_target(DBBot dbBot, Player p, ListPlayers lp){ // проверка цели
-        if(!p.isLive()) return false;
-       // if(MathUtils.randomBoolean(.005f)) return false;
-     //   if (p.getPosi().dst2(lp.getPlayerForId(dbBot.getNomTarget()).getPosi()) > TowerRotationLogic.rast_to_target) return false;
+    private static boolean ckeck_target(DBBot dbBot, Player p, ListPlayers lp) { // проверка цели
+        if (!p.isLive()) return false;
+        // if(MathUtils.randomBoolean(.005f)) return false;
+        //   if (p.getPosi().dst2(lp.getPlayerForId(dbBot.getNomTarget()).getPosi()) > TowerRotationLogic.rast_to_target) return false;
 
 
         return true;

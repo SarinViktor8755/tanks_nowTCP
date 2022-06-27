@@ -98,6 +98,15 @@ public class IndexBot extends Thread {
             Player p = gs.getLp().getPlayerForId(tank.getValue().getId());
             DBBot dbtank = dbBots.get(p.getId());
 
+            /////////
+            if(!p.isLive()){
+                if(MathUtils.randomBoolean(0.05f)){
+                    p.setHp(90);
+                }
+            }
+
+            //////////
+
             dbtank.updateTackAttack(deltaTime);
 
             if(!p.isLive()) continue;
@@ -126,7 +135,7 @@ public class IndexBot extends Thread {
             // if(MathUtils.randomBoolean(.005f))tank.getValue().getTarget_body_rotation_angle().setAngleDeg(MathUtils.random(-180,180));
 
             TowerRotationLogic.updateTowerRotation(deltaTime, tank.getValue(),p,gs.getLp());
-            p.setRotTower(dbtank.getTarget_angle_rotation_tower().angleDeg());
+          //  p.setRotTower(dbtank.getTarget_angle_rotation_tower().angleDeg());
 
           //  System.out.println(p.getPosi());
         }
