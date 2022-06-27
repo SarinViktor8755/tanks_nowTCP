@@ -136,7 +136,7 @@ public class Tank {
         raz = Math.abs(direction.angleDeg() - directionMovementControll.angleDeg());
 
 
-        moveMainTank(directionMovementControll);
+        if(isLive())moveMainTank(directionMovementControll);
         //System.out.println(direction.clamp(SPEED,SPEED).len());
         generatorSled();
 
@@ -156,6 +156,7 @@ public class Tank {
         //System.out.println(direction.len());
         rotation_the_tower(directionMovementControll);
         this.position.add(direction.clamp(SPEED, SPEED).scl(Gdx.graphics.getDeltaTime()));
+
 
         gsp.getGameSpace().checkMapBordersReturnSpaceTank(getPosition());
         collisinRectangleTrue();
@@ -199,24 +200,7 @@ public class Tank {
 
     /////////////////////////////////////////////////
     private void generatorSmoke() { // генератор Дыма для танка
-
-        if (hp < 70) {
-            //  System.out.println(hp);
-            if (MathUtils.randomBoolean((100 - hp) / 1500f))
-                gsp.pc.addParticalsSmokeStereo(position.x, position.y, hp);
-
-        } else if (hp < 50) {
-            if (MathUtils.randomBoolean(.0005f))
-                gsp.pc.addParticalsSmokeStereo(position.x, position.y, hp);
-            // if(hp < 15) if(MathUtils.randomBoolean(.05f)) gsp.pc.addPasricalExplosionDeath(position.x, position.y);
-        }
-
-//        if (hp < 30) {
-//            System.out.println(hp);
-//            if (MathUtils.randomBoolean((100 - hp) / 1680f))
-//                gsp.pc.addPasricalExplosion(5, position.x + 16, position.y + 16);
-//        }
-
+        gsp.pc.generatorSmoke(hp, position.x, position.y);
     }
 
     private void upDateHpHud() {
@@ -225,14 +209,10 @@ public class Tank {
 
 
     public void renderTank(Vector2 directionMovement, boolean inTouch) {
-
         if (tr.isRotation()) gsp.getAudioEngine().pleySoundOfTower();
         else gsp.getAudioEngine().stopSoundOfTower(); // звук башни
-
-
         tr.setRotation(false);
         update(directionMovement, inTouch);
-
 
         //   if (MathUtils.randomBoolean(0.2f)) command = MathUtils.random(0, 3);
         if (command == Heading_type.RED_COMMAND) {

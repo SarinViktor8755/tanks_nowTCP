@@ -150,7 +150,7 @@ public class ListPlayers {
     public Vector2 isCollisionsTanks(Vector2 pos) {
         for (Map.Entry<Integer, Player> tank : this.players.entrySet()) {
             // System.out.println(tank.getValue().id + "  isCollisionsTanks");
-            if (tank.getValue().isLive()) continue;
+            if (!tank.getValue().isLive()) continue;
             if (tank.getValue().isCollisionsTanks(pos))
                 return new Vector2().set(pos.cpy().sub(tank.getValue().pos).nor());
         }
